@@ -1,0 +1,13 @@
+{
+    "version": 1,
+    "assets": [
+        {
+            "assetId": "solana_EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+            "name": "USD Coin",
+            "symbol": "USDC",
+            "type": "SPL",
+            "decimals": 6
+        }
+    ]
+}
+
