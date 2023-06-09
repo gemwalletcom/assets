@@ -2,42 +2,48 @@
     "version": 1,
     "assets": [
         {
-            "assetId": "binance_BUSD-BD1",
+            "chain": "binance",
+            "tokenId": "BUSD-BD1",
             "name": "Bitcoin BEP2",
             "symbol": "BTCB",
             "type": "BEP2",
             "decimals": 8
         },
         {
-            "assetId": "binance_CAKE-435",
+            "chain": "binance",
+            "tokenId": "CAKE-435",
             "name": "CAKE",
             "symbol": "CAKE",
             "type": "BEP2",
             "decimals": 8
         },
         {
-            "assetId": "binance_CAKE-435",
+            "chain": "binance",
+            "tokenId": "CAKE-435",
             "name": "USD Coin",
             "symbol": "USDC",
             "type": "BEP2",
             "decimals": 8
         },
         {
-            "assetId": "binance_USDC-CD2",
+            "chain": "binance",
+            "tokenId": "USDC-CD2",
             "name": "USD Coin",
             "symbol": "USDC",
             "type": "BEP2",
             "decimals": 8
         },
         {
-            "assetId": "binance_BUSD-BD1",
+            "chain": "binance",
+            "tokenId": "BUSD-BD1",
             "name": "BUSD",
             "symbol": "BUSD",
             "type": "BEP2",
             "decimals": 8
         },
         {
-            "assetId": "binance_TWT-8C2",
+            "chain": "binance",
+            "tokenId": "TWT-8C2",
             "name": "Trust Wallet",
             "symbol": "TWT",
             "type": "BEP2",
