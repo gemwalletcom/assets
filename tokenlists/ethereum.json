@@ -56,6 +56,14 @@
             "symbol": "UNI",
             "type": "ERC20",
             "decimals": 18
+        },
+        {
+            "chain": "ethereum",
+            "tokenId": "0xae7ab96520DE3A18E5e111B5EaAb095312D7fE84",
+            "name": "stETH",
+            "symbol": "stETH",
+            "type": "ERC20",
+            "decimals": 18
         }
     ]
 }
