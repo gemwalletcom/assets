@@ -1,0 +1,14 @@
+{
+    "version": 1,
+    "assets": [
+        {
+            "chain": "tron",
+            "tokenId": "TR7NHqjeKQxGTCi8q8ZY4pL8otSzgjLj6t",
+            "name": "Tether USD",
+            "symbol": "USDT",
+            "type": "TRC20",
+            "decimals": 6
+        }
+    ]
+}
+
