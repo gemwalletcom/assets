@@ -40,14 +40,6 @@
             "symbol": "BUSD",
             "type": "BEP2",
             "decimals": 8
-        },
-        {
-            "chain": "binance",
-            "tokenId": "TWT-8C2",
-            "name": "Trust Wallet",
-            "symbol": "TWT",
-            "type": "BEP2",
-            "decimals": 8
         }
     ]
 }
