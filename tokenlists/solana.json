@@ -1,11 +1,19 @@
 {
-    "version": 1,
+    "version": 2,
     "assets": [
         {
             "chain": "solana",
             "tokenId": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
             "name": "USD Coin",
             "symbol": "USDC",
+            "type": "SPL",
+            "decimals": 6
+        },
+        {
+            "chain": "solana",
+            "tokenId": "Es9vMFrzaCERmJfrF4H2FYD4KCoNkY11McCe8BenwNYB",
+            "name": "Tether",
+            "symbol": "USDT",
             "type": "SPL",
             "decimals": 6
         }
