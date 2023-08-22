@@ -1,5 +1,5 @@
 {
-    "version": 2,
+    "version": 3,
     "assets": [
         {
             "chain": "solana",
@@ -14,6 +14,14 @@
             "tokenId": "Es9vMFrzaCERmJfrF4H2FYD4KCoNkY11McCe8BenwNYB",
             "name": "Tether",
             "symbol": "USDT",
+            "type": "SPL",
+            "decimals": 6
+        },
+        {
+            "chain": "solana",
+            "tokenId": "EchesyfXePKdLtoiZSL8pBe8Myagyy8ZRqsACNCFGnvp",
+            "name": "Bonfida",
+            "symbol": "FIDO",
             "type": "SPL",
             "decimals": 6
         }
