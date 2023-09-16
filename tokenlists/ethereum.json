@@ -1,5 +1,5 @@
 {
-    "version": 3,
+    "version": 4,
     "assets": [
         {
             "chain": "ethereum",
@@ -70,6 +70,14 @@
             "tokenId": "0x8290333ceF9e6D528dD5618Fb97a76f268f3EDD4",
             "name": "Ankr Network",
             "symbol": "ANKR",
+            "type": "ERC20",
+            "decimals": 18
+        },
+        {
+            "chain": "ethereum",
+            "tokenId": "0x6982508145454Ce325dDbE47a25d4ec3d2311933",
+            "name": "Pepe",
+            "symbol": "PEPE",
             "type": "ERC20",
             "decimals": 18
         }
