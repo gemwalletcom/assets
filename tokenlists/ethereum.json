@@ -1,5 +1,5 @@
 {
-    "version": 4,
+    "version": 5,
     "assets": [
         {
             "chain": "ethereum",
@@ -80,6 +80,14 @@
             "symbol": "PEPE",
             "type": "ERC20",
             "decimals": 18
+        },
+        {
+            "chain": "ethereum",
+            "tokenId": "0x582d872A1B094FC48F5DE31D3B73F2D9bE47def1",
+            "name": "Ton",
+            "symbol": "TON",
+            "type": "ERC20",
+            "decimals": 9
         }
     ]
 }
