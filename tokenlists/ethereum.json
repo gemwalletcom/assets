@@ -84,7 +84,7 @@
         {
             "chain": "ethereum",
             "tokenId": "0x582d872A1B094FC48F5DE31D3B73F2D9bE47def1",
-            "name": "Ton",
+            "name": "Wrapped TON Coin",
             "symbol": "TON",
             "type": "ERC20",
             "decimals": 9
