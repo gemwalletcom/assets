@@ -1,5 +1,5 @@
 {
-    "version": 2,
+    "version": 3,
     "assets": [
         {
             "chain": "smartchain",
@@ -16,6 +16,14 @@
             "symbol": "CAKE",
             "type": "BEP20",
             "decimals": 18
-        }   
+        },
+        {
+            "chain": "ethereum",
+            "tokenId": "0x76A797A59Ba2C17726896976B7B3747BfD1d220f",
+            "name": "Wrapped TON Coin",
+            "symbol": "TON",
+            "type": "BEP20",
+            "decimals": 9
+        }
     ]
 }
