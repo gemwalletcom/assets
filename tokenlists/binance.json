@@ -3,41 +3,9 @@
     "assets": [
         {
             "chain": "binance",
-            "tokenId": "BUSD-BD1",
-            "name": "Bitcoin BEP2",
-            "symbol": "BTCB",
-            "type": "BEP2",
-            "decimals": 8
-        },
-        {
-            "chain": "binance",
             "tokenId": "CAKE-435",
             "name": "CAKE",
             "symbol": "CAKE",
-            "type": "BEP2",
-            "decimals": 8
-        },
-        {
-            "chain": "binance",
-            "tokenId": "CAKE-435",
-            "name": "USD Coin",
-            "symbol": "USDC",
-            "type": "BEP2",
-            "decimals": 8
-        },
-        {
-            "chain": "binance",
-            "tokenId": "USDC-CD2",
-            "name": "USD Coin",
-            "symbol": "USDC",
-            "type": "BEP2",
-            "decimals": 8
-        },
-        {
-            "chain": "binance",
-            "tokenId": "BUSD-BD1",
-            "name": "BUSD",
-            "symbol": "BUSD",
             "type": "BEP2",
             "decimals": 8
         }
