@@ -1,5 +1,5 @@
 {
-    "version": 5,
+    "version": 6,
     "assets": [
         {
             "chain": "ethereum",
@@ -12,7 +12,7 @@
         {
             "chain": "ethereum",
             "tokenId": "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48",
-            "name": "USD Coin",
+            "name": "USDD",
             "symbol": "USDC",
             "type": "ERC20",
             "decimals": 6
