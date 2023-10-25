@@ -4,7 +4,7 @@
         {
             "chain": "solana",
             "tokenId": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
-            "name": "USD Coin",
+            "name": "USDC",
             "symbol": "USDC",
             "type": "SPL",
             "decimals": 6
