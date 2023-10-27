@@ -1,5 +1,5 @@
 {
-    "version": 3,
+    "version": 4,
     "assets": [
         {
             "chain": "smartchain",
@@ -18,7 +18,7 @@
             "decimals": 18
         },
         {
-            "chain": "ethereum",
+            "chain": "smartchain",
             "tokenId": "0x76A797A59Ba2C17726896976B7B3747BfD1d220f",
             "name": "Wrapped TON Coin",
             "symbol": "TON",
