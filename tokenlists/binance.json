@@ -1,13 +1,5 @@
 {
-    "version": 2,
+    "version": 3,
     "assets": [
-        {
-            "chain": "binance",
-            "tokenId": "CAKE-435",
-            "name": "CAKE",
-            "symbol": "CAKE",
-            "type": "BEP2",
-            "decimals": 8
-        }
     ]
 }
