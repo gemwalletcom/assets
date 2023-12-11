@@ -6,7 +6,7 @@
             "tokenId": "0x912CE59144191C1204E64559FE8253a0e49E6548",
             "name": "Arbitrum",
             "symbol": "ARB",
-            "type": "ARBITRUM",
+            "type": "ERC20",
             "decimals": 18
         }
     ]
