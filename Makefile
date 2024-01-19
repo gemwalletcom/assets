@@ -2,7 +2,7 @@
 
 REMOVE_CHAIN = binance tomochain nimiq ontology thundertoken zilliqa viacoin verge wanchain waves iotex icon harmony gochain groestlcoin goerlitestnet aeternity arbitrumgoerli avalanchecfuji band bitcoincash bitcoingold btcdiamond callisto classic digibyte ellaism energyweb eos ether-1 ethereumpow everscale iost iotexevm kusama komodo qtum steem syscoin tftm polygonmumbai poa optimismgoerli nuls oasis neutrontestnet moonbasealpha aion aryacoin
 
-clean: clean_chains
+clean: clean_chains clean_abandoned_assets
 	@rm -rf -f cmd
 	@rm -rf -f internal
 	@rm -rf -f dapps
@@ -21,3 +21,6 @@ clean_chains:
 	@for chain in $(REMOVE_CHAIN); do \
 		rm -rf -f blockchains/$$chain; \
 	done
+
+clean_abandoned_assets:
+	@find . -name "info.json" -exec grep -q "abandoned" {} \; -exec dirname {} \; | sort -u | xargs rm -rf
