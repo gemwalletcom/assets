@@ -1,6 +1,7 @@
 #! /usr/bin/make -f
 
-REMOVE_CHAIN = acala firo heco iris kcc kujira moonriver nano neo persistence quasar umee xdai zen xdc zelcash smartbch elrond decred ecash hedera kin ravencoin pivx terra terrav2 vechain ark theta binance tomochain nimiq ontology thundertoken zilliqa viacoin verge wanchain waves iotex icon harmony gochain groestlcoin goerlitestnet aeternity arbitrumgoerli avalanchecfuji band bitcoincash bitcoingold btcdiamond callisto classic digibyte ellaism energyweb eos ether-1 ethereumpow everscale iost iotexevm kusama komodo qtum steem syscoin tftm polygonmumbai poa optimismgoerli nuls oasis neutrontestnet moonbasealpha aion aryacoin
+REMOVE_CHAIN = cardano sommelier axelar tezos near cryptoorg mars juno comdex stargaze stride nativeevmos agoric fetch coreum crescent teritori kava loom nativecanto secret akash tia acala firo heco iris kcc kujira moonriver nano neo persistence quasar umee xdai zen xdc zelcash smartbch elrond decred ecash hedera kin ravencoin pivx terra terrav2 vechain ark theta binance tomochain nimiq ontology thundertoken zilliqa viacoin verge wanchain waves iotex icon harmony gochain groestlcoin goerlitestnet aeternity arbitrumgoerli avalanchecfuji band bitcoincash bitcoingold btcdiamond callisto classic digibyte ellaism energyweb eos ether-1 ethereumpow everscale iost iotexevm kusama komodo qtum steem syscoin tftm polygonmumbai poa optimismgoerli nuls oasis neutrontestnet moonbasealpha aion aryacoin
+FIX_VALIDATORS = solana cosmos osmosis tia sei nativeinjective sei tron sui tezos polkadot
 
 clean: clean_chains clean_abandoned_assets
 	@rm -rf -f cmd
@@ -10,16 +11,12 @@ clean: clean_chains clean_abandoned_assets
 	@rm -f -- go.mod 
 	@rm -f -- go.sum
 
-	@rm -rf -f blockchains/solana/validators/assets
-	@rm -rf -f blockchains/cosmos/validators/assets
-	@rm -rf -f blockchains/osmosis/validators/assets
-	@rm -rf -f blockchains/tia/validators/assets
-	@rm -rf -f blockchains/nativeinjective/validators/assets
-	@rm -rf -f blockchains/sei/validators/assets
-
 clean_chains:
 	@for chain in $(REMOVE_CHAIN); do \
 		rm -rf -f blockchains/$$chain; \
+	done
+	@for chain in $(FIX_VALIDATORS); do \
+		rm -rf -f blockchains/$$chain/validators/assets; \
 	done
 
 clean_abandoned_assets:
