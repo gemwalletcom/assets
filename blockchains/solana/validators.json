@@ -148,5 +148,11 @@
         "name": "Stakewolle | Mainnet",
         "description": "🦈 Professional Bockchain Validator 🔁Auto-compound with REStakeapp 🛡100% Slashing insurance 🎁 All & Special Airdrops for delegators http://linktr.ee/stakewolle",
         "website": "https://stakewolle.com/"
+    },
+    {
+        "id": "J2nUHEAgZFRyuJbFjdqPrAa9gyWDuc7hErtDQHPhsYRp",
+        "name": "Phantom",
+        "description": "",
+        "website": "https://phantom.app"
     }
 ]
