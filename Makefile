@@ -1,6 +1,8 @@
 #! /usr/bin/make -f
 
-clean:
+REMOVE_CHAIN = tomochain nimiq ontology thundertoken zilliqa viacoin verge wanchain waves iotex icon harmony gochain groestlcoin goerlitestnet aeternity arbitrumgoerli avalanchecfuji band bitcoincash bitcoingold btcdiamond callisto classic digibyte ellaism energyweb eos ether-1 ethereumpow everscale iost iotexevm kusama komodo qtum steem syscoin tftm polygonmumbai poa optimismgoerli nuls oasis neutrontestnet moonbasealpha aion aryacoin
+
+clean: clean_chains
 	@rm -rf -f cmd
 	@rm -rf -f internal
 	@rm -rf -f dapps
@@ -14,3 +16,8 @@ clean:
 	@rm -rf -f blockchains/tia/validators/assets
 	@rm -rf -f blockchains/nativeinjective/validators/assets
 	@rm -rf -f blockchains/sei/validators/assets
+
+clean_chains:
+	@for chain in $(REMOVE_CHAIN); do \
+		rm -rf -f blockchains/$$chain; \
+	done
