@@ -22,5 +22,8 @@ clean_chains:
 		rm -rf -f blockchains/$$chain/validators/assets; \
 	done
 
+#clean_info_json_files:
+#	@find . -name "info.json" | xargs rm -f
+
 clean_abandoned_assets:
-	@find . -name "info.json" -exec grep -q "abandoned" {} \; -exec dirname {} \; | sort -u | xargs rm -rf
+	@find . -name "info.json" -exec grep -Eq "spam|abandoned" {} \; -exec dirname {} \; | sort -u | xargs rm -rf
