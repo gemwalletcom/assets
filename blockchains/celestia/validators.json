@@ -40,5 +40,11 @@
         "name": "Stakin",
         "description": "Experienced enterprise validator running Proof-of-Stake nodes for the Cosmos ecosystem and beyond.",
         "website": "https://stakin.com/"
+    },
+    {
+        "id": "celestiavaloper1eualhqh07w7p45g45hvrjagkcxsfnflzdw5jzg",
+        "name": "Evertake",
+        "description": "Everstake is a staking-as-a-service company.",
+        "website": "https://everstake.one"
     }
 ]
