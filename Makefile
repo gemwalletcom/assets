@@ -6,7 +6,7 @@ FIX_VALIDATORS = solana cosmos osmosis tia sei nativeinjective sei tron sui tezo
 pull:
 	git merge upstream/master
 
-clean: clean_chains clean_abandoned_assets
+clean: clean_chains clean_abandoned_assets clean_info_json_files
 	@rm -rf -f cmd
 	@rm -rf -f internal
 	@rm -rf -f dapps
@@ -22,8 +22,8 @@ clean_chains:
 		rm -rf -f blockchains/$$chain/validators/assets; \
 	done
 
-#clean_info_json_files:
-#	@find . -name "info.json" | xargs rm -f
+clean_info_json_files:
+	@find . -name "info.json" | xargs rm -f
 
 clean_abandoned_assets:
 	@find . -name "info.json" -exec grep -Eq "spam|abandoned" {} \; -exec dirname {} \; | sort -u | xargs rm -rf
