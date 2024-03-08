@@ -1,0 +1,29 @@
+name: Upload Assets to R2
+on:
+  workflow_dispatch:
+
+on:
+  push:
+    branches:
+      - main
+
+env:
+  AWS_REGION: us-east-1
+
+jobs:
+  upload:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout release repo
+        uses: actions/checkout@v4
+
+      - name: R2 Directory Upload. Blockchain folder
+        uses: willfurstenau/r2-dir-upload@main
+        with:
+          accountid: ${{ secrets.R2_ACCOUNT_ID }}
+          accesskeyid: ${{ secrets.R2_ACCESS_KEY_ID }}
+          secretaccesskey: ${{ secrets.R2_ACCESS_SECRET_KEY }}
+          bucket: ${{ secrets.R2_ASSETS_BUCKET }} 
+          source: blockchains
+          destination: blockchains
