@@ -106,5 +106,17 @@
         "payout": {
             "commission": 0
         }
+    },
+    {
+        "id": "staking",
+        "name": "Tron Staking",
+        "description": "System Staking",
+        "website": "https://trondao.org"
+    },
+    {
+        "id": "unstaking",
+        "name": "Tron Untaking",
+        "description": "System Unstaking",
+        "website": "https://trondao.org"
     }
 ]
