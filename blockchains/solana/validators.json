@@ -154,5 +154,23 @@
         "name": "Phantom",
         "description": "",
         "website": "https://phantom.app"
+    },
+    {
+        "id": "GCUWGuMnmtMv3BFMx8EmeWxst18sihXxyU3skeNGTj8A",
+        "name": "Lemon Tree 🍋 +MEV",
+        "description": "Solana stakers we PAY for your stake!",
+        "website": "https://mevsol.io/"
+    },
+    {
+        "id": "CatzoSMUkTRidT5DwBxAC2pEtnwMBTpkCepHkFgZDiqb",
+        "name": "Jupiter Validator",
+        "description": "The first validator for cat(dets). By JupiterExchange.",
+        "website": "https://station.jup.ag/"
+    },
+    {
+        "id": "he1iusunGwqrNtafDtLdhsUQDFvo13z9sUa36PauBtk",
+        "name": "Helius",
+        "description": "Crypto's #1 developer platform. Exclusively on Solana.",
+        "website": "https://helius.dev/"
     }
 ]
