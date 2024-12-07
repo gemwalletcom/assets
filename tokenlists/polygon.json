@@ -1,5 +1,13 @@
 {
     "version": 1,
     "assets": [
+        {
+            "chain": "polygon",
+            "tokenId": "0xd2E57e7019a8faea8b3E4a3738Ee5B269975008A",
+            "name": "THAT",
+            "symbol": "THAT",
+            "type": "ERC20",
+            "decimals": 18
+        }
     ]
 }
