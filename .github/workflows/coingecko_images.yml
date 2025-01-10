@@ -35,3 +35,5 @@ jobs:
         git add ./blockchains
         git commit -m 'Update CoinGecko latest trending images'
         git push
+      working-directory: assets
+      
