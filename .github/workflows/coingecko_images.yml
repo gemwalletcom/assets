@@ -25,7 +25,7 @@ jobs:
         toolchain: stable
 
     - name: Run img-downloader
-      run: cargo run --package img-downloader -- --folder ../assets/blockchains --coin-list trending
+      run: cargo run --package img-downloader -- --folder ../assets/blockchains --coin-list trending --delay 5000
       working-directory: core
   
     - name: Commit changes
