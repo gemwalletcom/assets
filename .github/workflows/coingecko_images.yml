@@ -25,14 +25,13 @@ jobs:
         toolchain: stable
 
     - name: Run img-downloader
-      run: cargo run --package img-downloader -- --folder ../assets/blockchains --coin-list trending --delay 5000
+      run: cargo run --package img-downloader -- --folder ../assets/blockchains --coin-list trending --delay 10000
       working-directory: core
   
     - name: Commit changes
       run: |
         git config --global user.name 'github-actions[bot]'
         git config --global user.email 'github-actions[bot]@users.noreply.github.com'
-        git add ../../assets/blockchains
+        git add ./blockchains
         git commit -m 'Update CoinGecko latest trending images'
         git push
-      working-directory: core
