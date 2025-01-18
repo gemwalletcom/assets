@@ -4,6 +4,8 @@ on:
   push:
     branches: [ "master" ]
   workflow_dispatch:
+  schedule:
+    - cron: '0 */3 * * *' # Runs every 3 hours
 
 env:
   AWS_REGION: us-east-1
