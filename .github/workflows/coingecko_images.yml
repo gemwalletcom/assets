@@ -20,9 +20,7 @@ jobs:
         path: core
 
     - name: Install Rust
-      uses: actions-rs/toolchain@v1
-      with:
-        toolchain: stable
+      uses: dtolnay/rust-toolchain@stable
 
     - name: Run img-downloader
       run: cargo run --package img-downloader -- --folder ../blockchains --coin-list trending --delay 10000

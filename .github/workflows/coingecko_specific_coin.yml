@@ -23,9 +23,7 @@ jobs:
         path: core
 
     - name: Install Rust
-      uses: actions-rs/toolchain@v1
-      with:
-        toolchain: stable
+      uses: dtolnay/rust-toolchain@stable
 
     - name: Run img-downloader for specific coin
       run: cargo run --package img-downloader -- --folder ../../assets/blockchains --coin-id ${{ github.event.inputs.coin_id }}
