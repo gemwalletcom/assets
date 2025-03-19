@@ -1,9 +1,9 @@
-name: Download CoinGecko Images
+name: Download CoinGecko Trending Images
 
 on:
   workflow_dispatch:
   schedule:
-    - cron: '0 */3 * * *' # Runs every 3 hours
+    - cron: '0 */2 * * *' # Runs every 3 hours
 
 jobs:
   download-images:
@@ -31,6 +31,6 @@ jobs:
         git config --global user.name 'github-actions[bot]'
         git config --global user.email 'github-actions[bot]@users.noreply.github.com'
         git add ./blockchains
-        git commit -m 'Update CoinGecko latest trending images'
+        git commit -m 'Update CoinGecko trending assets images'
         git push
       

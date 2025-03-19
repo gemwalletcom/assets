@@ -1,0 +1,36 @@
+name: Download CoinGecko Trending Images
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 */3 * * *' # Runs every 1 hours
+
+jobs:
+  download-images:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Checkout core repository
+      uses: actions/checkout@v2
+      with:
+        repository: gemwalletcom/core
+        path: core
+
+    - name: Install Rust
+      uses: dtolnay/rust-toolchain@stable
+
+    - name: Run img-downloader
+      run: cargo run --package img-downloader -- --folder ../blockchains --coin-list new --delay 10000
+      working-directory: core
+  
+    - name: Commit changes
+      run: |
+        git config --global user.name 'github-actions[bot]'
+        git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+        git add ./blockchains
+        git commit -m 'Update CoinGecko new assets images'
+        git push
+      
