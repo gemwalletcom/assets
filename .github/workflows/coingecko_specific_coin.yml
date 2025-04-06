@@ -33,11 +33,10 @@ jobs:
       run: |
         git config --global user.name 'github-actions[bot]'
         git config --global user.email 'github-actions[bot]@users.noreply.github.com'
-        if [[ -n $(git status --porcelain --untracked-files=no) ]]; then
-          git add ./blockchains
+        git add . ':!core'
+        if git diff --cached --quiet; then
+          echo "Nothing to commit (excluding core/)"
+        else
           git commit -m "Update CoinGecko image for coin ID: ${{ github.event.inputs.coin_id }}"
           git push
-        else
-          echo "Nothing tracked to commit, skipping."
         fi
-        
