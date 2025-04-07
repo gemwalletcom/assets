@@ -30,7 +30,11 @@ jobs:
       run: |
         git config --global user.name 'github-actions[bot]'
         git config --global user.email 'github-actions[bot]@users.noreply.github.com'
-        git add ./blockchains
-        git commit -m 'Update CoinGecko trending assets images'
-        git push
+        git add . ':!core'
+        if git diff --cached --quiet; then
+          echo "Nothing to commit (excluding core/)"
+        else
+          git commit -m "Update CoinGecko trending assets images"
+          git push
+        fi
       
