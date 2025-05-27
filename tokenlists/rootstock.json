@@ -1,0 +1,445 @@
+{
+    "version": 1,
+    "assets": [
+        {
+            "chain": "rootstock",
+            "tokenId": "0x2aCc95758f8b5F583470bA265Eb685a8f45fC9D5",
+            "name": "RIF",
+            "symbol": "RIF",
+            "type": "ERC20",
+            "decimals": 18
+        },
+        {
+            "chain": "rootstock",
+            "tokenId": "0x3A15461d8AE0f0Fb5fA2629e9dA7D66A794a6E37",
+            "name": "USDRIF",
+            "symbol": "USDRIF",
+            "type": "ERC20",
+            "decimals": 18
+        },
+        {
+            "chain": "rootstock",
+            "tokenId": "0x5db91e24BD32059584bbDb831A901f1199f3d459",
+            "name": "Staked RIF",
+            "symbol": "stRIF",
+            "type": "ERC20",
+            "decimals": 18
+        },
+        {
+            "chain": "rootstock",
+            "tokenId": "0x2d919f19D4892381d58EdEbEcA66D5642ceF1A1F",
+            "name": "RIF Dollar on Chain",
+            "symbol": "RDOC",
+            "type": "ERC20",
+            "decimals": 18
+        },
+        {
+            "chain": "rootstock",
+            "tokenId": "0xF4d27C56595eD59B66cC7f03CFF5193E4Bd74a61",
+            "name": "RIF Pro",
+            "symbol": "RIFP",
+            "type": "ERC20",
+            "decimals": 18
+        },
+        {
+            "chain": "rootstock",
+            "tokenId": "0xE700691Da7B9851F2F35f8b8182C69C53ccad9DB",
+            "name": "Dollar on Chain",
+            "symbol": "DOC",
+            "type": "ERC20",
+            "decimals": 18
+        },
+        {
+            "chain": "rootstock",
+            "tokenId": "0x440cd83C160de5C96DDb20246815EA44C7Abbca8",
+            "name": "BitPro",
+            "symbol": "BPro",
+            "type": "ERC20",
+            "decimals": 18
+        },
+        {
+            "chain": "rootstock",
+            "tokenId": "0x45d3E4fB311982a06ba52359d44cB4f5980e0ef1",
+            "name": "RIF Name Service",
+            "symbol": "RNS",
+            "type": "ERC20",
+            "decimals": 0
+        },
+        {
+            "chain": "rootstock",
+            "tokenId": "0xe0CFF8a40f540657c62EB4CAC34b915e5ed8d8FF",
+            "name": "Invecoin",
+            "symbol": "INV",
+            "type": "ERC20",
+            "decimals": 18
+        },
+        {
+            "chain": "rootstock",
+            "tokenId": "0x6B1a73d547F4009A26B8485b63D7015D248AD406",
+            "name": "Dai Stablecoin on RSK",
+            "symbol": "rDAI",
+            "type": "ERC20",
+            "decimals": 18
+        },
+        {
+            "chain": "rootstock",
+            "tokenId": "0x967f8799aF07DF1534d48A95a5C9FEBE92c53ae0",
+            "name": "Wrapped RBTC on RSK",
+            "symbol": "WRBTC",
+            "type": "ERC20",
+            "decimals": 18
+        },
+        {
+            "chain": "rootstock",
+            "tokenId": "0x818C0A92aae155e93419B5a7323E8e8AE649F287",
+            "name": "RSK Swap LP RIF/RBTC",
+            "symbol": "🦄RBTC:RIF",
+            "type": "ERC20",
+            "decimals": 18
+        },
+        {
+            "chain": "rootstock",
+            "tokenId": "0xDA066D0fD764c8035Cd56798F0F0D2FE719CC62B",
+            "name": "RSK Swap LP RIF/DOC",
+            "symbol": "🦄RIF:DOC",
+            "type": "ERC20",
+            "decimals": 18
+        },
+        {
+            "chain": "rootstock",
+            "tokenId": "0xe66388940C3db98a7b9Fcf628702FFBEc3a106a3",
+            "name": "RSK Swap LP BPRO/DOC",
+            "symbol": "🦄BPRO:DOC",
+            "type": "ERC20",
+            "decimals": 18
+        },
+        {
+            "chain": "rootstock",
+            "tokenId": "0x90Fc6FBb9C7ecfeCF0AcB44385E6a4D076817feb",
+            "name": "RSK Swap LP RDOC/DOC",
+            "symbol": "🦄RDOC:DOC",
+            "type": "ERC20",
+            "decimals": 18
+        },
+        {
+            "chain": "rootstock",
+            "tokenId": "0x22DaA89FDF6FB6a6771652141E6F18b8EBD86960",
+            "name": "RSK Swap LP rDAI/DOC",
+            "symbol": "🦄DAI:DOC",
+            "type": "ERC20",
+            "decimals": 18
+        },
+        {
+            "chain": "rootstock",
+            "tokenId": "0xc9fE8E7A47EFf9f62f2684a540619D52FBcD6649",
+            "name": "RSK Swap LP rDAI/RBTC",
+            "symbol": "🦄rDAI:RBTC",
+            "type": "ERC20",
+            "decimals": 18
+        },
+        {
+            "chain": "rootstock",
+            "tokenId": "0x2D5146C744Bef25B27d0DC8523Ed547BF7514D84",
+            "name": "RSK Swap LP RIF/rDAI",
+            "symbol": "🦄RIF:rDAI",
+            "type": "ERC20",
+            "decimals": 18
+        },
+        {
+            "chain": "rootstock",
+            "tokenId": "0x73C08467E23F7DcB7DdbBc8d05041b74467A498A",
+            "name": "Flixxo on RSK",
+            "symbol": "rFLIXX",
+            "type": "ERC20",
+            "decimals": 18
+        },
+        {
+            "chain": "rootstock",
+            "tokenId": "0x14ADAE34beF7Ca957ce2DDe5AdD97EA050123827",
+            "name": "ChainLink Token on RSK",
+            "symbol": "rLINK",
+            "type": "ERC20",
+            "decimals": 18
+        },
+        {
+            "chain": "rootstock",
+            "tokenId": "0x1BDa44fda023F2af8280a16FD1b01D1A493BA6c4",
+            "name": "USD Coin on RSK",
+            "symbol": "rUSDC",
+            "type": "ERC20",
+            "decimals": 18
+        },
+        {
+            "chain": "rootstock",
+            "tokenId": "0xEf213441a85DF4d7acBdAe0Cf78004E1e486BB96",
+            "name": "Tether USD on RSK",
+            "symbol": "rUSDT",
+            "type": "ERC20",
+            "decimals": 18
+        },
+        {
+            "chain": "rootstock",
+            "tokenId": "0x9C3a5F8d686fadE293c0Ce989A62a34408C4e307",
+            "name": "RedFOX Labs on RSK",
+            "symbol": "rRFOX",
+            "type": "ERC20",
+            "decimals": 18
+        },
+        {
+            "chain": "rootstock",
+            "tokenId": "0xD256C121A507cadd2687599E27fA45E31B7c3199",
+            "name": "rLending USDT",
+            "symbol": "crUSDT",
+            "type": "ERC20",
+            "decimals": 8
+        },
+        {
+            "chain": "rootstock",
+            "tokenId": "0xB7Ff2c56c897562c0AA6747D2679d35F5e937492",
+            "name": "rLending RIF",
+            "symbol": "cRIF",
+            "type": "ERC20",
+            "decimals": 8
+        },
+        {
+            "chain": "rootstock",
+            "tokenId": "0x872664A885A1995D754E3666A23FaD5c801401C4",
+            "name": "rLending RBTC",
+            "symbol": "cRBTC",
+            "type": "ERC20",
+            "decimals": 8
+        },
+        {
+            "chain": "rootstock",
+            "tokenId": "0x4991516DF6053121121274397A8C1DAD608bc95B",
+            "name": "Bundles Finance on RSK",
+            "symbol": "rBUND",
+            "type": "ERC20",
+            "decimals": 18
+        },
+        {
+            "chain": "rootstock",
+            "tokenId": "0xFF9EA341d9ea91CB7c54342354377f5104Fd403f",
+            "name": "AMLT Coinfirm on RSK",
+            "symbol": "rAMLT",
+            "type": "ERC20",
+            "decimals": 18
+        },
+        {
+            "chain": "rootstock",
+            "tokenId": "0xEfC78FC7D48B64958315949279bA181C2114abbD",
+            "name": "Sovryn Token",
+            "symbol": "SOV",
+            "type": "ERC20",
+            "decimals": 18
+        },
+        {
+            "chain": "rootstock",
+            "tokenId": "0x9aC7Fe28967b30e3a4E6E03286D715B42B453d10",
+            "name": "Money on Chain Governance Token",
+            "symbol": "MOC",
+            "type": "ERC20",
+            "decimals": 18
+        },
+        {
+            "chain": "rootstock",
+            "tokenId": "0x70566D8541beaBe984c8BAbF8A816Ed908514Ba8",
+            "name": "Universal Basic Income on RSK",
+            "symbol": "rUBI",
+            "type": "ERC20",
+            "decimals": 18
+        },
+        {
+            "chain": "rootstock",
+            "tokenId": "0xd52da63689543924dcA66bCBe2e2Ea599c45d575",
+            "name": "Pesos Argentinos PagoLinea",
+            "symbol": "ARSCB",
+            "type": "ERC20",
+            "decimals": 18
+        },
+        {
+            "chain": "rootstock",
+            "tokenId": "0xaA5dc2Ea0E056Fc962F48aB25547d66d3586eE8a",
+            "name": "Dólar Americano PagoLinea",
+            "symbol": "USDCB",
+            "type": "ERC20",
+            "decimals": 18
+        },
+        {
+            "chain": "rootstock",
+            "tokenId": "0xE9F78E507F24537f3f78c212Cf93F65eEC9054C2",
+            "name": "Bolívares PagoLinea",
+            "symbol": "VESCB",
+            "type": "ERC20",
+            "decimals": 18
+        },
+        {
+            "chain": "rootstock",
+            "tokenId": "0x7C459C5B11E2815DB085DDA9EC314a9cDe00a082",
+            "name": "Pesos Colombianos PagoLinea",
+            "symbol": "COPCB",
+            "type": "ERC20",
+            "decimals": 18
+        },
+        {
+            "chain": "rootstock",
+            "tokenId": "0x3e040020648A2f2c872ce0c7165ba5aD7841c972",
+            "name": "Real Brasileño PagoLinea",
+            "symbol": "BRLCB",
+            "type": "ERC20",
+            "decimals": 18
+        },
+        {
+            "chain": "rootstock",
+            "tokenId": "0xae2CEB4B57AdE22643BE2909425105d5114b1DbC",
+            "name": "Euro PagoLinea",
+            "symbol": "EURCB",
+            "type": "ERC20",
+            "decimals": 18
+        },
+        {
+            "chain": "rootstock",
+            "tokenId": "0x99AF5DeB8dAebcD36FCCd16fa46dC95D922cDe5b",
+            "name": "Pesos Panameños PagoLinea",
+            "symbol": "PABCB",
+            "type": "ERC20",
+            "decimals": 18
+        },
+        {
+            "chain": "rootstock",
+            "tokenId": "0xA05Fd8082e19923aa4868ff3C2aE48850B734736",
+            "name": "Guaranies Paraguayos PagoLinea",
+            "symbol": "PYGCB",
+            "type": "ERC20",
+            "decimals": 18
+        },
+        {
+            "chain": "rootstock",
+            "tokenId": "0x0f6895FA2679453d2c32C5f6E2f00e4621c57Ca2",
+            "name": "Sol Peruano PagoLinea",
+            "symbol": "PENCB",
+            "type": "ERC20",
+            "decimals": 18
+        },
+        {
+            "chain": "rootstock",
+            "tokenId": "0x61B50d8fB43Cc28b56EE7f9DA32aE46c3c1C68A3",
+            "name": "Yuan Chino PagoLinea",
+            "symbol": "CNYCB",
+            "type": "ERC20",
+            "decimals": 18
+        },
+        {
+            "chain": "rootstock",
+            "tokenId": "0x2058BA9577C4F90246bEa9D74Ae2e4Cd0167A123",
+            "name": "Pesos Mexicanos PagoLinea",
+            "symbol": "MXNCB",
+            "type": "ERC20",
+            "decimals": 18
+        },
+        {
+            "chain": "rootstock",
+            "tokenId": "0x977675B863b3b1Cf46A927fdDcbe0c831bF50135",
+            "name": "Pesos Bolivianos PagoLinea",
+            "symbol": "BOBCB",
+            "type": "ERC20",
+            "decimals": 18
+        },
+        {
+            "chain": "rootstock",
+            "tokenId": "0x3d9f9e1f8151410BEdA306fDF8626a02e03ea8aa",
+            "name": "Rupia Indonesia PagoLinea",
+            "symbol": "IDRCB",
+            "type": "ERC20",
+            "decimals": 18
+        },
+        {
+            "chain": "rootstock",
+            "tokenId": "0xd8132625b10B3962239F6842981dCE02f1a163D2",
+            "name": "Peso Uruguayo PagoLinea",
+            "symbol": "UYUCB",
+            "type": "ERC20",
+            "decimals": 18
+        },
+        {
+            "chain": "rootstock",
+            "tokenId": "0xAb2d290b7a600f5eA8d5B933f6F15c867Fd7e60e",
+            "name": "Bitcoin PagoLinea",
+            "symbol": "BTCCB",
+            "type": "ERC20",
+            "decimals": 18
+        },
+        {
+            "chain": "rootstock",
+            "tokenId": "0x84C0Cb1D6623cfB3546a79c66eB96b874CE6659d",
+            "name": "Ether PagoLinea",
+            "symbol": "ETHCB",
+            "type": "ERC20",
+            "decimals": 18
+        },
+        {
+            "chain": "rootstock",
+            "tokenId": "0xE355C280131dfaf18Bf1C3648aEE3c396Db6B5Fd",
+            "name": "Brazilian Digital Token",
+            "symbol": "BRZ",
+            "type": "ERC20",
+            "decimals": 4
+        },
+        {
+            "chain": "rootstock",
+            "tokenId": "0xb5999795BE0eBb5BAb23144Aa5fD6a02d080299f",
+            "name": "XUSD Babelfish stablecoin",
+            "symbol": "XUSD",
+            "type": "ERC20",
+            "decimals": 18
+        },
+        {
+            "chain": "rootstock",
+            "tokenId": "0xc1411567D2670E24D9c4Daaa7CdA95686E1250Aa",
+            "name": "Sovryn Dollar",
+            "symbol": "DLLR",
+            "type": "ERC20",
+            "decimals": 18
+        },
+        {
+            "chain": "rootstock",
+            "tokenId": "0x451291d48f23782CB5609CED5a195B0C92EddC7b",
+            "name": "ZERO",
+            "symbol": "ZERO",
+            "type": "ERC20",
+            "decimals": 18
+        },
+        {
+            "chain": "rootstock",
+            "tokenId": "0x74C9F2B00581F1b11Aa7Ff05aa9f608B7389de67",
+            "name": "Bridged USDC (Stargate)",
+            "symbol": "USDC.e",
+            "type": "ERC20",
+            "decimals": 6
+        },
+        {
+            "chain": "rootstock",
+            "tokenId": "0xAF368c91793cb22739386DFCBbB2f1A9E4bcBEBf",
+            "name": "USDT",
+            "symbol": "USDT",
+            "type": "ERC20",
+            "decimals": 6
+        },
+        {
+            "chain": "rootstock",
+            "tokenId": "0x2F6f07CDcf3588944bF4C42Ac74fF24bf56e7590",
+            "name": "WETH",
+            "symbol": "WETH",
+            "type": "ERC20",
+            "decimals": 18
+        },
+        {
+            "chain": "rootstock",
+            "tokenId": "0x055a902303746382Fbb7D18f6aE0df56EFDC5213",
+            "name": "Babelfish",
+            "symbol": "FISH",
+            "type": "ERC20",
+            "decimals": 18
+        }
+    ]
+}
