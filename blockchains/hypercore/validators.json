@@ -64,5 +64,41 @@
         "name": "Imperator.co - HypeRPC.app",
         "description": "Leading PoS validator - Relayer & Data provider",
         "website": "https://www.imperator.co/"
+    },
+    {
+        "id": "0x3e5b2598a32ebf003ad5a7254faa3d04ff41d9fe",
+        "name": "Alphaticks",
+        "description": "Alphaticks",
+        "website": "https://hyperfoundation.org/"
+    },
+    {
+        "id": "0x000000000056f99d36b6f2e0c51fd41496bbacb8",
+        "name": "ValiDAO",
+        "description": "ValiDAO operates infrastructure services for an onchain world.",
+        "website": "https://validao.xyz/"
+    },
+    {
+        "id": "0xe45c96a6a32318e5df7347477963bf0de38ff7ff",
+        "name": "ASXN",
+        "description": "Boutique Digital Assets Research, Infrastructure and Validators",
+        "website": "https://asxn.xyz/"
+    },
+    {
+        "id": "0x48f1da3e3ec2814fbb3dcf57125001089b067402",
+        "name": "USDT0 x Luganodes",
+        "description": "Luganodes has partnered with USDT0 to provide institutional-grade validation on Hyperliquid.",
+        "website": "https://www.luganodes.com/"
+    },
+    {
+        "id": "0xeeee86f718f9da3e7250624a460f6ea710e9c006",
+        "name": "Kinetiq x Hyperion",
+        "description": "Kinetiq x Hyperion provides a premier liquid staking solution for institutional HYPE holders.",
+        "website": "https://hyperiondefi.com/"
+    },
+    {
+        "id": "0x15458aed3c7a49b215fbfa863c6ff550c31e1a31",
+        "name": "B-Harvest",
+        "description": "Bringing continuous innovations to DeFi technology",
+        "website": "https://bharvest.io/"
     }
 ]
