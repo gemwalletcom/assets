@@ -22,5 +22,47 @@
         "name": "Hyper Foundation 4",
         "description": "Foundation",
         "website": "https://hyperfoundation.org/"
+    },
+    {
+        "id": "0x66be52ec79f829cc88e5778a255e2cb9492798fd",
+        "name": "Hyper Foundation 5",
+        "description": "Foundation",
+        "website": "https://hyperfoundation.org/"
+    },
+    {
+        "id": "0xb8f45222a3246a2b0104696a1df26842007c5bc5",
+        "name": "Nansen x HypurrCollective",
+        "description": "Nansen x HypurrCollective Validator Partnership",
+        "website": "https://stake.nansen.ai//"
+    },
+    {
+        "id": "0xa23b4556090260828ff3f939d2dbdd4f318b5f1f",
+        "name": "Infinite Field",
+        "description": "Infinite Field is a high-frequency trading company operating in digital asset markets.",
+        "website": "https://infinitefield.xyz/"
+    },
+    {
+        "id": "0xabcdeff4b3727b83a23697500eef089020df2cd2",
+        "name": "Hypurrscanning",
+        "description": "Explorer for Hyperliquid L1",
+        "website": "https://hypurrscan.io/"
+    },
+    {
+        "id": "0x8b8c3966870321866e7b7091c382308a6a97e9b1",
+        "name": "Hyperstake",
+        "description": "Hyperstake is an institutional grade non-custodial staking provider.",
+        "website": "https://hyperstake.com/"
+    },
+    {
+        "id": "0x4e256d24da830290d10f425b44f3e9439394385a",
+        "name": "CMI",
+        "description": "CMI",
+        "website": "https://hyperfoundation.org/"
+    },
+    {
+        "id": "0x8a5dbdf69b282bf2e8fb9f29fd34891f79c5dfd4",
+        "name": "Imperator.co - HypeRPC.app",
+        "description": "Leading PoS validator - Relayer & Data provider",
+        "website": "https://www.imperator.co/"
     }
 ]
