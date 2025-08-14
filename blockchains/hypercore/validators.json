@@ -4,5 +4,23 @@
         "name": "Hyper Foundation 1",
         "description": "Foundation",
         "website": "https://hyperfoundation.org/"
+    },
+    {
+        "id": "0xa82fe73bbd768bc15d1ef2f6142a21ff8bd762ad",
+        "name": "Hyper Foundation 2",
+        "description": "Foundation",
+        "website": "https://hyperfoundation.org/"
+    },
+    {
+        "id": "0x80f0cd23da5bf3a0101110cfd0f89c8a69a1384d",
+        "name": "Hyper Foundation 3",
+        "description": "Foundation",
+        "website": "https://hyperfoundation.org/"
+    },
+    {
+        "id": "0xdf35aee8ef5658686142acd1e5ab5dbcdf8c51e8",
+        "name": "Hyper Foundation 4",
+        "description": "Foundation",
+        "website": "https://hyperfoundation.org/"
     }
 ]
