@@ -100,5 +100,29 @@
         "name": "B-Harvest",
         "description": "Bringing continuous innovations to DeFi technology",
         "website": "https://bharvest.io/"
+    },
+    {
+        "id": "0x65baa675fa9e5f6c7ae4541ebdb16c526de06f1f",
+        "name": "HypurrCorea: SKYGG x DeSpread",
+        "description": "HypurrCorea is the hub for Koreas growing Hyperliquid ecosystem.",
+        "website": "https://despread.io/"
+    },
+    {
+        "id": "0x497beec89958848126c2ea65934ce430e1410ad2",
+        "name": "Hyperbeat x P2P x Hypio",
+        "description": "Hyperbeat x P2P x Hypio validator node on Hyperliquid.",
+        "website": "https://hyperbeat.org/"
+    },
+    {
+        "id": "0xb00c116f72eb55f52ca80196b63014a42cc72de1",
+        "name": "LiquidSpirit x Rekt Gang",
+        "description": "Running a bare metal validator node for the Hyperliquid L1",
+        "website": "https://hyperfoundation.org/"
+    },
+    {
+        "id": "0xf8efb4cb844a8458114994203d7b0bfe2422a288",
+        "name": "Purrposeful x HyBridge x PiP",
+        "description": "The most hydrated validator on Hyperliquid",
+        "website": "https://www.hypeburn.fun/"
     }
 ]
