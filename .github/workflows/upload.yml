@@ -18,12 +18,15 @@ jobs:
       - name: Checkout release repo
         uses: actions/checkout@v4
 
-      - name: R2 Directory Upload. Blockchain folder
-        uses: willfurstenau/r2-dir-upload@main
-        with:
-          accountid: ${{ secrets.R2_ACCOUNT_ID }}
-          accesskeyid: ${{ secrets.R2_ACCESS_KEY_ID }}
-          secretaccesskey: ${{ secrets.R2_ACCESS_SECRET_KEY }}
-          bucket: ${{ secrets.R2_ASSETS_BUCKET }} 
-          source: blockchains
-          destination: blockchains
+      - name: Configure AWS credentials for R2
+        run: |
+          aws configure set aws_access_key_id ${{ secrets.R2_ACCESS_KEY_ID }}
+          aws configure set aws_secret_access_key ${{ secrets.R2_ACCESS_SECRET_KEY }}
+          aws configure set region ${{ env.AWS_REGION }}
+
+      - name: Sync blockchains folder to R2 (only new/changed files)
+        run: |
+          aws s3 sync blockchains/ s3://${{ secrets.R2_ASSETS_BUCKET }}/blockchains/ \
+            --endpoint-url https://${{ secrets.R2_ACCOUNT_ID }}.r2.cloudflarestorage.com \
+            --size-only \
+            --delete
