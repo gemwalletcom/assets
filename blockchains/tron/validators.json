@@ -2,7 +2,7 @@
     {
         "id": "TJvaAeFb8Lykt9RQcVyyTFN2iDvGMuyD4M",
         "name": "Poloniex",
-        "description": "Poloniex Futures provides both REST APIs and Websocket Feeds for interacting with our futures exchange.",
+        "description": "The legendary crypto exchange since 2014.",
         "website": "https://poloniex.com"
     },
     {
@@ -14,18 +14,84 @@
     {
         "id": "TTW663tQYJTTCtHh6DWKAfexRhPMf2DxQ1",
         "name": "TRONALLIANCE",
-        "description": "",
+        "description": "TRON Alliance is derived from the TRON community, dedicated to helping TRON to apply its blockchain solutions to the field of enterprise services.",
         "website": "https://tronalliance.org"
     },
     {
         "id": "TAQpCTFeJvwdWf6MQZtXXkzWrTS9aymshb",
-        "name": "Abra Capital",
-        "description": "",
+        "name": "Abra Capital Management",
+        "description": "Valkyrie Investments is a top-tier financial services firm that bridges the gap between traditional finance and the rapidly evolving digital asset industry.",
         "website": "https://valkyrieinvest.com"
     },
     {
         "id": "TCZvvbn4SCVyNhCAt1L8Kp1qk5rtMiKdBB",
         "name": "CryptoLabs",
+        "description": "",
+        "website": ""
+    },
+    {
+        "id": "TGJBjL8wmRVyRStkghnhcVNYYgn6Yjno6X",
+        "name": "BlockAnalysis",
+        "description": "",
+        "website": ""
+    },
+    {
+        "id": "TN2W4cc7a4dsYyTLiLMWa9m7jVpdLjGvYs",
+        "name": "HTX.COM",
+        "description": "Huobi Wallet is a professional multi-coin wallet.",
+        "website": "https://huobiwallet.com"
+    },
+    {
+        "id": "TQopP5GM68QoqLzpz8YReDfSoCMkvwcZYd",
+        "name": "cryptoAI",
+        "description": "",
+        "website": ""
+    },
+    {
+        "id": "TSMC4YzUSfySfqKuFnJbYyU3W6PBebBk2E",
+        "name": "Smart Consensus",
+        "description": "",
+        "website": ""
+    },
+    {
+        "id": "TJBtdYunmQkeK5KninwgcjuK1RPDhyUWBZ",
+        "name": "JD Investment",
+        "description": "",
+        "website": ""
+    },
+    {
+        "id": "TVFKwzE8qeETLaZEHMx2tjEsdnujAgAWaA",
+        "name": "BlockchainOrg",
+        "description": "Blockchain.org strives to become the Google in the blockchain industry.",
+        "website": ""
+    },
+    {
+        "id": "TAAdjpNYfeJ2edcETNpad1QpQWJfyBdB9V",
+        "name": "Ant Investment Group",
+        "description": "",
+        "website": ""
+    },
+    {
+        "id": "TC6qGw3d6h25gjcM64KLuZn1cznNi5NR6t",
+        "name": "Crypto Innovation Fund",
+        "description": "",
+        "website": ""
+    },
+    {
+        "id": "TQ4bh4nQknQp33vuf1mUAKu5M5TWW8cTAD",
+        "name": "Intelligence Quant",
+        "description": "",
+        "website": ""
+    },
+    {
+        "id": "TMafrJCuNoYq3mg9dDThfg7c9VP6enZN6j",
+        "name": "metaverse home",
+        "description": "",
+        "website": ""
+    },
+    {
+        "id": "TDpt9adA6QidL1B1sy3D8NC717C6L5JxFo",
+        "name": "Chain Cloud",
         "description": "",
         "website": ""
     },
