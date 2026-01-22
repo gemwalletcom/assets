@@ -5,22 +5,36 @@ on:
   schedule:
     - cron: '0 */1 * * *' # Runs every 1 hours
 
+env:
+  CARGO_TERM_COLOR: always
+  SCCACHE_GHA_ENABLED: "true"
+  RUSTC_WRAPPER: "sccache"
+
 jobs:
   download-images:
     runs-on: ubuntu-latest
 
     steps:
     - name: Checkout repository
-      uses: actions/checkout@v2
+      uses: actions/checkout@v4
 
     - name: Checkout core repository
-      uses: actions/checkout@v2
+      uses: actions/checkout@v4
       with:
         repository: gemwalletcom/core
         path: core
 
     - name: Install Rust
       uses: dtolnay/rust-toolchain@stable
+
+    - name: Restore cargo cache
+      uses: Swatinem/rust-cache@v2
+      with:
+        prefix-key: "v1-rust"
+        workspaces: "core -> target"
+
+    - name: Run sccache-cache
+      uses: mozilla-actions/sccache-action@v0.0.9
 
     - name: Run img-downloader
       run: cargo run --package img-downloader -- --folder ../blockchains --coin-list trending --delay 20000

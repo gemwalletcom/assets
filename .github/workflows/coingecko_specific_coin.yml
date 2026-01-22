@@ -8,22 +8,36 @@ on:
         required: true
         default:
 
+env:
+  CARGO_TERM_COLOR: always
+  SCCACHE_GHA_ENABLED: "true"
+  RUSTC_WRAPPER: "sccache"
+
 jobs:
   download-specific-coin-image:
     runs-on: ubuntu-latest
 
     steps:
     - name: Checkout repository
-      uses: actions/checkout@v2
+      uses: actions/checkout@v4
 
     - name: Checkout core repository
-      uses: actions/checkout@v2
+      uses: actions/checkout@v4
       with:
         repository: gemwalletcom/core
         path: core
 
     - name: Install Rust
       uses: dtolnay/rust-toolchain@stable
+
+    - name: Restore cargo cache
+      uses: Swatinem/rust-cache@v2
+      with:
+        prefix-key: "v1-rust"
+        workspaces: "core -> target"
+
+    - name: Run sccache-cache
+      uses: mozilla-actions/sccache-action@v0.0.9
 
     - name: Run img-downloader for specific coin
       run: cargo run --package img-downloader -- --folder ../../assets/blockchains --coin-id ${{ github.event.inputs.coin_id }}
