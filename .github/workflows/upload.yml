@@ -3,6 +3,8 @@ name: Upload Assets to R2
 on:
   push:
     branches: [ "master" ]
+    paths:
+      - 'blockchains/**'
   workflow_dispatch:
   schedule:
     - cron: '0 */3 * * *' # Runs every 3 hours
