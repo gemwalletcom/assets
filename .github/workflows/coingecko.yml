@@ -68,7 +68,15 @@ jobs:
 
     - name: Commit and push
       id: commit
-      run: ./.github/scripts/commit-changes.sh "Update CoinGecko assets images"
+      run: |
+        if [ -n "${{ inputs.coin_id }}" ]; then
+          MSG="Update CoinGecko assets: ${{ inputs.coin_id }}"
+        elif [ "${{ github.event.schedule }}" = "30 */3 * * *" ] || [ "${{ inputs.coin_list }}" = "new" ]; then
+          MSG="Update CoinGecko new assets"
+        else
+          MSG="Update CoinGecko trending assets"
+        fi
+        ./.github/scripts/commit-changes.sh "$MSG"
 
   upload-and-purge:
     needs: download-images

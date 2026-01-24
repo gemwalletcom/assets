@@ -20,6 +20,9 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          ref: master
+          fetch-depth: 2
 
       - name: Configure AWS credentials
         run: |
@@ -28,19 +31,13 @@ jobs:
           aws configure set region ${{ env.AWS_REGION }}
 
       - name: Sync to R2
-        id: sync
         run: |
           aws s3 sync blockchains/ s3://${{ secrets.R2_ASSETS_BUCKET }}/blockchains/ \
             --endpoint-url https://${{ secrets.R2_ACCOUNT_ID }}.r2.cloudflarestorage.com \
             --size-only \
-            --delete | tee /tmp/sync.log
-
-          grep "^upload:" /tmp/sync.log | awk '{print $2}' > /tmp/uploaded.txt || true
-
-          if [ -s /tmp/uploaded.txt ]; then
-            echo "has_changes=true" >> $GITHUB_OUTPUT
-          fi
+            --delete
 
       - name: Purge cache
-        if: steps.sync.outputs.has_changes == 'true'
-        run: ./.github/scripts/purge-cache.sh "${{ secrets.R2_PURGE_CACHE_ZONE_ID }}" "${{ secrets.R2_PURGE_CACHE_SECRET_KEY }}" "${{ secrets.R2_PURGE_CACHE_URL }}" /tmp/uploaded.txt
+        run: |
+          git show --name-only --pretty="" HEAD -- blockchains/ > /tmp/changed.txt || true
+          ./.github/scripts/purge-cache.sh "${{ secrets.R2_PURGE_CACHE_ZONE_ID }}" "${{ secrets.R2_PURGE_CACHE_SECRET_KEY }}" "${{ secrets.R2_PURGE_CACHE_URL }}" /tmp/changed.txt
