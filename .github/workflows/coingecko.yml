@@ -1,4 +1,5 @@
 name: CoinGecko Assets
+run-name: "CoinGecko: ${{ inputs.coin_id || (github.event.schedule == '30 */3 * * *' && 'new') || inputs.coin_list || 'trending' }}"
 
 on:
   workflow_dispatch:
