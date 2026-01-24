@@ -3,16 +3,24 @@
 ZONE_ID=$1
 API_KEY=$2
 BASE_URL=$3
+FILES=$4
 
-URLS=""
-for FILE in $(git diff --name-only HEAD~1 HEAD -- blockchains/ | head -30); do
-  URLS="$URLS\"$BASE_URL/$FILE\","
-done
+if [ ! -s "$FILES" ]; then
+  echo "No files to purge"
+  exit 0
+fi
 
-if [ -n "$URLS" ]; then
-  URLS=${URLS%,}
-  curl -X POST "https://api.cloudflare.com/client/v4/zones/$ZONE_ID/purge_cache" \
+while read -r FILE; do
+  echo "Purging: $FILE"
+  RESPONSE=$(curl -s -w "%{http_code}" -X POST \
+    "https://api.cloudflare.com/client/v4/zones/$ZONE_ID/purge_cache" \
     -H "Authorization: Bearer $API_KEY" \
     -H "Content-Type: application/json" \
-    --data "{\"files\":[$URLS]}"
-fi
+    --data "{\"files\":[\"$BASE_URL/$FILE\"]}")
+
+  HTTP_CODE="${RESPONSE: -3}"
+  if [ "$HTTP_CODE" != "200" ]; then
+    echo "Warning: Failed to purge $FILE (HTTP $HTTP_CODE)"
+  fi
+  sleep 0.5
+done < "$FILES"

@@ -1,13 +1,14 @@
 name: Upload Assets to R2
 
 on:
-  push:
-    branches: [ "master" ]
-    paths:
-      - 'blockchains/**'
   workflow_dispatch:
+  workflow_call:
   schedule:
-    - cron: '0 */3 * * *' # Runs every 3 hours
+    - cron: '0 */3 * * *'
+
+concurrency:
+  group: upload
+  cancel-in-progress: false
 
 env:
   AWS_REGION: us-east-1
@@ -17,21 +18,29 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout release repo
+      - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Configure AWS credentials for R2
+      - name: Configure AWS credentials
         run: |
           aws configure set aws_access_key_id ${{ secrets.R2_ACCESS_KEY_ID }}
           aws configure set aws_secret_access_key ${{ secrets.R2_ACCESS_SECRET_KEY }}
           aws configure set region ${{ env.AWS_REGION }}
 
-      - name: Sync blockchains folder to R2
+      - name: Sync to R2
+        id: sync
         run: |
           aws s3 sync blockchains/ s3://${{ secrets.R2_ASSETS_BUCKET }}/blockchains/ \
             --endpoint-url https://${{ secrets.R2_ACCOUNT_ID }}.r2.cloudflarestorage.com \
             --size-only \
-            --delete
+            --delete | tee /tmp/sync.log
 
-      - name: Purge Cloudflare cache
-        run: ./.github/scripts/purge-cache.sh "${{ secrets.R2_PURGE_CACHE_ZONE_ID }}" "${{ secrets.R2_PURGE_CACHE_SECRET_KEY }}" "${{ secrets.R2_PURGE_CACHE_URL }}"
+          grep "^upload:" /tmp/sync.log | awk '{print $2}' > /tmp/uploaded.txt || true
+
+          if [ -s /tmp/uploaded.txt ]; then
+            echo "has_changes=true" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Purge cache
+        if: steps.sync.outputs.has_changes == 'true'
+        run: ./.github/scripts/purge-cache.sh "${{ secrets.R2_PURGE_CACHE_ZONE_ID }}" "${{ secrets.R2_PURGE_CACHE_SECRET_KEY }}" "${{ secrets.R2_PURGE_CACHE_URL }}" /tmp/uploaded.txt

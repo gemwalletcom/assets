@@ -1,0 +1,77 @@
+name: CoinGecko Assets
+
+on:
+  workflow_dispatch:
+    inputs:
+      coin_list:
+        description: 'Coin list type'
+        required: true
+        type: choice
+        options:
+          - trending
+          - new
+        default: trending
+      coin_id:
+        description: 'Specific CoinGecko Coin ID (leave empty to use coin_list)'
+        required: false
+  schedule:
+    - cron: '0 */1 * * *' # trending - every hour
+    - cron: '30 */3 * * *' # new - every 3 hours
+
+concurrency:
+  group: coingecko
+  cancel-in-progress: false
+
+env:
+  CARGO_TERM_COLOR: always
+  SCCACHE_GHA_ENABLED: "true"
+  RUSTC_WRAPPER: "sccache"
+
+jobs:
+  download-images:
+    runs-on: ubuntu-latest
+    outputs:
+      has_changes: ${{ steps.commit.outputs.has_changes }}
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Checkout core repository
+      uses: actions/checkout@v4
+      with:
+        repository: gemwalletcom/core
+        path: core
+
+    - name: Install Rust
+      uses: dtolnay/rust-toolchain@stable
+
+    - name: Restore cargo cache
+      uses: Swatinem/rust-cache@v2
+      with:
+        prefix-key: "v1-rust"
+        workspaces: "core -> target"
+
+    - name: Run sccache-cache
+      uses: mozilla-actions/sccache-action@v0.0.9
+
+    - name: Download images
+      working-directory: core
+      run: |
+        if [ -n "${{ inputs.coin_id }}" ]; then
+          cargo run --package img-downloader -- --folder ../blockchains --coin-id ${{ inputs.coin_id }}
+        elif [ "${{ github.event.schedule }}" = "30 */3 * * *" ] || [ "${{ inputs.coin_list }}" = "new" ]; then
+          cargo run --package img-downloader -- --folder ../blockchains --coin-list new --delay 10000
+        else
+          cargo run --package img-downloader -- --folder ../blockchains --coin-list trending --delay 20000
+        fi
+
+    - name: Commit and push
+      id: commit
+      run: ./.github/scripts/commit-changes.sh "Update CoinGecko assets images"
+
+  upload-and-purge:
+    needs: download-images
+    if: needs.download-images.outputs.has_changes == 'true'
+    uses: ./.github/workflows/upload.yml
+    secrets: inherit
