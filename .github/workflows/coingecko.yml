@@ -67,6 +67,9 @@ jobs:
           cargo run --package img-downloader -- --folder ../blockchains --coin-list trending --delay 20000
         fi
 
+    - name: Generate assets list
+      run: ./.github/scripts/generate-assets-list.sh
+
     - name: Commit and push
       id: commit
       run: |
