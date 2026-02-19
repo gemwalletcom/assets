@@ -58,6 +58,8 @@ jobs:
 
     - name: Download images
       working-directory: core
+      env:
+        COINGECKO_KEY_SECRET: ${{ secrets.COINGECKO_KEY_SECRET }}
       run: |
         if [ -n "${{ inputs.coin_id }}" ]; then
           cargo run --package img-downloader -- --folder ../blockchains --coin-id ${{ inputs.coin_id }}
