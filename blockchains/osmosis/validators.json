@@ -154,5 +154,11 @@
         "name": "Everstake",
         "description": "Everstake is a staking-as-a-service company.",
         "website": "https://everstake.one"
+    },
+    {
+        "id": "osmovaloper1e893vrtzzp6zyzs80tqg52j2vdckzqrdjrjva5",
+        "name": "Stake Shark",
+        "description": "StakeShark is a trusted validator offering secure, non-custodial staking services across leading blockchains.",
+        "website": "https://www.stakeshark.io/"
     }
 ]
