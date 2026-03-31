@@ -1,10 +1,16 @@
 name: Upload Assets to R2
 
 on:
+  push:
+    branches:
+      - master
   workflow_dispatch:
   workflow_call:
   schedule:
     - cron: '0 */3 * * *'
+
+permissions:
+  contents: read
 
 concurrency:
   group: upload
@@ -21,7 +27,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
         with:
-          ref: master
+          ref: ${{ github.ref_name || 'master' }}
           fetch-depth: 2
 
       - name: Configure AWS credentials

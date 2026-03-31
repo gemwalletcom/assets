@@ -4,6 +4,9 @@ on:
   workflow_dispatch:
   workflow_call:
 
+permissions:
+  contents: write
+
 concurrency:
   group: generate-assets-list
   cancel-in-progress: false

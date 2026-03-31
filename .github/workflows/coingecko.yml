@@ -19,6 +19,9 @@ on:
     - cron: '0 */1 * * *' # trending - every hour
     - cron: '30 */3 * * *' # new - every 3 hours
 
+permissions:
+  contents: write
+
 concurrency:
   group: coingecko
   cancel-in-progress: false
