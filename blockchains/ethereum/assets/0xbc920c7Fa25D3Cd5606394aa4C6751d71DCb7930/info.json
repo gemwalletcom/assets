@@ -1,7 +1,7 @@
 {
-    "name": "K9 Finance",
-    "website": "https://clutch.market",
-    "description": "K9 is the AMM token for the Pixel Pups NFT collection on Ethereum Mainnet, powering the Clutch Anvil AMM protocol.",
+    "name": "K9",
+    "website": "https://dex.clutch.market",
+    "description": "K9 is the AMM token of the Clutch Puppies DeFi ecosystem on Ethereum, powering the Anvil AMM protocol.",
     "explorer": "https://etherscan.io/token/0xbc920c7Fa25D3Cd5606394aa4C6751d71DCb7930",
     "type": "ERC20",
     "symbol": "K9",
