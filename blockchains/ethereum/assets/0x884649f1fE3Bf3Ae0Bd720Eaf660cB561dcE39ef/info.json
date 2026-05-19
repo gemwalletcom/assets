@@ -1,11 +1,28 @@
 {
     "name": "World Pup Coin",
     "website": "https://pupcup.clutch.market/",
-    "description": "PUPCUP (World Pup Coin) is the community meme token of the Clutch Puppies DeFi ecosystem on Ethereum.",
+    "description": "PUPCUP (World Pup Coin) is the community meme token of Clutch Puppies DeFi on Ethereum. Fixed supply of 21 million tokens, 0% tax, no mint function. Trading on Anvil AMM (Uniswap V4).",
     "explorer": "https://etherscan.io/token/0x884649f1fE3Bf3Ae0Bd720Eaf660cB561dcE39ef",
     "type": "ERC20",
     "symbol": "PUPCUP",
     "decimals": 18,
     "status": "active",
-    "id": "0x884649f1fE3Bf3Ae0Bd720Eaf660cB561dcE39ef"
+    "id": "0x884649f1fE3Bf3Ae0Bd720Eaf660cB561dcE39ef",
+    "tags": [
+        "meme"
+    ],
+    "links": [
+        {
+            "name": "twitter",
+            "url": "https://twitter.com/ClutchMarkets"
+        },
+        {
+            "name": "discord",
+            "url": "https://discord.com/invite/YwnvZUdMDd"
+        },
+        {
+            "name": "github",
+            "url": "https://github.com/clutch-puppies"
+        }
+    ]
 }
