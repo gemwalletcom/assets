@@ -1,11 +1,29 @@
 {
     "name": "K9",
     "website": "https://dex.clutch.market",
-    "description": "K9 is the AMM token of the Clutch Puppies DeFi ecosystem on Ethereum, powering the Anvil AMM protocol.",
+    "description": "K9 is the governance and utility token of the Clutch Puppies DeFi ecosystem on Ethereum. Stake K9 to earn rewards and participate in protocol governance on Anvil AMM, a Uniswap V4-based DEX.",
     "explorer": "https://etherscan.io/token/0xbc920c7Fa25D3Cd5606394aa4C6751d71DCb7930",
     "type": "ERC20",
     "symbol": "K9",
     "decimals": 18,
     "status": "active",
-    "id": "0xbc920c7Fa25D3Cd5606394aa4C6751d71DCb7930"
+    "id": "0xbc920c7Fa25D3Cd5606394aa4C6751d71DCb7930",
+    "tags": [
+        "defi",
+        "governance"
+    ],
+    "links": [
+        {
+            "name": "twitter",
+            "url": "https://twitter.com/ClutchMarkets"
+        },
+        {
+            "name": "discord",
+            "url": "https://discord.com/invite/YwnvZUdMDd"
+        },
+        {
+            "name": "github",
+            "url": "https://github.com/clutch-puppies"
+        }
+    ]
 }
