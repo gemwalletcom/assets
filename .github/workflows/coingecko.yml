@@ -39,37 +39,37 @@ jobs:
 
     steps:
     - name: Checkout repository
-      uses: actions/checkout@v4
+      uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3
 
-    - name: Checkout core repository
-      uses: actions/checkout@v4
+    - name: Checkout wallet repository
+      uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3
       with:
-        repository: gemwalletcom/core
-        path: core
+        repository: gemwalletcom/wallet
+        path: wallet
 
     - name: Install Rust
-      uses: dtolnay/rust-toolchain@stable
+      uses: dtolnay/rust-toolchain@29eef336d9b2848a0b548edc03f92a220660cdb8 # stable
 
     - name: Restore cargo cache
-      uses: Swatinem/rust-cache@v2
+      uses: Swatinem/rust-cache@c19371144df3bb44fab255c43d04cbc2ab54d1c4 # v2.9.1
       with:
         prefix-key: "v1-rust"
-        workspaces: "core -> target"
+        workspaces: "wallet/core -> target"
 
     - name: Run sccache-cache
-      uses: mozilla-actions/sccache-action@v0.0.9
+      uses: mozilla-actions/sccache-action@9e7fa8a12102821edf02ca5dbea1acd0f89a2696 # v0.0.10
 
     - name: Download images
-      working-directory: core
+      working-directory: wallet/core
       env:
         COINGECKO_KEY_SECRET: ${{ secrets.COINGECKO_KEY_SECRET }}
       run: |
         if [ -n "${{ inputs.coin_id }}" ]; then
-          cargo run --package img-downloader -- --folder ../blockchains --coin-id ${{ inputs.coin_id }}
+          cargo run --package img-downloader -- --folder ../../blockchains --coin-id ${{ inputs.coin_id }}
         elif [ "${{ github.event.schedule }}" = "30 */3 * * *" ] || [ "${{ inputs.coin_list }}" = "new" ]; then
-          cargo run --package img-downloader -- --folder ../blockchains --coin-list new --delay 10000
+          cargo run --package img-downloader -- --folder ../../blockchains --coin-list new --delay 10000
         else
-          cargo run --package img-downloader -- --folder ../blockchains --coin-list trending --delay 20000
+          cargo run --package img-downloader -- --folder ../../blockchains --coin-list trending --delay 20000
         fi
 
     - name: Generate assets list
