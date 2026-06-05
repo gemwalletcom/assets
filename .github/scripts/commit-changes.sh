@@ -4,7 +4,7 @@ MESSAGE=${1:-"Update assets"}
 
 git config --global user.name 'github-actions[bot]'
 git config --global user.email 'github-actions[bot]@users.noreply.github.com'
-git add . ':!core'
+git add blockchains
 
 if git diff --cached --quiet; then
   echo "Nothing to commit"
