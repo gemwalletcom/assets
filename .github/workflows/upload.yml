@@ -42,8 +42,12 @@ jobs:
             --endpoint-url https://${{ secrets.R2_ACCOUNT_ID }}.r2.cloudflarestorage.com \
             --size-only \
             --delete
+          aws s3 sync lists/ s3://${{ secrets.R2_ASSETS_BUCKET }}/lists/ \
+            --endpoint-url https://${{ secrets.R2_ACCOUNT_ID }}.r2.cloudflarestorage.com \
+            --size-only \
+            --delete
 
       - name: Purge cache
         run: |
-          git show --name-only --pretty="" HEAD -- blockchains/ > /tmp/changed.txt || true
+          git show --name-only --pretty="" HEAD -- blockchains/ lists/ > /tmp/changed.txt || true
           ./.github/scripts/purge-cache.sh "${{ secrets.R2_PURGE_CACHE_ZONE_ID }}" "${{ secrets.R2_PURGE_CACHE_SECRET_KEY }}" "${{ secrets.R2_PURGE_CACHE_URL }}" /tmp/changed.txt
