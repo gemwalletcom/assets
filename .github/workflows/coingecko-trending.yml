@@ -1,21 +1,21 @@
-name: CoinGecko Assets
-run-name: "CoinGecko top assets"
+name: CoinGecko Trending Assets
+run-name: "CoinGecko trending assets"
 
 on:
   schedule:
-    - cron: '15 3 * * *'
+    - cron: '0 * * * *'
 
 permissions:
   contents: write
 
 concurrency:
-  group: coingecko
+  group: coingecko-trending
   cancel-in-progress: false
 
 jobs:
-  top:
+  download:
     uses: ./.github/workflows/download-assets.yml
     with:
       source: coingecko
-      mode: top
+      mode: trending
     secrets: inherit

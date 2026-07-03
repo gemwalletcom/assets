@@ -1,21 +1,20 @@
-name: CoinGecko Assets
-run-name: "CoinGecko top assets"
+name: Jupiter Assets
+run-name: "Jupiter: verified tokens"
 
 on:
   schedule:
-    - cron: '15 3 * * *'
+    - cron: '0 4 * * *'
 
 permissions:
   contents: write
 
 concurrency:
-  group: coingecko
+  group: jupiter
   cancel-in-progress: false
 
 jobs:
-  top:
+  download:
     uses: ./.github/workflows/download-assets.yml
     with:
-      source: coingecko
-      mode: top
+      source: jupiter
     secrets: inherit

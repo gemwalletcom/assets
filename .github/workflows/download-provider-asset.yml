@@ -1,0 +1,32 @@
+name: Download Provider Asset
+run-name: "${{ inputs.source }} ID: ${{ inputs.id }}"
+
+on:
+  workflow_dispatch:
+    inputs:
+      source:
+        description: 'Image provider'
+        required: true
+        type: choice
+        options:
+          - coingecko
+          - jupiter
+      id:
+        description: 'CoinGecko coin ID or Jupiter token mint'
+        required: true
+        type: string
+
+permissions:
+  contents: write
+
+concurrency:
+  group: download-provider-asset-${{ inputs.source }}-${{ inputs.id }}
+  cancel-in-progress: false
+
+jobs:
+  download:
+    uses: ./.github/workflows/download-assets.yml
+    with:
+      source: ${{ inputs.source }}
+      id: ${{ inputs.id }}
+    secrets: inherit

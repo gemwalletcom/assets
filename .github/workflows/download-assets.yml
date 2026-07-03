@@ -1,0 +1,84 @@
+name: Download Assets
+
+on:
+  workflow_call:
+    inputs:
+      source:
+        required: true
+        type: string
+      mode:
+        required: false
+        type: string
+        default: top
+      id:
+        required: false
+        type: string
+        default: ""
+
+permissions:
+  contents: write
+
+env:
+  CARGO_TERM_COLOR: always
+  SCCACHE_GHA_ENABLED: "true"
+  RUSTC_WRAPPER: "sccache"
+
+jobs:
+  download-images:
+    runs-on: ubuntu-latest
+    outputs:
+      has_changes: ${{ steps.commit.outputs.has_changes }}
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3
+
+    - name: Checkout wallet repository
+      uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3
+      with:
+        repository: gemwalletcom/wallet
+        path: wallet
+
+    - name: Install Rust
+      uses: dtolnay/rust-toolchain@29eef336d9b2848a0b548edc03f92a220660cdb8 # stable
+
+    - name: Restore cargo cache
+      uses: Swatinem/rust-cache@c19371144df3bb44fab255c43d04cbc2ab54d1c4 # v2.9.1
+      with:
+        prefix-key: "v1-rust"
+        workspaces: "wallet/core -> target"
+
+    - name: Run sccache-cache
+      uses: mozilla-actions/sccache-action@9e7fa8a12102821edf02ca5dbea1acd0f89a2696 # v0.0.10
+
+    - name: Download images
+      working-directory: wallet/core
+      env:
+        COINGECKO_KEY_SECRET: ${{ secrets.COINGECKO_KEY_SECRET }}
+      run: |
+        if [ -n "${{ inputs.id }}" ]; then
+          cargo run --package img-downloader -- --source "${{ inputs.source }}" --mode "${{ inputs.mode }}" --folder ../../blockchains --id "${{ inputs.id }}"
+        else
+          cargo run --package img-downloader -- --source "${{ inputs.source }}" --mode "${{ inputs.mode }}" --folder ../../blockchains
+        fi
+
+    - name: Generate assets list
+      run: ./.github/scripts/generate-assets-list.sh
+
+    - name: Commit and push
+      id: commit
+      run: |
+        MESSAGE="Update ${{ inputs.source }} assets"
+        if [ "${{ inputs.mode }}" != "top" ]; then
+          MESSAGE="Update ${{ inputs.source }} ${{ inputs.mode }} assets"
+        fi
+        if [ -n "${{ inputs.id }}" ]; then
+          MESSAGE="Update ${{ inputs.source }} asset: ${{ inputs.id }}"
+        fi
+        ./.github/scripts/commit-changes.sh "$MESSAGE"
+
+  upload-and-purge:
+    needs: download-images
+    if: needs.download-images.outputs.has_changes == 'true'
+    uses: ./.github/workflows/upload.yml
+    secrets: inherit
