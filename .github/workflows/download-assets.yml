@@ -55,8 +55,8 @@ jobs:
       working-directory: wallet/core
       env:
         COINGECKO_KEY_SECRET: ${{ secrets.COINGECKO_KEY_SECRET }}
-        IMG_DOWNLOADER_COINGECKO_TOP_COUNT: ${{ vars.IMG_DOWNLOADER_COINGECKO_TOP_COUNT }}
-        IMG_DOWNLOADER_JUPITER_TOP_COUNT: ${{ vars.IMG_DOWNLOADER_JUPITER_TOP_COUNT }}
+        COINGECKO_TOP_COUNT: ${{ vars.COINGECKO_TOP_COUNT }}
+        JUPITER_TOP_COUNT: ${{ vars.JUPITER_TOP_COUNT }}
       run: |
         if [ -n "${{ inputs.id }}" ]; then
           cargo run --package img-downloader -- --source "${{ inputs.source }}" --mode "${{ inputs.mode }}" --folder ../../blockchains --id "${{ inputs.id }}"
