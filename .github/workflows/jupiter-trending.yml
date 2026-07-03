@@ -1,16 +1,16 @@
-name: Jupiter Assets
-run-name: "Jupiter: verified tokens"
+name: Jupiter Trending Assets
+run-name: "Jupiter trending assets"
 
 on:
   workflow_dispatch:
   schedule:
-    - cron: '0 */12 * * *'
+    - cron: '0 */3 * * *'
 
 permissions:
   contents: write
 
 concurrency:
-  group: jupiter
+  group: jupiter-trending
   cancel-in-progress: false
 
 jobs:
@@ -18,5 +18,5 @@ jobs:
     uses: ./.github/workflows/download-assets.yml
     with:
       source: jupiter
-      mode: top
+      mode: trending
     secrets: inherit
