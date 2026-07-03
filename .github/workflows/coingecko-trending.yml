@@ -2,6 +2,7 @@ name: CoinGecko Trending Assets
 run-name: "CoinGecko trending assets"
 
 on:
+  workflow_dispatch:
   schedule:
     - cron: '0 * * * *'
 

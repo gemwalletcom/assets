@@ -2,6 +2,7 @@ name: Jupiter Assets
 run-name: "Jupiter: verified tokens"
 
 on:
+  workflow_dispatch:
   schedule:
     - cron: '0 4 * * *'
 
