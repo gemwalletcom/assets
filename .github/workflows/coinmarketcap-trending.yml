@@ -1,0 +1,22 @@
+name: CoinMarketCap Trending Assets
+run-name: "CoinMarketCap trending assets"
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 */3 * * *'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: coinmarketcap-trending
+  cancel-in-progress: false
+
+jobs:
+  download:
+    uses: ./.github/workflows/download-assets.yml
+    with:
+      source: coinmarketcap
+      mode: trending
+    secrets: inherit

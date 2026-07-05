@@ -1,0 +1,22 @@
+name: CoinMarketCap Assets
+run-name: "CoinMarketCap: top assets"
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 */12 * * *'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: coinmarketcap
+  cancel-in-progress: false
+
+jobs:
+  download:
+    uses: ./.github/workflows/download-assets.yml
+    with:
+      source: coinmarketcap
+      mode: top
+    secrets: inherit

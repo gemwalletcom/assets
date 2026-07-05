@@ -55,7 +55,10 @@ jobs:
       working-directory: wallet/core
       env:
         COINGECKO_KEY_SECRET: ${{ secrets.COINGECKO_KEY_SECRET }}
+        COINMARKETCAP_KEY_SECRET: ${{ secrets.COINMARKETCAP_KEY_SECRET }}
         COINGECKO_TOP_COUNT: ${{ vars.COINGECKO_TOP_COUNT }}
+        COINMARKETCAP_TOP_COUNT: ${{ vars.COINMARKETCAP_TOP_COUNT }}
+        COINMARKETCAP_TRENDING_COUNT: ${{ vars.COINMARKETCAP_TRENDING_COUNT }}
         JUPITER_TOP_COUNT: ${{ vars.JUPITER_TOP_COUNT }}
       run: |
         if [ -n "${{ inputs.id }}" ]; then
@@ -63,12 +66,6 @@ jobs:
         else
           cargo run --package img-downloader -- --source "${{ inputs.source }}" --mode "${{ inputs.mode }}" --folder ../../blockchains
         fi
-
-    - name: Count downloaded images
-      id: image-count
-      run: |
-        COUNT=$(git status --short --untracked-files=all -- blockchains | wc -l | tr -d ' ')
-        echo "count=$COUNT" >> "$GITHUB_OUTPUT"
 
     - name: Generate assets list
       run: ./.github/scripts/generate-assets-list.sh
@@ -83,7 +80,6 @@ jobs:
         if [ -n "${{ inputs.id }}" ]; then
           MESSAGE="Update ${{ inputs.source }} asset: ${{ inputs.id }}"
         fi
-        MESSAGE="$MESSAGE (${{ steps.image-count.outputs.count }} images)"
         ./.github/scripts/commit-changes.sh "$MESSAGE"
 
   upload-and-purge:

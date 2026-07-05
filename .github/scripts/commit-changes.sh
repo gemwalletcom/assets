@@ -10,6 +10,11 @@ if git diff --cached --quiet; then
   echo "Nothing to commit"
   echo "has_changes=false" >> $GITHUB_OUTPUT
 else
+  IMAGE_COUNT=$(git diff --cached --name-only -- ':(glob)blockchains/**/*.png' | wc -l | tr -d ' ')
+  if [ "$IMAGE_COUNT" -gt 0 ]; then
+    MESSAGE="$MESSAGE ($IMAGE_COUNT images)"
+  fi
+
   echo "Files to commit:"
   git diff --cached --name-only
   echo ""

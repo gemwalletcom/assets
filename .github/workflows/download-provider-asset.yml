@@ -10,9 +10,10 @@ on:
         type: choice
         options:
           - coingecko
+          - coinmarketcap
           - jupiter
       id:
-        description: 'CoinGecko coin ID or Jupiter token mint'
+        description: 'CoinGecko coin ID, CoinMarketCap coin ID or symbol, or Jupiter token mint'
         required: true
         type: string
 
