@@ -1,5 +1,5 @@
 name: Download Provider Asset
-run-name: "${{ inputs.source }} ID: ${{ inputs.ids != '' && 'batch' || inputs.id }}"
+run-name: "${{ inputs.source }} ID: ${{ inputs.id }}"
 
 on:
   workflow_dispatch:
@@ -13,14 +13,8 @@ on:
           - coinmarketcap
           - jupiter
       id:
-        description: 'CoinGecko coin ID, CoinMarketCap coin ID or symbol, or Jupiter token mint'
-        required: false
-        default: ''
-        type: string
-      ids:
-        description: 'Provider IDs to download, one per line'
-        required: false
-        default: ''
+        description: 'Provider ID or comma-separated IDs'
+        required: true
         type: string
 
 permissions:
@@ -36,5 +30,4 @@ jobs:
     with:
       source: ${{ inputs.source }}
       id: ${{ inputs.id }}
-      ids: ${{ inputs.ids }}
     secrets: inherit
