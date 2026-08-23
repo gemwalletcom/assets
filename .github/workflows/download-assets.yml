@@ -14,6 +14,10 @@ on:
         required: false
         type: string
         default: ""
+      ids:
+        required: false
+        type: string
+        default: ""
 
 permissions:
   contents: write
@@ -54,6 +58,7 @@ jobs:
     - name: Download images
       working-directory: wallet/core
       env:
+        ASSET_IDS: ${{ inputs.ids }}
         COINGECKO_KEY_SECRET: ${{ secrets.COINGECKO_KEY_SECRET }}
         COINMARKETCAP_KEY_SECRET: ${{ secrets.COINMARKETCAP_KEY_SECRET }}
         COINGECKO_TOP_COUNT: ${{ vars.COINGECKO_TOP_COUNT }}
@@ -61,7 +66,24 @@ jobs:
         COINMARKETCAP_TRENDING_COUNT: ${{ vars.COINMARKETCAP_TRENDING_COUNT }}
         JUPITER_TOP_COUNT: ${{ vars.JUPITER_TOP_COUNT }}
       run: |
-        if [ -n "${{ inputs.id }}" ]; then
+        if [ -n "$ASSET_IDS" ]; then
+          count=0
+          while IFS= read -r asset_id || [ -n "$asset_id" ]; do
+            asset_id="${asset_id#"${asset_id%%[![:space:]]*}"}"
+            asset_id="${asset_id%"${asset_id##*[![:space:]]}"}"
+            [ -z "$asset_id" ] && continue
+            if [[ ! "$asset_id" =~ ^[A-Za-z0-9._-]+$ ]]; then
+              echo "Invalid provider ID: $asset_id" >&2
+              exit 1
+            fi
+            cargo run --package img-downloader -- --source "${{ inputs.source }}" --mode "${{ inputs.mode }}" --folder ../../blockchains --id "$asset_id"
+            count=$((count + 1))
+          done <<< "$ASSET_IDS"
+          if [ "$count" -eq 0 ]; then
+            echo "No provider IDs supplied" >&2
+            exit 1
+          fi
+        elif [ -n "${{ inputs.id }}" ]; then
           cargo run --package img-downloader -- --source "${{ inputs.source }}" --mode "${{ inputs.mode }}" --folder ../../blockchains --id "${{ inputs.id }}"
         else
           cargo run --package img-downloader -- --source "${{ inputs.source }}" --mode "${{ inputs.mode }}" --folder ../../blockchains
@@ -72,12 +94,16 @@ jobs:
 
     - name: Commit and push
       id: commit
+      env:
+        ASSET_IDS: ${{ inputs.ids }}
       run: |
         MESSAGE="Update ${{ inputs.source }} assets"
         if [ "${{ inputs.mode }}" != "top" ]; then
           MESSAGE="Update ${{ inputs.source }} ${{ inputs.mode }} assets"
         fi
-        if [ -n "${{ inputs.id }}" ]; then
+        if [ -n "$ASSET_IDS" ]; then
+          MESSAGE="Update ${{ inputs.source }} assets batch"
+        elif [ -n "${{ inputs.id }}" ]; then
           MESSAGE="Update ${{ inputs.source }} asset: ${{ inputs.id }}"
         fi
         ./.github/scripts/commit-changes.sh "$MESSAGE"
