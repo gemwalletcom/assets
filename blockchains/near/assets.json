@@ -1,4 +1,5 @@
 [
+  "056fd409e1d7a124bd7017459dfea2f387b6d5cd.factory.bridge.near",
   "0bc529c00c6401aef6d220be8c6ea1667f6ad93e.factory.bridge.near",
   "0d8775f648430679a709e98d2b0cb6250d2887ef.factory.bridge.near",
   "17208628f84f5d6ad33f0da3bbbeb27ffcb398eac501a31bd6ad2011e36133a1",
@@ -9,5 +10,6 @@
   "c00e94cb662c3520282e6f5717214004a7f26888.factory.bridge.near",
   "c011a73ee8576fb46f5e1c5751ca3b9fe0af2a6f.factory.bridge.near",
   "c944e90c64b2c07662a292be6244bdf05cda44a7.factory.bridge.near",
+  "cusd.token.a11bd.near",
   "usdt.tether-token.near"
 ]
