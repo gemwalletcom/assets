@@ -12,8 +12,9 @@ on:
           - coingecko
           - coinmarketcap
           - jupiter
+          - dexscreener
       id:
-        description: 'Provider ID or comma-separated IDs'
+        description: 'Provider ID or comma-separated IDs (DexScreener: chain_token-address)'
         required: true
         type: string
 
