@@ -1,5 +1,5 @@
 name: Download Provider Asset
-run-name: "${{ inputs.source }} ID: ${{ inputs.id }}"
+run-name: "${{ inputs.source }}: ${{ inputs.id || inputs.mode }}"
 
 on:
   workflow_dispatch:
@@ -14,15 +14,23 @@ on:
           - jupiter
           - dexscreener
       id:
-        description: 'Provider ID or comma-separated IDs (DexScreener: chain_token-address)'
-        required: true
+        description: 'Optional provider ID or comma-separated IDs (DexScreener: chain_token-address)'
+        required: false
         type: string
+      mode:
+        description: 'List selection when no ID is provided'
+        required: true
+        type: choice
+        default: top
+        options:
+          - top
+          - trending
 
 permissions:
   contents: write
 
 concurrency:
-  group: download-provider-asset-${{ inputs.source }}-${{ inputs.id }}
+  group: download-provider-asset-${{ inputs.source }}-${{ inputs.id || inputs.mode }}
   cancel-in-progress: false
 
 jobs:
@@ -31,4 +39,5 @@ jobs:
     with:
       source: ${{ inputs.source }}
       id: ${{ inputs.id }}
+      mode: ${{ inputs.mode }}
     secrets: inherit
