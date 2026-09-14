@@ -1,4 +1,4 @@
-name: Upload Assets to R2
+name: "[CI] Publish Assets"
 
 on:
   push:

@@ -1,22 +1,50 @@
-name: CoinGecko Assets
-run-name: "CoinGecko top assets"
+name: "[Get Assets] CoinGecko"
+run-name: "CoinGecko: ${{ inputs.mode || (github.event.schedule == '0 */3 * * *' && 'trending' || 'top') }}"
 
 on:
   workflow_dispatch:
+    inputs:
+      mode:
+        description: Asset selection
+        required: true
+        type: choice
+        default: top
+        options:
+          - top
+          - trending
   schedule:
     - cron: '15 */12 * * *'
+    - cron: '0 */3 * * *'
 
 permissions:
   contents: write
 
 concurrency:
-  group: coingecko
+  group: coingecko-assets
   cancel-in-progress: false
 
 jobs:
-  top:
-    uses: ./.github/workflows/download-assets.yml
-    with:
-      source: coingecko
-      mode: top
+  download:
+    runs-on: ubuntu-latest
+    outputs:
+      has_changes: ${{ steps.download.outputs.has_changes }}
+    steps:
+      - uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3
+      - uses: ./.github/actions/download-assets
+        id: download
+        with:
+          source: coingecko
+          mode: ${{ inputs.mode || (github.event.schedule == '0 */3 * * *' && 'trending' || 'top') }}
+        env:
+          COINGECKO_KEY_SECRET: ${{ secrets.COINGECKO_KEY_SECRET }}
+          COINMARKETCAP_KEY_SECRET: ${{ secrets.COINMARKETCAP_KEY_SECRET }}
+          COINGECKO_TOP_COUNT: ${{ vars.COINGECKO_TOP_COUNT }}
+          COINMARKETCAP_TOP_COUNT: ${{ vars.COINMARKETCAP_TOP_COUNT }}
+          COINMARKETCAP_TRENDING_COUNT: ${{ vars.COINMARKETCAP_TRENDING_COUNT }}
+          JUPITER_TOP_COUNT: ${{ vars.JUPITER_TOP_COUNT }}
+
+  publish:
+    needs: download
+    if: needs.download.outputs.has_changes == 'true'
+    uses: ./.github/workflows/upload.yml
     secrets: inherit

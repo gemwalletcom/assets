@@ -1,22 +1,50 @@
-name: CoinMarketCap Assets
-run-name: "CoinMarketCap: top assets"
+name: "[Get Assets] CoinMarketCap"
+run-name: "CoinMarketCap: ${{ inputs.mode || 'top' }}"
 
 on:
   workflow_dispatch:
+    inputs:
+      mode:
+        description: Asset selection
+        required: true
+        type: choice
+        default: top
+        options:
+          - top
+          - trending
   schedule:
     - cron: '0 */12 * * *'
+    # Trending was disabled; it remains available through manual selection.
 
 permissions:
   contents: write
 
 concurrency:
-  group: coinmarketcap
+  group: coinmarketcap-assets
   cancel-in-progress: false
 
 jobs:
   download:
-    uses: ./.github/workflows/download-assets.yml
-    with:
-      source: coinmarketcap
-      mode: top
+    runs-on: ubuntu-latest
+    outputs:
+      has_changes: ${{ steps.download.outputs.has_changes }}
+    steps:
+      - uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3
+      - uses: ./.github/actions/download-assets
+        id: download
+        with:
+          source: coinmarketcap
+          mode: ${{ inputs.mode || 'top' }}
+        env:
+          COINGECKO_KEY_SECRET: ${{ secrets.COINGECKO_KEY_SECRET }}
+          COINMARKETCAP_KEY_SECRET: ${{ secrets.COINMARKETCAP_KEY_SECRET }}
+          COINGECKO_TOP_COUNT: ${{ vars.COINGECKO_TOP_COUNT }}
+          COINMARKETCAP_TOP_COUNT: ${{ vars.COINMARKETCAP_TOP_COUNT }}
+          COINMARKETCAP_TRENDING_COUNT: ${{ vars.COINMARKETCAP_TRENDING_COUNT }}
+          JUPITER_TOP_COUNT: ${{ vars.JUPITER_TOP_COUNT }}
+
+  publish:
+    needs: download
+    if: needs.download.outputs.has_changes == 'true'
+    uses: ./.github/workflows/upload.yml
     secrets: inherit

@@ -1,0 +1,65 @@
+name: Download assets
+description: Download provider images, generate lists, and commit changes
+inputs:
+  source:
+    description: Image provider
+    required: true
+  mode:
+    description: Top or trending selection
+    default: top
+  id:
+    description: Optional provider ID or comma-separated IDs
+    default: ""
+outputs:
+  has_changes:
+    description: Whether new assets were committed
+    value: ${{ steps.commit.outputs.has_changes }}
+runs:
+  using: composite
+  steps:
+    - uses: ./.github/actions/setup-wallet
+    - name: Set up sccache
+      uses: mozilla-actions/sccache-action@9e7fa8a12102821edf02ca5dbea1acd0f89a2696 # v0.0.10
+      env:
+        SCCACHE_GHA_ENABLED: "true"
+    - name: Download images
+      shell: bash
+      working-directory: wallet/core
+      env:
+        ASSET_SOURCE: ${{ inputs.source }}
+        ASSET_MODE: ${{ inputs.mode }}
+        ASSET_ID: ${{ inputs.id }}
+        CARGO_TERM_COLOR: always
+        RUSTC_WRAPPER: sccache
+        SCCACHE_GHA_ENABLED: "true"
+      run: |
+        if [ -n "$ASSET_ID" ]; then
+          IFS=',' read -ra ids <<< "$ASSET_ID"
+          for asset_id in "${ids[@]}"; do
+            asset_id="${asset_id//[[:space:]]/}"
+            cargo run --package img-downloader -- --source "$ASSET_SOURCE" --mode "$ASSET_MODE" --folder ../../blockchains --id "$asset_id"
+          done
+        else
+          cargo run --package img-downloader -- --source "$ASSET_SOURCE" --mode "$ASSET_MODE" --folder ../../blockchains
+        fi
+    - name: Generate asset lists
+      shell: bash
+      run: ./.github/scripts/generate-assets-list.sh
+    - name: Commit and push
+      id: commit
+      shell: bash
+      env:
+        ASSET_SOURCE: ${{ inputs.source }}
+        ASSET_MODE: ${{ inputs.mode }}
+        ASSET_ID: ${{ inputs.id }}
+      run: |
+        MESSAGE="Update $ASSET_SOURCE assets"
+        if [ "$ASSET_MODE" != "top" ]; then
+          MESSAGE="Update $ASSET_SOURCE $ASSET_MODE assets"
+        fi
+        if [[ "$ASSET_ID" == *,* ]]; then
+          MESSAGE="Update $ASSET_SOURCE assets batch"
+        elif [ -n "$ASSET_ID" ]; then
+          MESSAGE="Update $ASSET_SOURCE asset: $ASSET_ID"
+        fi
+        ./.github/scripts/commit-changes.sh "$MESSAGE"
