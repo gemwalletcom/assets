@@ -1,0 +1,43 @@
+name: "[Get Assets] DexScreener"
+run-name: "DexScreener: ${{ inputs.mode || (github.event.schedule == '0 */3 * * *' && 'trending' || 'top') }}"
+
+on:
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: Asset selection
+        required: true
+        type: choice
+        default: top
+        options:
+          - top
+          - trending
+  schedule:
+    - cron: '0 */12 * * *'
+    - cron: '0 */3 * * *'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: dexscreener-assets
+  cancel-in-progress: false
+
+jobs:
+  download:
+    runs-on: ubuntu-latest
+    outputs:
+      has_changes: ${{ steps.download.outputs.has_changes }}
+    steps:
+      - uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3
+      - uses: ./.github/actions/download-assets
+        id: download
+        with:
+          source: dexscreener
+          mode: ${{ inputs.mode || (github.event.schedule == '0 */3 * * *' && 'trending' || 'top') }}
+
+  publish:
+    needs: download
+    if: needs.download.outputs.has_changes == 'true'
+    uses: ./.github/workflows/upload.yml
+    secrets: inherit
