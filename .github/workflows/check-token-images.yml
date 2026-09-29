@@ -5,6 +5,7 @@ on:
     paths:
       - 'blockchains/**/logo.png'
       - 'scripts/check_token_images.py'
+      - 'scripts/requirements.txt'
       - '.github/workflows/check-token-images.yml'
   push:
     branches:
@@ -12,6 +13,7 @@ on:
     paths:
       - 'blockchains/**/logo.png'
       - 'scripts/check_token_images.py'
+      - 'scripts/requirements.txt'
       - '.github/workflows/check-token-images.yml'
   workflow_dispatch:
 
@@ -35,8 +37,8 @@ jobs:
         with:
           python-version: '3.13'
 
-      - name: Install Pillow
-        run: python -m pip install --disable-pip-version-check "Pillow==11.3.0"
+      - name: Install dependencies
+        run: python -m pip install --disable-pip-version-check -r scripts/requirements.txt
 
       - name: Check token images
         shell: bash

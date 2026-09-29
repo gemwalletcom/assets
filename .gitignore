@@ -3,6 +3,7 @@
 .vscode/
 *~
 *.txt
+!scripts/requirements.txt
 .env
 .env.test
 bin/
