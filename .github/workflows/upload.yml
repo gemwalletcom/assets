@@ -52,5 +52,5 @@ jobs:
 
       - name: Purge cache
         run: |
-          git show --name-only --pretty="" HEAD -- blockchains/ lists/ > /tmp/changed.txt || true
+          ./.github/scripts/changed-files.sh HEAD^ HEAD blockchains lists > /tmp/changed.txt || true
           ./.github/scripts/purge-cache.sh "${{ secrets.R2_PURGE_CACHE_ZONE_ID }}" "${{ secrets.R2_PURGE_CACHE_SECRET_KEY }}" "${{ secrets.R2_PURGE_CACHE_URL }}" /tmp/changed.txt
