@@ -1,0 +1,17 @@
+name: Sync directory to R2
+description: Sync a local directory to the matching R2 prefix
+inputs:
+  directory:
+    description: Directory and destination prefix to sync
+    required: true
+runs:
+  using: composite
+  steps:
+    - shell: bash
+      env:
+        DIRECTORY: ${{ inputs.directory }}
+      run: |
+        aws s3 sync "$DIRECTORY/" "s3://$R2_ASSETS_BUCKET/$DIRECTORY/" \
+          --endpoint-url "$R2_ENDPOINT_URL" \
+          --size-only \
+          --delete

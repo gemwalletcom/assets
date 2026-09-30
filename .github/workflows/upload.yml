@@ -18,6 +18,8 @@ concurrency:
 
 env:
   AWS_REGION: us-east-1
+  R2_ASSETS_BUCKET: ${{ secrets.R2_ASSETS_BUCKET }}
+  R2_ENDPOINT_URL: https://${{ secrets.R2_ACCOUNT_ID }}.r2.cloudflarestorage.com
 
 jobs:
   upload:
@@ -37,18 +39,14 @@ jobs:
           aws configure set region ${{ env.AWS_REGION }}
 
       - name: Sync blockchains to R2
-        run: |
-          aws s3 sync blockchains/ s3://${{ secrets.R2_ASSETS_BUCKET }}/blockchains/ \
-            --endpoint-url https://${{ secrets.R2_ACCOUNT_ID }}.r2.cloudflarestorage.com \
-            --size-only \
-            --delete
+        uses: ./.github/actions/sync-r2
+        with:
+          directory: blockchains
 
       - name: Sync lists to R2
-        run: |
-          aws s3 sync lists/ s3://${{ secrets.R2_ASSETS_BUCKET }}/lists/ \
-            --endpoint-url https://${{ secrets.R2_ACCOUNT_ID }}.r2.cloudflarestorage.com \
-            --size-only \
-            --delete
+        uses: ./.github/actions/sync-r2
+        with:
+          directory: lists
 
       - name: Purge cache
         run: |
