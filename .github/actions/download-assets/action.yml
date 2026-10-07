@@ -17,14 +17,14 @@ outputs:
 runs:
   using: composite
   steps:
-    - uses: ./.github/actions/setup-wallet
+    - uses: ./.github/actions/setup-rust
     - name: Set up sccache
       uses: mozilla-actions/sccache-action@9e7fa8a12102821edf02ca5dbea1acd0f89a2696 # v0.0.10
       env:
         SCCACHE_GHA_ENABLED: "true"
     - name: Download images
       shell: bash
-      working-directory: wallet/core
+      working-directory: cli
       env:
         ASSET_SOURCE: ${{ inputs.source }}
         ASSET_MODE: ${{ inputs.mode }}
@@ -37,10 +37,10 @@ runs:
           IFS=',' read -ra ids <<< "$ASSET_ID"
           for asset_id in "${ids[@]}"; do
             asset_id="${asset_id//[[:space:]]/}"
-            cargo run --package img-downloader -- --source "$ASSET_SOURCE" --mode "$ASSET_MODE" --folder ../../blockchains --id "$asset_id"
+            cargo run --locked -- --source "$ASSET_SOURCE" --mode "$ASSET_MODE" --id "$asset_id"
           done
         else
-          cargo run --package img-downloader -- --source "$ASSET_SOURCE" --mode "$ASSET_MODE" --folder ../../blockchains
+          cargo run --locked -- --source "$ASSET_SOURCE" --mode "$ASSET_MODE"
         fi
     - name: Generate asset lists
       shell: bash

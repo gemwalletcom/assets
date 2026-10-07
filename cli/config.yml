@@ -1,0 +1,42 @@
+folder: ../blockchains
+delay: 1s
+image:
+  size: 256
+  asset_types:
+    - png
+    - webp
+  types:
+    - png
+    - jpeg
+    - jpg
+    - svg
+  request:
+    timeout: 10s
+    retries: 2
+coingecko:
+  url: https://pro-api.coingecko.com
+  key:
+    secret: ""
+  top:
+    count: 250
+coinmarketcap:
+  url: https://pro-api.coinmarketcap.com
+  key:
+    secret: ""
+  top:
+    count: 250
+  trending:
+    count: 10
+jupiter:
+  key:
+    secret: ""
+  top:
+    count: 250
+  trending:
+    count: 10
+    interval: 24h
+dexscreener:
+  top:
+    count: 50
+  trending:
+    count: 50
