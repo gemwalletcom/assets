@@ -1,10 +1,8 @@
 name: Set up Rust
-description: Install Rust and restore the cli crate build cache
+description: Restore the cli crate build cache; rustup installs the toolchain pinned in cli/rust-toolchain.toml
 runs:
   using: composite
   steps:
-    - name: Install Rust
-      uses: dtolnay/rust-toolchain@29eef336d9b2848a0b548edc03f92a220660cdb8 # stable
     - name: Restore Rust cache
       uses: Swatinem/rust-cache@c19371144df3bb44fab255c43d04cbc2ab54d1c4 # v2.9.1
       with:

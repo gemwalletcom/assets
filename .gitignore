@@ -6,4 +6,4 @@
 .env
 .env.test
 bin/
-target/
+/cli/target/

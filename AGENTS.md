@@ -28,7 +28,7 @@ Around 70 networks and 16k token logos. `<token>` is an EVM address on EVM chain
 
 ## Tooling
 
-All tooling lives in `cli/`, a standalone Rust crate that owns image download, conversion and validation. Provider clients (`coingecko`, `coinmarketcap`, `jupiter`, `dexscreener`), `primitives` and the other shared crates stay in the Core workspace of **[gemwalletcom/wallet](https://github.com/gemwalletcom/wallet)** and come in as git dependencies pinned to a release tag. To pick up wallet changes such as a new chain or a provider mapping, bump the tag in `cli/Cargo.toml`, run `cargo update` in that directory, and commit the lockfile.
+All tooling lives in `cli/`, a standalone Rust crate that owns image download, conversion and validation. Provider clients (`coingecko`, `coinmarketcap`, `jupiter`, `dexscreener`), `primitives` and the other shared crates stay in the Core workspace of **[gemwalletcom/wallet](https://github.com/gemwalletcom/wallet)** and come in as git dependencies pinned to a release tag. To pick up wallet changes such as a new chain or a provider mapping, bump the tag on every wallet dependency in `cli/Cargo.toml` (Dependabot's `wallet` group does this weekly), build once in `cli/` to refresh `Cargo.lock`, and commit both. The crate builds with the toolchain pinned in `cli/rust-toolchain.toml`, matching the wallet.
 
 If new tooling is needed it should be Rust, extending `cli`. Keeping the tooling in one crate is also what keeps the rest of this repository free of runtime dependencies.
 
@@ -52,7 +52,7 @@ cargo run -- check ../blockchains/ethereum/logo.png
 cargo run -- --source coingecko --mode top
 ```
 
-`--source` is one of `coingecko`, `coinmarketcap`, `jupiter` or `dexscreener`. `--mode` is `top` or `trending` and is ignored when `--id` is supplied. Provider API keys come from the environment (`COINGECKO_KEY_SECRET`, `COINMARKETCAP_KEY_SECRET`, `JUPITER_KEY_SECRET`); any `config.yml` value can be overridden the same way, for example `COINGECKO_TOP_COUNT`.
+`--source` is one of `coingecko`, `coinmarketcap`, `jupiter` or `dexscreener`. `--mode` is `top` or `trending` and is ignored when `--id` is supplied. Provider API keys come from the environment (`COINGECKO_KEY_SECRET`, `COINMARKETCAP_KEY_SECRET`, `JUPITER_KEY_SECRET`); nested `config.yml` values whose keys contain no underscore can be overridden the same way, for example `COINGECKO_TOP_COUNT`.
 
 ## Automation
 

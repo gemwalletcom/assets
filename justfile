@@ -16,7 +16,7 @@ download source mode="top" id="":
     cd cli && cargo run --locked -- --source {{ source }} --mode {{ mode }} --id "{{ id }}"
 
 lint:
-    cd cli && cargo clippy --locked --all-targets -- -D warnings
+    cd cli && cargo fmt --check && cargo clippy --locked --all-targets -- -D warnings
 
 test:
     cd cli && cargo test --locked
