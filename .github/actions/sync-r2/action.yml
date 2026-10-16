@@ -11,7 +11,8 @@ runs:
       env:
         DIRECTORY: ${{ inputs.directory }}
       run: |
-        aws s3 sync "$DIRECTORY/" "s3://$R2_ASSETS_BUCKET/$DIRECTORY/" \
-          --endpoint-url "$R2_ENDPOINT_URL" \
-          --size-only \
-          --delete
+        rclone sync "$DIRECTORY/" ":s3:${R2_ASSETS_BUCKET:?}/$DIRECTORY/" \
+          --s3-provider Cloudflare \
+          --s3-endpoint "${R2_ENDPOINT_URL:?}" \
+          --s3-no-check-bucket \
+          --size-only

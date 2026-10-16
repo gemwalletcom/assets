@@ -17,7 +17,8 @@ concurrency:
   cancel-in-progress: false
 
 env:
-  AWS_REGION: us-east-1
+  RCLONE_S3_ACCESS_KEY_ID: ${{ secrets.R2_ACCESS_KEY_ID }}
+  RCLONE_S3_SECRET_ACCESS_KEY: ${{ secrets.R2_ACCESS_SECRET_KEY }}
   R2_ASSETS_BUCKET: ${{ secrets.R2_ASSETS_BUCKET }}
   R2_ENDPOINT_URL: https://${{ secrets.R2_ACCOUNT_ID }}.r2.cloudflarestorage.com
 
@@ -32,11 +33,10 @@ jobs:
           ref: ${{ github.ref_name || 'master' }}
           fetch-depth: 2
 
-      - name: Configure AWS credentials
+      - name: Install rclone
         run: |
-          aws configure set aws_access_key_id ${{ secrets.R2_ACCESS_KEY_ID }}
-          aws configure set aws_secret_access_key ${{ secrets.R2_ACCESS_SECRET_KEY }}
-          aws configure set region ${{ env.AWS_REGION }}
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends rclone
 
       - name: Sync blockchains to R2
         uses: ./.github/actions/sync-r2
