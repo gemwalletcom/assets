@@ -60,7 +60,7 @@ dependencies = [
  "hashbrown 0.17.1",
  "indexmap 2.14.0",
  "itoa",
- "k256",
+ "k256 0.13.4",
  "keccak-asm",
  "paste",
  "proptest",
@@ -507,9 +507,9 @@ dependencies = [
 
 [[package]]
 name = "async-trait"
-version = "0.1.91"
+version = "0.1.92"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "ae36dc4177970ef04fde5178d3e2429882def40e57a451f919c098f72baa6cec"
+checksum = "82f6aeea286b8eb4dd3431a1be1b59d290ace00f5bfd8e2a159bc2a05e2c1667"
 dependencies = [
  "proc-macro2",
  "quote",
@@ -567,6 +567,12 @@ name = "base16ct"
 version = "0.2.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "4c7f02d4ea65f2c1853089ffd8d2787bdbc63de2f0d29dedbcf8ccdfa0ccd4cf"
+
+[[package]]
+name = "base16ct"
+version = "1.0.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "fd307490d624467aa6f74b0eabb77633d1f758a7b25f12bceb0b22e08d9726f6"
 
 [[package]]
 name = "base64"
@@ -683,6 +689,30 @@ dependencies = [
 ]
 
 [[package]]
+name = "borsh"
+version = "1.8.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "553c5d846a6ba5150c65e3b1b8ec073bcf1abc20f9b7220de384a4443ea4e20a"
+dependencies = [
+ "borsh-derive",
+ "bytes",
+ "cfg_aliases",
+]
+
+[[package]]
+name = "borsh-derive"
+version = "1.8.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "12cdfe656708a01f89b451a7d36466e6fe6c414de0aa18fc54f864f6f9ca9f56"
+dependencies = [
+ "once_cell",
+ "proc-macro-crate",
+ "proc-macro2",
+ "quote",
+ "syn 3.0.6",
+]
+
+[[package]]
 name = "brotli"
 version = "8.0.4"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -709,6 +739,7 @@ version = "0.5.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "bf88ba1141d185c399bee5288d850d63b8369520c1eafc32a0430b5b6c287bf4"
 dependencies = [
+ "sha2 0.10.9",
  "tinyvec",
 ]
 
@@ -802,13 +833,27 @@ dependencies = [
 
 [[package]]
 name = "chain_primitives"
-version = "2.114.62"
-source = "git+https://github.com/gemwalletcom/wallet?tag=2.114.62#ad74cc037433d9cea87b8f18c3cdca4cf8078827"
+version = "2.114.75"
+source = "git+https://github.com/gemwalletcom/wallet?rev=7a56adeeda0d567cf66c81b842bdfc611a022556#7a56adeeda0d567cf66c81b842bdfc611a022556"
 dependencies = [
  "alloy-primitives",
  "gem_evm",
  "num-bigint 0.5.1",
  "primitives",
+]
+
+[[package]]
+name = "chain_traits"
+version = "2.114.75"
+source = "git+https://github.com/gemwalletcom/wallet?rev=7a56adeeda0d567cf66c81b842bdfc611a022556#7a56adeeda0d567cf66c81b842bdfc611a022556"
+dependencies = [
+ "async-trait",
+ "chrono",
+ "futures",
+ "num-bigint 0.5.1",
+ "primitives",
+ "serde",
+ "strum",
 ]
 
 [[package]]
@@ -871,12 +916,14 @@ version = "1.0.0"
 dependencies = [
  "async-trait",
  "chain_primitives",
+ "chain_traits",
  "clap",
  "coingecko",
  "coinmarketcap",
  "config",
  "dexscreener",
  "gem_client",
+ "gem_hypercore",
  "gem_tracing",
  "image",
  "jupiter",
@@ -907,8 +954,8 @@ checksum = "0c9ea0ac24bc397ab3c98583a3c9ba74fa56b09a4449bbe172b9b1ddb016027a"
 
 [[package]]
 name = "coingecko"
-version = "2.114.62"
-source = "git+https://github.com/gemwalletcom/wallet?tag=2.114.62#ad74cc037433d9cea87b8f18c3cdca4cf8078827"
+version = "2.114.75"
+source = "git+https://github.com/gemwalletcom/wallet?rev=7a56adeeda0d567cf66c81b842bdfc611a022556#7a56adeeda0d567cf66c81b842bdfc611a022556"
 dependencies = [
  "chain_primitives",
  "chrono",
@@ -920,8 +967,8 @@ dependencies = [
 
 [[package]]
 name = "coinmarketcap"
-version = "2.114.62"
-source = "git+https://github.com/gemwalletcom/wallet?tag=2.114.62#ad74cc037433d9cea87b8f18c3cdca4cf8078827"
+version = "2.114.75"
+source = "git+https://github.com/gemwalletcom/wallet?rev=7a56adeeda0d567cf66c81b842bdfc611a022556#7a56adeeda0d567cf66c81b842bdfc611a022556"
 dependencies = [
  "futures",
  "gem_client",
@@ -930,6 +977,12 @@ dependencies = [
  "serde",
  "serde_json",
 ]
+
+[[package]]
+name = "color_quant"
+version = "1.1.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "3d7b894f5411737b7867f4827955924d7c254fc9f4d91a6aad6b097804b1018b"
 
 [[package]]
 name = "colorchoice"
@@ -1064,6 +1117,12 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "773648b94d0e5d620f64f280777445740e61fe701025087ec8b57f45c791888b"
 
 [[package]]
+name = "cpubits"
+version = "0.1.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "15b85f9c39137c3a891689859392b1bd49812121d0d61c9caf00d46ed5ce06ae"
+
+[[package]]
 name = "cpufeatures"
 version = "0.2.17"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -1109,6 +1168,22 @@ dependencies = [
 ]
 
 [[package]]
+name = "crypto-bigint"
+version = "0.7.5"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "1a52aa3fcda4e6302a9f48734f234d35d4721b96f8fe07d073f07ce9df4f0271"
+dependencies = [
+ "cpubits",
+ "ctutils",
+ "getrandom 0.4.3",
+ "hybrid-array",
+ "num-traits",
+ "rand_core 0.10.1",
+ "subtle",
+ "zeroize",
+]
+
+[[package]]
 name = "crypto-common"
 version = "0.1.6"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -1124,7 +1199,9 @@ version = "0.2.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "ce6e4c961d6cd6c9a86db418387425e8bdeaf05b3c8bc1411e6dca4c252f1453"
 dependencies = [
+ "getrandom 0.4.3",
  "hybrid-array",
+ "rand_core 0.10.1",
 ]
 
 [[package]]
@@ -1134,6 +1211,34 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "7d5515a3834141de9eafb9717ad39eea8247b5674e6066c404e8c4b365d2a29e"
 dependencies = [
  "cmov",
+ "subtle",
+]
+
+[[package]]
+name = "curve25519-dalek"
+version = "5.0.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "b5eed333089e2e1c1ac8c6c0398e5e2497b4c9926ca6d0365ed1e099afa5bc23"
+dependencies = [
+ "cfg-if",
+ "cpufeatures 0.3.0",
+ "curve25519-dalek-derive",
+ "digest 0.11.3",
+ "fiat-crypto",
+ "rustc_version 0.4.1",
+ "subtle",
+ "zeroize",
+]
+
+[[package]]
+name = "curve25519-dalek-derive"
+version = "0.1.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "f46882e17999c6cc590af592290432be3bce0428cb0d5f8b6715e4dc7b383eb3"
+dependencies = [
+ "proc-macro2",
+ "quote",
+ "syn 2.0.119",
 ]
 
 [[package]]
@@ -1149,6 +1254,16 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "e7c1832837b905bbfb5101e07cc24c8deddf52f93225eee6ead5f4d63d53ddcb"
 dependencies = [
  "const-oid 0.9.6",
+ "zeroize",
+]
+
+[[package]]
+name = "der"
+version = "0.8.2"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "a878c850e9e421b20262e9b41f9c860e4785fa07541c266b62ff9d1ef998a80a"
+dependencies = [
+ "const-oid 0.10.2",
  "zeroize",
 ]
 
@@ -1197,8 +1312,8 @@ dependencies = [
 
 [[package]]
 name = "dexscreener"
-version = "2.114.62"
-source = "git+https://github.com/gemwalletcom/wallet?tag=2.114.62#ad74cc037433d9cea87b8f18c3cdca4cf8078827"
+version = "2.114.75"
+source = "git+https://github.com/gemwalletcom/wallet?rev=7a56adeeda0d567cf66c81b842bdfc611a022556#7a56adeeda0d567cf66c81b842bdfc611a022556"
 dependencies = [
  "gem_client",
  "primitives",
@@ -1268,12 +1383,49 @@ version = "0.16.9"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "ee27f32b5c5292967d2d4a9d7f1e0b0aed2c15daded5a60300e4abb9d8020bca"
 dependencies = [
- "der",
+ "der 0.7.10",
  "digest 0.10.7",
- "elliptic-curve",
- "rfc6979",
- "signature",
- "spki",
+ "elliptic-curve 0.13.8",
+ "rfc6979 0.4.0",
+ "signature 2.2.0",
+ "spki 0.7.3",
+]
+
+[[package]]
+name = "ecdsa"
+version = "0.17.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "c0681a4fc24c767085329728d8dfba959af91228aa4610cca4f8ce317ba46ae0"
+dependencies = [
+ "der 0.8.2",
+ "digest 0.11.3",
+ "elliptic-curve 0.14.1",
+ "rfc6979 0.6.0",
+ "signature 3.0.0",
+ "spki 0.8.1",
+ "zeroize",
+]
+
+[[package]]
+name = "ed25519"
+version = "3.0.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "29fcf32e6c73d1079f83ab4d782de2d81620346a5f38c6237a86a22f8368980a"
+dependencies = [
+ "signature 3.0.0",
+]
+
+[[package]]
+name = "ed25519-dalek"
+version = "3.0.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "6ebaa1a2bf1290ab3bfe5a7b771d050ebffab2711c19a81691c683a5144a25de"
+dependencies = [
+ "curve25519-dalek",
+ "ed25519",
+ "sha2 0.11.0",
+ "subtle",
+ "zeroize",
 ]
 
 [[package]]
@@ -1300,15 +1452,35 @@ version = "0.13.8"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "b5e6043086bf7973472e0c7dff2142ea0b680d30e18d9cc40f267efbf222bd47"
 dependencies = [
- "base16ct",
- "crypto-bigint",
+ "base16ct 0.2.0",
+ "crypto-bigint 0.5.5",
  "digest 0.10.7",
- "ff",
+ "ff 0.13.1",
  "generic-array",
- "group",
- "pkcs8",
+ "group 0.13.0",
+ "pkcs8 0.10.2",
  "rand_core 0.6.4",
- "sec1",
+ "sec1 0.7.3",
+ "subtle",
+ "zeroize",
+]
+
+[[package]]
+name = "elliptic-curve"
+version = "0.14.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "9d65aa39b3a5c1c9c1b745c9a019234bb7a21b77abcb4f4d266d706e2d577d65"
+dependencies = [
+ "base16ct 1.0.0",
+ "crypto-bigint 0.7.5",
+ "crypto-common 0.2.2",
+ "digest 0.11.3",
+ "ff 0.14.0",
+ "group 0.14.0",
+ "hybrid-array",
+ "pkcs8 0.11.0",
+ "rand_core 0.10.1",
+ "sec1 0.8.1",
  "subtle",
  "zeroize",
 ]
@@ -1397,6 +1569,22 @@ dependencies = [
  "rand_core 0.6.4",
  "subtle",
 ]
+
+[[package]]
+name = "ff"
+version = "0.14.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "a1f686ab92a9fb0eaf188f6c6c87b89490baa6fdb0db4544ba4dc47f7942489f"
+dependencies = [
+ "rand_core 0.10.1",
+ "subtle",
+]
+
+[[package]]
+name = "fiat-crypto"
+version = "0.3.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "64cd1e32ddd350061ae6edb1b082d7c54915b5c672c389143b9a63403a109f24"
 
 [[package]]
 name = "find-msvc-tools"
@@ -1585,8 +1773,8 @@ dependencies = [
 
 [[package]]
 name = "gem_client"
-version = "2.114.62"
-source = "git+https://github.com/gemwalletcom/wallet?tag=2.114.62#ad74cc037433d9cea87b8f18c3cdca4cf8078827"
+version = "2.114.75"
+source = "git+https://github.com/gemwalletcom/wallet?rev=7a56adeeda0d567cf66c81b842bdfc611a022556#7a56adeeda0d567cf66c81b842bdfc611a022556"
 dependencies = [
  "async-trait",
  "hex",
@@ -1600,8 +1788,8 @@ dependencies = [
 
 [[package]]
 name = "gem_evm"
-version = "2.114.62"
-source = "git+https://github.com/gemwalletcom/wallet?tag=2.114.62#ad74cc037433d9cea87b8f18c3cdca4cf8078827"
+version = "2.114.75"
+source = "git+https://github.com/gemwalletcom/wallet?rev=7a56adeeda0d567cf66c81b842bdfc611a022556#7a56adeeda0d567cf66c81b842bdfc611a022556"
 dependencies = [
  "alloy-primitives",
  "alloy-sol-types",
@@ -1621,8 +1809,8 @@ dependencies = [
 
 [[package]]
 name = "gem_hash"
-version = "2.114.62"
-source = "git+https://github.com/gemwalletcom/wallet?tag=2.114.62#ad74cc037433d9cea87b8f18c3cdca4cf8078827"
+version = "2.114.75"
+source = "git+https://github.com/gemwalletcom/wallet?rev=7a56adeeda0d567cf66c81b842bdfc611a022556#7a56adeeda0d567cf66c81b842bdfc611a022556"
 dependencies = [
  "blake2b_simd",
  "hmac 0.13.0",
@@ -1633,9 +1821,35 @@ dependencies = [
 ]
 
 [[package]]
+name = "gem_hypercore"
+version = "2.114.75"
+source = "git+https://github.com/gemwalletcom/wallet?rev=7a56adeeda0d567cf66c81b842bdfc611a022556#7a56adeeda0d567cf66c81b842bdfc611a022556"
+dependencies = [
+ "alloy-primitives",
+ "async-trait",
+ "chain_traits",
+ "chrono",
+ "futures",
+ "gem_client",
+ "gem_evm",
+ "gem_hash",
+ "k256 0.14.0",
+ "num-bigint 0.5.1",
+ "number_formatter",
+ "primitives",
+ "rmp-serde",
+ "serde",
+ "serde_json",
+ "serde_serializers",
+ "signer",
+ "strum",
+ "zeroize",
+]
+
+[[package]]
 name = "gem_jsonrpc"
-version = "2.114.62"
-source = "git+https://github.com/gemwalletcom/wallet?tag=2.114.62#ad74cc037433d9cea87b8f18c3cdca4cf8078827"
+version = "2.114.75"
+source = "git+https://github.com/gemwalletcom/wallet?rev=7a56adeeda0d567cf66c81b842bdfc611a022556#7a56adeeda0d567cf66c81b842bdfc611a022556"
 dependencies = [
  "serde",
  "serde_json",
@@ -1643,8 +1857,8 @@ dependencies = [
 
 [[package]]
 name = "gem_tracing"
-version = "2.114.62"
-source = "git+https://github.com/gemwalletcom/wallet?tag=2.114.62#ad74cc037433d9cea87b8f18c3cdca4cf8078827"
+version = "2.114.75"
+source = "git+https://github.com/gemwalletcom/wallet?rev=7a56adeeda0d567cf66c81b842bdfc611a022556#7a56adeeda0d567cf66c81b842bdfc611a022556"
 dependencies = [
  "tracing",
  "tracing-subscriber",
@@ -1701,13 +1915,34 @@ dependencies = [
 ]
 
 [[package]]
+name = "gif"
+version = "0.14.2"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "ee8cfcc411d9adbbaba82fb72661cc1bcca13e8bba98b364e62b2dba8f960159"
+dependencies = [
+ "color_quant",
+ "weezl",
+]
+
+[[package]]
 name = "group"
 version = "0.13.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "f0f9ef7462f7c099f518d754361858f86d8a07af53ba9af0fe635bbccb151a63"
 dependencies = [
- "ff",
+ "ff 0.13.1",
  "rand_core 0.6.4",
+ "subtle",
+]
+
+[[package]]
+name = "group"
+version = "0.14.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "7fd1a1c7a5206c5b7a3f5a0d7ccd3ff85d0c8f5133d62a02680255b0004af5f4"
+dependencies = [
+ "ff 0.14.0",
+ "rand_core 0.10.1",
  "subtle",
 ]
 
@@ -1870,7 +2105,9 @@ version = "0.4.13"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "818356c5132c1fede50f837ca96afbe78ff42413047f4abb886217845e1b6c8c"
 dependencies = [
+ "subtle",
  "typenum",
+ "zeroize",
 ]
 
 [[package]]
@@ -2244,8 +2481,8 @@ dependencies = [
 
 [[package]]
 name = "jupiter"
-version = "2.114.62"
-source = "git+https://github.com/gemwalletcom/wallet?tag=2.114.62#ad74cc037433d9cea87b8f18c3cdca4cf8078827"
+version = "2.114.75"
+source = "git+https://github.com/gemwalletcom/wallet?rev=7a56adeeda0d567cf66c81b842bdfc611a022556#7a56adeeda0d567cf66c81b842bdfc611a022556"
 dependencies = [
  "gem_client",
  "reqwest",
@@ -2260,10 +2497,25 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "f6e3919bbaa2945715f0bb6d3934a173d1e9a59ac23767fbaaef277265a7411b"
 dependencies = [
  "cfg-if",
- "ecdsa",
- "elliptic-curve",
+ "ecdsa 0.16.9",
+ "elliptic-curve 0.13.8",
  "once_cell",
  "sha2 0.10.9",
+]
+
+[[package]]
+name = "k256"
+version = "0.14.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "93f50113171a713f4a4231ef82eb26703607139b35dcb56241f0ceab2ae1f7d8"
+dependencies = [
+ "cpubits",
+ "ecdsa 0.17.0",
+ "elliptic-curve 0.14.1",
+ "primeorder",
+ "sha2 0.11.0",
+ "signature 3.0.0",
+ "wnaf",
 ]
 
 [[package]]
@@ -2422,8 +2674,8 @@ dependencies = [
 
 [[package]]
 name = "model_derive"
-version = "2.114.62"
-source = "git+https://github.com/gemwalletcom/wallet?tag=2.114.62#ad74cc037433d9cea87b8f18c3cdca4cf8078827"
+version = "2.114.75"
+source = "git+https://github.com/gemwalletcom/wallet?rev=7a56adeeda0d567cf66c81b842bdfc611a022556#7a56adeeda0d567cf66c81b842bdfc611a022556"
 
 [[package]]
 name = "moxcms"
@@ -2488,6 +2740,16 @@ checksum = "071dfc062690e90b734c0b2273ce72ad0ffa95f0c74596bc250dcfd960262841"
 dependencies = [
  "autocfg",
  "libm",
+]
+
+[[package]]
+name = "number_formatter"
+version = "2.114.75"
+source = "git+https://github.com/gemwalletcom/wallet?rev=7a56adeeda0d567cf66c81b842bdfc611a022556#7a56adeeda0d567cf66c81b842bdfc611a022556"
+dependencies = [
+ "bigdecimal",
+ "num-bigint 0.5.1",
+ "rust_decimal",
 ]
 
 [[package]]
@@ -2595,8 +2857,18 @@ version = "0.10.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "f950b2377845cebe5cf8b5165cb3cc1a5e0fa5cfa3e1f7f55707d8fd82e0a7b7"
 dependencies = [
- "der",
- "spki",
+ "der 0.7.10",
+ "spki 0.7.3",
+]
+
+[[package]]
+name = "pkcs8"
+version = "0.11.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "451913da69c775a56034ea8d9003d27ee8948e12443eae7c038ba100a4f21cb7"
+dependencies = [
+ "der 0.8.2",
+ "spki 0.8.1",
 ]
 
 [[package]]
@@ -2652,6 +2924,33 @@ dependencies = [
 ]
 
 [[package]]
+name = "primefield"
+version = "0.14.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "c555a6e4eb7d4e158fcb028c835c3b8642206ddc279b5c6b202ef9a8bdb592f4"
+dependencies = [
+ "crypto-bigint 0.7.5",
+ "crypto-common 0.2.2",
+ "ff 0.14.0",
+ "rand_core 0.10.1",
+ "subtle",
+ "zeroize",
+]
+
+[[package]]
+name = "primeorder"
+version = "0.14.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "5c9f42978c78a00e3d68f69fc03e57a234debae69da4020a4fb588fcdcd07b06"
+dependencies = [
+ "elliptic-curve 0.14.1",
+ "once_cell",
+ "primefield",
+ "serdect",
+ "wnaf",
+]
+
+[[package]]
 name = "primitive-types"
 version = "0.12.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -2664,8 +2963,8 @@ dependencies = [
 
 [[package]]
 name = "primitives"
-version = "2.114.62"
-source = "git+https://github.com/gemwalletcom/wallet?tag=2.114.62#ad74cc037433d9cea87b8f18c3cdca4cf8078827"
+version = "2.114.75"
+source = "git+https://github.com/gemwalletcom/wallet?rev=7a56adeeda0d567cf66c81b842bdfc611a022556#7a56adeeda0d567cf66c81b842bdfc611a022556"
 dependencies = [
  "chrono",
  "hex",
@@ -3031,12 +3330,15 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "67e3803f97b999e80cbf7c6ecdd07a8102204d92e1633cf48783720c521196bd"
 dependencies = [
  "bytemuck",
+ "gif",
+ "image-webp",
  "log",
  "pico-args",
  "rgb",
  "svgtypes",
  "tiny-skia",
  "usvg",
+ "zune-jpeg",
 ]
 
 [[package]]
@@ -3047,6 +3349,16 @@ checksum = "f8dd2a808d456c4a54e300a23e9f5a67e122c3024119acbfd73e3bf664491cb2"
 dependencies = [
  "hmac 0.12.1",
  "subtle",
+]
+
+[[package]]
+name = "rfc6979"
+version = "0.6.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "b4a459cddafb3fe76b31fd8f1108007566c40301feb64dc7b54656eb7388172b"
+dependencies = [
+ "crypto-bigint 0.7.5",
+ "hmac 0.13.0",
 ]
 
 [[package]]
@@ -3092,6 +3404,25 @@ dependencies = [
 ]
 
 [[package]]
+name = "rmp"
+version = "0.8.15"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "4ba8be72d372b2c9b35542551678538b562e7cf86c3315773cae48dfbfe7790c"
+dependencies = [
+ "num-traits",
+]
+
+[[package]]
+name = "rmp-serde"
+version = "1.3.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "72f81bee8c8ef9b577d1681a70ebbc962c232461e397b22c208c43c04b67a155"
+dependencies = [
+ "rmp",
+ "serde",
+]
+
+[[package]]
 name = "roxmltree"
 version = "0.21.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -3134,6 +3465,23 @@ name = "ruint-macro"
 version = "1.2.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "48fd7bd8a6377e15ad9d42a8ec25371b94ddc67abe7c8b9127bec79bebaaae18"
+
+[[package]]
+name = "rust_decimal"
+version = "1.43.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "7653272e75dcac41dc199fbea6f5797633994fafd339943c06c9af16bf29cd3a"
+dependencies = [
+ "arrayvec",
+ "borsh",
+ "bytes",
+ "num-traits",
+ "rand 0.8.7",
+ "rand 0.9.5",
+ "serde",
+ "serde_json",
+ "wasm-bindgen",
+]
 
 [[package]]
 name = "rustc-hash"
@@ -3300,10 +3648,24 @@ version = "0.7.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "d3e97a565f76233a6003f9f5c54be1d9c5bdfa3eccfb189469f11ec4901c47dc"
 dependencies = [
- "base16ct",
- "der",
+ "base16ct 0.2.0",
+ "der 0.7.10",
  "generic-array",
- "pkcs8",
+ "pkcs8 0.10.2",
+ "subtle",
+ "zeroize",
+]
+
+[[package]]
+name = "sec1"
+version = "0.8.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "d56d437c2f19203ce5f7122e507831de96f3d2d4d3be5af44a0b0a09d8a80e4d"
+dependencies = [
+ "base16ct 1.0.0",
+ "ctutils",
+ "der 0.8.2",
+ "hybrid-array",
  "subtle",
  "zeroize",
 ]
@@ -3421,8 +3783,8 @@ dependencies = [
 
 [[package]]
 name = "serde_serializers"
-version = "2.114.62"
-source = "git+https://github.com/gemwalletcom/wallet?tag=2.114.62#ad74cc037433d9cea87b8f18c3cdca4cf8078827"
+version = "2.114.75"
+source = "git+https://github.com/gemwalletcom/wallet?rev=7a56adeeda0d567cf66c81b842bdfc611a022556#7a56adeeda0d567cf66c81b842bdfc611a022556"
 dependencies = [
  "hex",
  "num-bigint 0.5.1",
@@ -3459,6 +3821,16 @@ dependencies = [
  "serde_core",
  "serde_json",
  "time",
+]
+
+[[package]]
+name = "serdect"
+version = "0.4.3"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "66cf8fedced2fcf12406bcb34223dffb92eaf34908ede12fed414c82b7f00b3e"
+dependencies = [
+ "base16ct 1.0.0",
+ "serde",
 ]
 
 [[package]]
@@ -3537,6 +3909,30 @@ checksum = "77549399552de45a898a580c1b41d445bf730df867cc44e6c0233bbc4b8329de"
 dependencies = [
  "digest 0.10.7",
  "rand_core 0.6.4",
+]
+
+[[package]]
+name = "signature"
+version = "3.0.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "28d567dcbaf0049cb8ac2608a76cd95ff9e4412e1899d389ee400918ca7537f5"
+dependencies = [
+ "digest 0.11.3",
+ "rand_core 0.10.1",
+]
+
+[[package]]
+name = "signer"
+version = "2.114.75"
+source = "git+https://github.com/gemwalletcom/wallet?rev=7a56adeeda0d567cf66c81b842bdfc611a022556#7a56adeeda0d567cf66c81b842bdfc611a022556"
+dependencies = [
+ "alloy-primitives",
+ "bs58",
+ "ed25519-dalek",
+ "k256 0.14.0",
+ "primitives",
+ "strum",
+ "zeroize",
 ]
 
 [[package]]
@@ -3624,7 +4020,17 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "d91ed6c858b01f942cd56b37a94b3e0a1798290327d1236e4d9cf4eaca44d29d"
 dependencies = [
  "base64ct",
- "der",
+ "der 0.7.10",
+]
+
+[[package]]
+name = "spki"
+version = "0.8.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "7ef958a98b9d5da290cfc78946e9f3e61e1e62a18db0d92cac0b83cc161491a9"
+dependencies = [
+ "base64ct",
+ "der 0.8.2",
 ]
 
 [[package]]
@@ -4274,6 +4680,7 @@ dependencies = [
  "cfg-if",
  "once_cell",
  "rustversion",
+ "serde",
  "wasm-bindgen-macro",
  "wasm-bindgen-shared",
 ]
@@ -4348,6 +4755,12 @@ checksum = "b96554aa2acc8ccdb7e1c9a58a7a68dd5d13bccc69cd124cb09406db612a1c9b"
 dependencies = [
  "rustls-pki-types",
 ]
+
+[[package]]
+name = "weezl"
+version = "0.1.12"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "a28ac98ddc8b9274cb41bb4d9d4d5c425b6020c50c46f25559911905610b4a88"
 
 [[package]]
 name = "winapi-util"
@@ -4524,6 +4937,18 @@ name = "wit-bindgen"
 version = "0.57.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "1ebf944e87a7c253233ad6766e082e3cd714b5d03812acc24c318f549614536e"
+
+[[package]]
+name = "wnaf"
+version = "0.14.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "795ca18b3fdb5e62bf982199278341ddcf7ebf7d32e25e212ad05d496e95f6fa"
+dependencies = [
+ "ff 0.14.0",
+ "group 0.14.0",
+ "hybrid-array",
+ "primefield",
+]
 
 [[package]]
 name = "writeable"

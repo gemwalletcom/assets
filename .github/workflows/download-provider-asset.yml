@@ -13,8 +13,9 @@ on:
           - coinmarketcap
           - jupiter
           - dexscreener
+          - hyperliquid
       id:
-        description: 'Optional provider ID or comma-separated IDs (DexScreener: chain_token-address)'
+        description: 'Optional provider ID or comma-separated IDs (DexScreener: chain_token-address, Hyperliquid: market name)'
         required: false
         type: string
       mode:

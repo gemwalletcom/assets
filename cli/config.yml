@@ -40,3 +40,9 @@ dexscreener:
     count: 50
   trending:
     count: 50
+hyperliquid:
+  url: https://api.hyperliquid.xyz
+  top:
+    count: 500
+  trending:
+    count: 10

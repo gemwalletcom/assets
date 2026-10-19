@@ -1,6 +1,6 @@
 # Assets CLI
 
-Run from `cli/`; images are written to `../blockchains` unless `--folder` is given. Providers: `coingecko`, `coinmarketcap`, `jupiter`, and `dexscreener`.
+Run from `cli/`; images are written to `../blockchains` unless `--folder` is given. Providers: `coingecko`, `coinmarketcap`, `jupiter`, `dexscreener`, and `hyperliquid`.
 
 All providers implement `ImageProvider` for ID lookups and `ImageListProvider` for top and trending lists. The downloader selects the requested operation before starting a download.
 
@@ -26,6 +26,7 @@ The command exits unsuccessfully when a path is unreadable, is not PNG or WEBP c
 | CoinMarketCap | Coin ID or symbol | Latest listings | Latest trending |
 | Jupiter | Token mint | Verified-token list, limited by count | Top trending for the configured interval, filtered to verified tokens |
 | DexScreener | Gem asset ID (`chain_token-address`) | Tokens from trending metas ranked by 24-hour volume | Tokens from trending metas ranked by 24-hour volume |
+| Hyperliquid | Perpetual market name | Listed perpetuals ranked by 24-hour volume | Most recently listed perpetuals |
 
 ## DexScreener
 
@@ -57,3 +58,25 @@ Keep these controls in `config.yml`.
 Only a matching chain and base-token address can supply the logo. Missing logo metadata or unmatched tokens return no images, consistent with the other providers. Existing logos are preserved. Images use the shared PNG conversion, 256×256 resizing, compression, and address formatting pipeline.
 
 In CI, select `dexscreener` in **[Get Assets] By Provider**. Leave ID empty and select `top` or `trending` for lists, or supply one asset ID or comma-separated IDs for explicit lookups.
+
+## Hyperliquid
+
+Writes perpetual logos to `hypercore/assets/perpetual::<market>/logo.png`. List modes read the markets the wallet lists through wallet Core's HyperCore client: markets with 24-hour volume, skipping those named after a chain's native coin (such as `BTC` or `HYPE`), which the wallet draws with its bundled chain icon. Logos come from Hyperliquid's own coin icons, `https://app.hyperliquid.xyz/coins/<market>.svg`; a market without an icon gets an HTML page there and is skipped.
+
+```sh
+cargo run -- --source hyperliquid --mode top
+cargo run -- --source hyperliquid --id COMP
+```
+
+Configuration in `config.yml`:
+
+```yaml
+hyperliquid:
+  url: https://api.hyperliquid.xyz
+  top:
+    count: 500
+  trending:
+    count: 10
+```
+
+`top` covers every listed market while `count` exceeds their number. `trending` takes the newest listings, which Hyperliquid appends to its universe.

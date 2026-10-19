@@ -58,7 +58,7 @@ async fn download_and_convert(client: &Client, url: &str, image_size: u32, suppo
 
     let content_type = response.headers().get(CONTENT_TYPE).and_then(|value| value.to_str().ok()).map(str::to_owned);
     let bytes = response.bytes().await?;
-    let image = decoder::decode(url, content_type.as_deref(), bytes.as_ref(), supported_types)?;
+    let image = decoder::decode(url, content_type.as_deref(), bytes.as_ref(), supported_types, image_size)?;
     encoder::encode_png(image, image_size)
 }
 

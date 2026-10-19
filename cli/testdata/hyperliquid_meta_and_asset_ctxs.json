@@ -1,0 +1,111 @@
+[
+  {
+    "universe": [
+      {
+        "szDecimals": 5,
+        "name": "BTC",
+        "maxLeverage": 40,
+        "marginTableId": 56
+      },
+      {
+        "szDecimals": 1,
+        "name": "MATIC",
+        "maxLeverage": 20,
+        "marginTableId": 20,
+        "isDelisted": true
+      },
+      {
+        "szDecimals": 2,
+        "name": "AAVE",
+        "maxLeverage": 10,
+        "marginTableId": 52
+      },
+      {
+        "szDecimals": 2,
+        "name": "COMP",
+        "maxLeverage": 5,
+        "marginTableId": 5
+      },
+      {
+        "szDecimals": 0,
+        "name": "USELESS",
+        "maxLeverage": 3,
+        "marginTableId": 3
+      }
+    ]
+  },
+  [
+    {
+      "funding": "0.0000125",
+      "openInterest": "39454.34288",
+      "prevDayPx": "81141.0",
+      "dayNtlVlm": "2576943621.0008435249",
+      "premium": "-0.0004400332",
+      "oraclePx": "81812.0",
+      "markPx": "81787.0",
+      "midPx": "81775.5",
+      "impactPxs": [
+        "81772.6",
+        "81776.0"
+      ],
+      "dayBaseVlm": "31441.6963799999"
+    },
+    {
+      "funding": "0.0",
+      "openInterest": "0.0",
+      "prevDayPx": "0.37621",
+      "dayNtlVlm": "0.0",
+      "premium": null,
+      "oraclePx": "0.3754",
+      "markPx": "0.37621",
+      "midPx": null,
+      "impactPxs": null,
+      "dayBaseVlm": "0.0"
+    },
+    {
+      "funding": "0.0000023331",
+      "openInterest": "377551.26",
+      "prevDayPx": "148.79",
+      "dayNtlVlm": "11046623.7608000003",
+      "premium": "-0.0002774394",
+      "oraclePx": "147.78",
+      "markPx": "147.6965",
+      "midPx": "147.725",
+      "impactPxs": [
+        "147.6824",
+        "147.739"
+      ],
+      "dayBaseVlm": "73980.86"
+    },
+    {
+      "funding": "0.0000125",
+      "openInterest": "52214.66",
+      "prevDayPx": "20.871",
+      "dayNtlVlm": "97079.04406",
+      "premium": "0.0",
+      "oraclePx": "21.3173",
+      "markPx": "21.308",
+      "midPx": "21.3055",
+      "impactPxs": [
+        "21.2842",
+        "21.3307"
+      ],
+      "dayBaseVlm": "4544.32"
+    },
+    {
+      "funding": "0.0000125",
+      "openInterest": "47860028.0",
+      "prevDayPx": "0.13729",
+      "dayNtlVlm": "2440995.9334000014",
+      "premium": "0.0",
+      "oraclePx": "0.1368",
+      "markPx": "0.13691",
+      "midPx": "0.136935",
+      "impactPxs": [
+        "0.136753",
+        "0.137066"
+      ],
+      "dayBaseVlm": "17534731.0"
+    }
+  ]
+]

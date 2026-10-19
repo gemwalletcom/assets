@@ -11,7 +11,8 @@ use chain_primitives::format_token_id;
 use coingecko::{CoinGeckoClient, client::USER_AGENT_VALUE};
 use coinmarketcap::CoinMarketCapClient;
 use dexscreener::DexScreenerClient;
-use gem_client::RemoteProviderConfig;
+use gem_client::{RemoteProviderConfig, ReqwestClient};
+use gem_hypercore::rpc::client::HyperCoreClient;
 use gem_tracing::{error_with_fields, info_with_fields, warn_with_fields};
 use jupiter::JupiterClient;
 use primitives::ImageType;
@@ -26,7 +27,7 @@ use crate::{
     config::ImgDownloaderConfig,
     error::ImageDownloadError,
     image::download_image,
-    providers::{CoinMarketCapProvider, CoingeckoProvider, DexScreenerProvider, ImageListProvider, ImageProvider, JupiterProvider, model::AssetImage},
+    providers::{CoinMarketCapProvider, CoingeckoProvider, DexScreenerProvider, HyperliquidProvider, ImageListProvider, ImageProvider, JupiterProvider, model::AssetImage},
 };
 
 pub struct Downloader {
@@ -90,6 +91,10 @@ impl Downloader {
                 ImageRequest::with_lists(JupiterProvider::new(client, img_config.jupiter), &args)
             }
             ImageSource::Dexscreener => ImageRequest::with_lists(DexScreenerProvider::new(DexScreenerClient::new_with_reqwest_client(http_client.clone()), img_config.dexscreener), &args),
+            ImageSource::Hyperliquid => {
+                let client = HyperCoreClient::new(ReqwestClient::new(img_config.hyperliquid.url.clone(), http_client.clone()));
+                ImageRequest::with_lists(HyperliquidProvider::new(client, img_config.hyperliquid), &args)
+            }
         };
         Ok(Self {
             folder,

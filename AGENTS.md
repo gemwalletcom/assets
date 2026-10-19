@@ -52,11 +52,11 @@ cargo run -- check ../blockchains/ethereum/logo.png
 cargo run -- --source coingecko --mode top
 ```
 
-`--source` is one of `coingecko`, `coinmarketcap`, `jupiter` or `dexscreener`. `--mode` is `top` or `trending` and is ignored when `--id` is supplied. Provider API keys come from the environment (`COINGECKO_KEY_SECRET`, `COINMARKETCAP_KEY_SECRET`, `JUPITER_KEY_SECRET`); nested `config.yml` values whose keys contain no underscore can be overridden the same way, for example `COINGECKO_TOP_COUNT`.
+`--source` is one of `coingecko`, `coinmarketcap`, `jupiter`, `dexscreener` or `hyperliquid`. `--mode` is `top` or `trending` and is ignored when `--id` is supplied. Provider API keys come from the environment (`COINGECKO_KEY_SECRET`, `COINMARKETCAP_KEY_SECRET`, `JUPITER_KEY_SECRET`); nested `config.yml` values whose keys contain no underscore can be overridden the same way, for example `COINGECKO_TOP_COUNT`.
 
 ## Automation
 
-- `[Get Assets]` workflows (`coingecko.yml`, `jupiter.yml`, …) run on a schedule or on manual dispatch, download images through this repository's `cli`, regenerate `assets.json` and commit to `master`. `.github/actions/download-assets` is the shared implementation.
+- `[Get Assets]` workflows (`coingecko.yml`, `jupiter.yml`, `hyperliquid.yml`, …) run on a schedule or on manual dispatch, download images through this repository's `cli`, regenerate `assets.json` and commit to `master`. `.github/actions/download-assets` is the shared implementation.
 - `[CI] Assets CLI` (`cli.yml`) runs clippy and the tests when `cli/` changes.
 - `[CI] Publish Assets` (`upload.yml`) runs on every push to `master`, syncing `blockchains/` and `lists/` to Cloudflare R2 using size-only comparisons and mirroring deletions, then purging the changed paths from cache. **Anything merged to `master` is published to production**, so validate before pushing.
 
