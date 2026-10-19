@@ -3,7 +3,7 @@ name: "[CI] Publish Assets"
 on:
   push:
     branches:
-      - master
+      - main
   workflow_dispatch:
   workflow_call:
   schedule:

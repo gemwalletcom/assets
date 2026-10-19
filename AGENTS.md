@@ -56,9 +56,9 @@ cargo run -- --source coingecko --mode top
 
 ## Automation
 
-- `[Get Assets]` workflows (`coingecko.yml`, `jupiter.yml`, `hyperliquid.yml`, …) run on a schedule or on manual dispatch, download images through this repository's `cli`, regenerate `assets.json` and commit to `master`. `.github/actions/download-assets` is the shared implementation.
+- `[Get Assets]` workflows (`coingecko.yml`, `jupiter.yml`, `hyperliquid.yml`, …) run on a schedule or on manual dispatch, download images through this repository's `cli`, regenerate `assets.json` and commit to `main`. `.github/actions/download-assets` is the shared implementation.
 - `[CI] Assets CLI` (`cli.yml`) runs clippy and the tests when `cli/` changes.
-- `[CI] Publish Assets` (`upload.yml`) runs on every push to `master`, syncing `blockchains/` and `lists/` to Cloudflare R2 using size-only comparisons and mirroring deletions, then purging the changed paths from cache. **Anything merged to `master` is published to production**, so validate before pushing.
+- `[CI] Publish Assets` (`upload.yml`) runs on every push to `main`, syncing `blockchains/` and `lists/` to Cloudflare R2 using size-only comparisons and mirroring deletions, then purging the changed paths from cache. **Anything merged to `main` is published to production**, so validate before pushing.
 
 ## Generated files
 
