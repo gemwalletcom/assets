@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - master
+      - main
     paths:
       - "cli/**"
       - ".github/actions/setup-rust/**"
