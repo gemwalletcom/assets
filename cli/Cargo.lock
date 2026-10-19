@@ -834,7 +834,7 @@ dependencies = [
 [[package]]
 name = "chain_primitives"
 version = "2.114.75"
-source = "git+https://github.com/gemwalletcom/wallet?rev=7a56adeeda0d567cf66c81b842bdfc611a022556#7a56adeeda0d567cf66c81b842bdfc611a022556"
+source = "git+https://github.com/gemwalletcom/wallet?tag=2.114.75#2de3f94a2c67293bd5bd6bc9234e78de2c257977"
 dependencies = [
  "alloy-primitives",
  "gem_evm",
@@ -845,7 +845,7 @@ dependencies = [
 [[package]]
 name = "chain_traits"
 version = "2.114.75"
-source = "git+https://github.com/gemwalletcom/wallet?rev=7a56adeeda0d567cf66c81b842bdfc611a022556#7a56adeeda0d567cf66c81b842bdfc611a022556"
+source = "git+https://github.com/gemwalletcom/wallet?tag=2.114.75#2de3f94a2c67293bd5bd6bc9234e78de2c257977"
 dependencies = [
  "async-trait",
  "chrono",
@@ -955,7 +955,7 @@ checksum = "0c9ea0ac24bc397ab3c98583a3c9ba74fa56b09a4449bbe172b9b1ddb016027a"
 [[package]]
 name = "coingecko"
 version = "2.114.75"
-source = "git+https://github.com/gemwalletcom/wallet?rev=7a56adeeda0d567cf66c81b842bdfc611a022556#7a56adeeda0d567cf66c81b842bdfc611a022556"
+source = "git+https://github.com/gemwalletcom/wallet?tag=2.114.75#2de3f94a2c67293bd5bd6bc9234e78de2c257977"
 dependencies = [
  "chain_primitives",
  "chrono",
@@ -968,7 +968,7 @@ dependencies = [
 [[package]]
 name = "coinmarketcap"
 version = "2.114.75"
-source = "git+https://github.com/gemwalletcom/wallet?rev=7a56adeeda0d567cf66c81b842bdfc611a022556#7a56adeeda0d567cf66c81b842bdfc611a022556"
+source = "git+https://github.com/gemwalletcom/wallet?tag=2.114.75#2de3f94a2c67293bd5bd6bc9234e78de2c257977"
 dependencies = [
  "futures",
  "gem_client",
@@ -1313,7 +1313,7 @@ dependencies = [
 [[package]]
 name = "dexscreener"
 version = "2.114.75"
-source = "git+https://github.com/gemwalletcom/wallet?rev=7a56adeeda0d567cf66c81b842bdfc611a022556#7a56adeeda0d567cf66c81b842bdfc611a022556"
+source = "git+https://github.com/gemwalletcom/wallet?tag=2.114.75#2de3f94a2c67293bd5bd6bc9234e78de2c257977"
 dependencies = [
  "gem_client",
  "primitives",
@@ -1774,7 +1774,7 @@ dependencies = [
 [[package]]
 name = "gem_client"
 version = "2.114.75"
-source = "git+https://github.com/gemwalletcom/wallet?rev=7a56adeeda0d567cf66c81b842bdfc611a022556#7a56adeeda0d567cf66c81b842bdfc611a022556"
+source = "git+https://github.com/gemwalletcom/wallet?tag=2.114.75#2de3f94a2c67293bd5bd6bc9234e78de2c257977"
 dependencies = [
  "async-trait",
  "hex",
@@ -1789,7 +1789,7 @@ dependencies = [
 [[package]]
 name = "gem_evm"
 version = "2.114.75"
-source = "git+https://github.com/gemwalletcom/wallet?rev=7a56adeeda0d567cf66c81b842bdfc611a022556#7a56adeeda0d567cf66c81b842bdfc611a022556"
+source = "git+https://github.com/gemwalletcom/wallet?tag=2.114.75#2de3f94a2c67293bd5bd6bc9234e78de2c257977"
 dependencies = [
  "alloy-primitives",
  "alloy-sol-types",
@@ -1810,7 +1810,7 @@ dependencies = [
 [[package]]
 name = "gem_hash"
 version = "2.114.75"
-source = "git+https://github.com/gemwalletcom/wallet?rev=7a56adeeda0d567cf66c81b842bdfc611a022556#7a56adeeda0d567cf66c81b842bdfc611a022556"
+source = "git+https://github.com/gemwalletcom/wallet?tag=2.114.75#2de3f94a2c67293bd5bd6bc9234e78de2c257977"
 dependencies = [
  "blake2b_simd",
  "hmac 0.13.0",
@@ -1823,7 +1823,7 @@ dependencies = [
 [[package]]
 name = "gem_hypercore"
 version = "2.114.75"
-source = "git+https://github.com/gemwalletcom/wallet?rev=7a56adeeda0d567cf66c81b842bdfc611a022556#7a56adeeda0d567cf66c81b842bdfc611a022556"
+source = "git+https://github.com/gemwalletcom/wallet?tag=2.114.75#2de3f94a2c67293bd5bd6bc9234e78de2c257977"
 dependencies = [
  "alloy-primitives",
  "async-trait",
@@ -1849,7 +1849,7 @@ dependencies = [
 [[package]]
 name = "gem_jsonrpc"
 version = "2.114.75"
-source = "git+https://github.com/gemwalletcom/wallet?rev=7a56adeeda0d567cf66c81b842bdfc611a022556#7a56adeeda0d567cf66c81b842bdfc611a022556"
+source = "git+https://github.com/gemwalletcom/wallet?tag=2.114.75#2de3f94a2c67293bd5bd6bc9234e78de2c257977"
 dependencies = [
  "serde",
  "serde_json",
@@ -1858,7 +1858,7 @@ dependencies = [
 [[package]]
 name = "gem_tracing"
 version = "2.114.75"
-source = "git+https://github.com/gemwalletcom/wallet?rev=7a56adeeda0d567cf66c81b842bdfc611a022556#7a56adeeda0d567cf66c81b842bdfc611a022556"
+source = "git+https://github.com/gemwalletcom/wallet?tag=2.114.75#2de3f94a2c67293bd5bd6bc9234e78de2c257977"
 dependencies = [
  "tracing",
  "tracing-subscriber",
@@ -2482,7 +2482,7 @@ dependencies = [
 [[package]]
 name = "jupiter"
 version = "2.114.75"
-source = "git+https://github.com/gemwalletcom/wallet?rev=7a56adeeda0d567cf66c81b842bdfc611a022556#7a56adeeda0d567cf66c81b842bdfc611a022556"
+source = "git+https://github.com/gemwalletcom/wallet?tag=2.114.75#2de3f94a2c67293bd5bd6bc9234e78de2c257977"
 dependencies = [
  "gem_client",
  "reqwest",
@@ -2675,7 +2675,7 @@ dependencies = [
 [[package]]
 name = "model_derive"
 version = "2.114.75"
-source = "git+https://github.com/gemwalletcom/wallet?rev=7a56adeeda0d567cf66c81b842bdfc611a022556#7a56adeeda0d567cf66c81b842bdfc611a022556"
+source = "git+https://github.com/gemwalletcom/wallet?tag=2.114.75#2de3f94a2c67293bd5bd6bc9234e78de2c257977"
 
 [[package]]
 name = "moxcms"
@@ -2745,7 +2745,7 @@ dependencies = [
 [[package]]
 name = "number_formatter"
 version = "2.114.75"
-source = "git+https://github.com/gemwalletcom/wallet?rev=7a56adeeda0d567cf66c81b842bdfc611a022556#7a56adeeda0d567cf66c81b842bdfc611a022556"
+source = "git+https://github.com/gemwalletcom/wallet?tag=2.114.75#2de3f94a2c67293bd5bd6bc9234e78de2c257977"
 dependencies = [
  "bigdecimal",
  "num-bigint 0.5.1",
@@ -2964,7 +2964,7 @@ dependencies = [
 [[package]]
 name = "primitives"
 version = "2.114.75"
-source = "git+https://github.com/gemwalletcom/wallet?rev=7a56adeeda0d567cf66c81b842bdfc611a022556#7a56adeeda0d567cf66c81b842bdfc611a022556"
+source = "git+https://github.com/gemwalletcom/wallet?tag=2.114.75#2de3f94a2c67293bd5bd6bc9234e78de2c257977"
 dependencies = [
  "chrono",
  "hex",
@@ -3784,7 +3784,7 @@ dependencies = [
 [[package]]
 name = "serde_serializers"
 version = "2.114.75"
-source = "git+https://github.com/gemwalletcom/wallet?rev=7a56adeeda0d567cf66c81b842bdfc611a022556#7a56adeeda0d567cf66c81b842bdfc611a022556"
+source = "git+https://github.com/gemwalletcom/wallet?tag=2.114.75#2de3f94a2c67293bd5bd6bc9234e78de2c257977"
 dependencies = [
  "hex",
  "num-bigint 0.5.1",
@@ -3924,7 +3924,7 @@ dependencies = [
 [[package]]
 name = "signer"
 version = "2.114.75"
-source = "git+https://github.com/gemwalletcom/wallet?rev=7a56adeeda0d567cf66c81b842bdfc611a022556#7a56adeeda0d567cf66c81b842bdfc611a022556"
+source = "git+https://github.com/gemwalletcom/wallet?tag=2.114.75#2de3f94a2c67293bd5bd6bc9234e78de2c257977"
 dependencies = [
  "alloy-primitives",
  "bs58",
