@@ -1,8 +1,11 @@
 name: Sync directory to R2
-description: Sync a local directory to the matching R2 prefix
+description: Sync a local directory to the matching R2 prefix and list the paths it changed
 inputs:
   directory:
     description: Directory and destination prefix to sync
+    required: true
+  changes:
+    description: File to append the uploaded and deleted paths to, relative to the bucket root
     required: true
 runs:
   using: composite
@@ -10,10 +13,13 @@ runs:
     - shell: bash
       env:
         DIRECTORY: ${{ inputs.directory }}
+        CHANGES: ${{ inputs.changes }}
       run: |
         rclone sync "$DIRECTORY/" ":s3:${R2_ASSETS_BUCKET:?}/$DIRECTORY/" \
           --s3-provider Cloudflare \
           --s3-endpoint "${R2_ENDPOINT_URL:?}" \
           --s3-no-check-bucket \
           --fast-list \
-          --size-only
+          --size-only \
+          --combined "$RUNNER_TEMP/$DIRECTORY.txt"
+        sed -n "s|^[-+*] |$DIRECTORY/|p" "$RUNNER_TEMP/$DIRECTORY.txt" >> "$CHANGES"
