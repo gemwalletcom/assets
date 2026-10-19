@@ -62,7 +62,7 @@ cargo run -- --source coingecko --mode top
 
 ## Generated files
 
-`blockchains/<network>/assets.json` is regenerated from the directory tree by `.github/scripts/generate-assets-list.sh`, which lists the subdirectories containing a `logo.png`. Do not edit it by hand — add the image and let the script or the automation update the list.
+`blockchains/<network>/assets.json` is regenerated from the directory tree by `.github/scripts/generate-assets-list.sh`, which lists the subdirectories containing a `logo.png`, and writes `[]` for a chain with none, so the backend can tell an empty list from a failed fetch. Do not edit it by hand — add the image and let the script or the automation update the list.
 
 ## When making image changes
 
