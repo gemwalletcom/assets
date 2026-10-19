@@ -15,4 +15,5 @@ runs:
           --s3-provider Cloudflare \
           --s3-endpoint "${R2_ENDPOINT_URL:?}" \
           --s3-no-check-bucket \
+          --fast-list \
           --size-only
