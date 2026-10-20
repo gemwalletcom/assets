@@ -5,17 +5,17 @@ edition = "2024"
 publish = false
 
 [dependencies]
-chain_primitives = { git = "https://github.com/gemwalletcom/wallet", tag = "2.114.75", package = "chain_primitives" }
-chain_traits = { git = "https://github.com/gemwalletcom/wallet", tag = "2.114.75", package = "chain_traits" }
-coingecko = { git = "https://github.com/gemwalletcom/wallet", tag = "2.114.75", package = "coingecko" }
-coinmarketcap = { git = "https://github.com/gemwalletcom/wallet", tag = "2.114.75", package = "coinmarketcap" }
-dexscreener = { git = "https://github.com/gemwalletcom/wallet", tag = "2.114.75", package = "dexscreener" }
-gem_client = { git = "https://github.com/gemwalletcom/wallet", tag = "2.114.75", package = "gem_client", features = ["reqwest"] }
-gem_hypercore = { git = "https://github.com/gemwalletcom/wallet", tag = "2.114.75", package = "gem_hypercore" }
-gem_tracing = { git = "https://github.com/gemwalletcom/wallet", tag = "2.114.75", package = "gem_tracing" }
-jupiter = { git = "https://github.com/gemwalletcom/wallet", tag = "2.114.75", package = "jupiter" }
-primitives = { git = "https://github.com/gemwalletcom/wallet", tag = "2.114.75", package = "primitives" }
-serde_serializers = { git = "https://github.com/gemwalletcom/wallet", tag = "2.114.75", package = "serde_serializers" }
+chain_primitives = { git = "https://github.com/gemwalletcom/wallet", tag = "2.114.76", package = "chain_primitives" }
+chain_traits = { git = "https://github.com/gemwalletcom/wallet", tag = "2.114.76", package = "chain_traits" }
+coingecko = { git = "https://github.com/gemwalletcom/wallet", tag = "2.114.76", package = "coingecko" }
+coinmarketcap = { git = "https://github.com/gemwalletcom/wallet", tag = "2.114.76", package = "coinmarketcap" }
+dexscreener = { git = "https://github.com/gemwalletcom/wallet", tag = "2.114.76", package = "dexscreener" }
+gem_client = { git = "https://github.com/gemwalletcom/wallet", tag = "2.114.76", package = "gem_client", features = ["reqwest"] }
+gem_hypercore = { git = "https://github.com/gemwalletcom/wallet", tag = "2.114.76", package = "gem_hypercore" }
+gem_tracing = { git = "https://github.com/gemwalletcom/wallet", tag = "2.114.76", package = "gem_tracing" }
+jupiter = { git = "https://github.com/gemwalletcom/wallet", tag = "2.114.76", package = "jupiter" }
+primitives = { git = "https://github.com/gemwalletcom/wallet", tag = "2.114.76", package = "primitives" }
+serde_serializers = { git = "https://github.com/gemwalletcom/wallet", tag = "2.114.76", package = "serde_serializers" }
 
 async-trait = { version = "0.1.92" }
 clap = { version = "4.6.1", features = ["derive"] }
@@ -29,7 +29,7 @@ oxipng = { version = "10.2.1", default-features = false }
 resvg = { version = "0.48.1", default-features = false, features = ["raster-images", "text"] }
 
 [dev-dependencies]
-coinmarketcap = { git = "https://github.com/gemwalletcom/wallet", tag = "2.114.75", package = "coinmarketcap", features = ["testkit"] }
+coinmarketcap = { git = "https://github.com/gemwalletcom/wallet", tag = "2.114.76", package = "coinmarketcap", features = ["testkit"] }
 serde_json = { version = "1.0.151" }
 
 [profile.dev]
