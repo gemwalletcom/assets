@@ -1,33 +1,32 @@
 #!/bin/bash
+set -euo pipefail
 
 ZONE_ID=$1
 API_KEY=$2
 BASE_URL=$3
 FILES=$4
+BATCH_SIZE=100 # Cloudflare's limit of URLs per purge request
 
 if [ ! -s "$FILES" ]; then
   echo "No files to purge"
   exit 0
 fi
 
-COUNT=$(wc -l < "$FILES" | tr -d ' ')
-echo "Purging $COUNT files from cache:"
+echo "Purging $(wc -l < "$FILES" | tr -d ' ') files from cache:"
 echo ""
 
-while read -r FILE; do
-  echo "  → $BASE_URL/$FILE"
-  RESPONSE=$(curl -s -w "%{http_code}" -X POST \
+FAILED=0
+while read -r BODY; do
+  jq -r '.files[] | "  → \(.)"' <<< "$BODY"
+  if ! curl -fsS --retry 3 -o /dev/null -X POST \
     "https://api.cloudflare.com/client/v4/zones/$ZONE_ID/purge_cache" \
     -H "Authorization: Bearer $API_KEY" \
     -H "Content-Type: application/json" \
-    --data "{\"files\":[\"$BASE_URL/$FILE\"]}")
-
-  HTTP_CODE="${RESPONSE: -3}"
-  if [ "$HTTP_CODE" != "200" ]; then
-    echo "    ⚠ Failed (HTTP $HTTP_CODE)"
+    --data "$BODY"; then
+    echo "::error::Purge failed; these files stay cached until their TTL expires"
+    FAILED=1
   fi
-  sleep 0.5
-done < "$FILES"
+done < <(jq -Rnc --arg base "$BASE_URL" --argjson size "$BATCH_SIZE" '[inputs | "\($base)/\(.)"] | _nwise($size) | {files: .}' "$FILES")
 
 echo ""
-echo "Done"
+exit "$FAILED"
