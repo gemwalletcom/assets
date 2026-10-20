@@ -20,7 +20,7 @@ Around 70 networks and 16k token logos. `<token>` is an EVM address on EVM chain
 
 - A logo must be a **PNG or WEBP** — never JPEG — square (`width == height`), and decodable. Those are the `asset_types` in `cli/config.yml`, shared by the checker and the downloader, so changing that list changes what is allowed. The extension is not evidence: several `.png` files in this repository's history have held JPEG bytes, so use `file <path>`, which reports the true type regardless of name.
 - Downloaders write 256×256 (`image.size` in `config.yml`). Existing assets vary in size and that is fine — **do not resize an image just to change its dimensions.** A square logo at 128 or 512 is valid; re-encoding it only costs quality and churns the diff.
-- Preserve transparency, aspect ratio and colour profiles. When an image has to become square, fit it inside a transparent square canvas — never stretch or crop it.
+- Preserve transparency, aspect ratio and colour profiles. When an image has to become square, centre it on a square canvas at its own size: transparent, or the logo's own background colour when its edges are one solid colour, so an opaque logo gains no transparent bars. Never stretch or crop it.
 - Compress images before committing. The `cli` downloader encodes everything it fetches, but an image added by hand is easy to commit far larger than it needs to be.
 - EVM token directories use **checksum (EIP-55) addresses**.
 - Keep non-EVM identifiers exactly as provided, unless the repository already uses a different canonical form for that asset.
