@@ -1,5 +1,5 @@
 name: "[Get Assets] CoinGecko"
-run-name: "CoinGecko: ${{ inputs.mode || (github.event.schedule == '0 */3 * * *' && 'trending' || 'top') }}"
+run-name: "CoinGecko: ${{ inputs.mode || (github.event.schedule == '27 */3 * * *' && 'trending' || 'top') }}"
 
 on:
   workflow_dispatch:
@@ -13,8 +13,8 @@ on:
           - top
           - trending
   schedule:
-    - cron: '15 */12 * * *'
-    - cron: '0 */3 * * *'
+    - cron: '42 */12 * * *'
+    - cron: '27 */3 * * *'
 
 permissions:
   contents: write
@@ -34,7 +34,7 @@ jobs:
         id: download
         with:
           source: coingecko
-          mode: ${{ inputs.mode || (github.event.schedule == '0 */3 * * *' && 'trending' || 'top') }}
+          mode: ${{ inputs.mode || (github.event.schedule == '27 */3 * * *' && 'trending' || 'top') }}
         env:
           COINGECKO_KEY_SECRET: ${{ secrets.COINGECKO_KEY_SECRET }}
           COINMARKETCAP_KEY_SECRET: ${{ secrets.COINMARKETCAP_KEY_SECRET }}

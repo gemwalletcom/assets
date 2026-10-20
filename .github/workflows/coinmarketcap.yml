@@ -13,7 +13,7 @@ on:
           - top
           - trending
   schedule:
-    - cron: '0 */12 * * *'
+    - cron: '37 */12 * * *'
     # Trending was disabled; it remains available through manual selection.
 
 permissions:

@@ -1,5 +1,5 @@
 name: "[Get Assets] Hyperliquid"
-run-name: "Hyperliquid: ${{ inputs.mode || (github.event.schedule == '30 */3 * * *' && 'trending' || 'top') }}"
+run-name: "Hyperliquid: ${{ inputs.mode || (github.event.schedule == '47 */3 * * *' && 'trending' || 'top') }}"
 
 on:
   workflow_dispatch:
@@ -13,8 +13,8 @@ on:
           - top
           - trending
   schedule:
-    - cron: '30 */12 * * *'
-    - cron: '30 */3 * * *'
+    - cron: '47 */12 * * *'
+    - cron: '47 */3 * * *'
 
 permissions:
   contents: write
@@ -34,7 +34,7 @@ jobs:
         id: download
         with:
           source: hyperliquid
-          mode: ${{ inputs.mode || (github.event.schedule == '30 */3 * * *' && 'trending' || 'top') }}
+          mode: ${{ inputs.mode || (github.event.schedule == '47 */3 * * *' && 'trending' || 'top') }}
 
   publish:
     needs: download

@@ -1,5 +1,5 @@
 name: "[Get Assets] DexScreener"
-run-name: "DexScreener: ${{ inputs.mode || (github.event.schedule == '0 */3 * * *' && 'trending' || 'top') }}"
+run-name: "DexScreener: ${{ inputs.mode || (github.event.schedule == '7 */3 * * *' && 'trending' || 'top') }}"
 
 on:
   workflow_dispatch:
@@ -13,8 +13,8 @@ on:
           - top
           - trending
   schedule:
-    - cron: '0 */12 * * *'
-    - cron: '0 */3 * * *'
+    - cron: '7 */12 * * *'
+    - cron: '7 */3 * * *'
 
 permissions:
   contents: write
@@ -34,7 +34,7 @@ jobs:
         id: download
         with:
           source: dexscreener
-          mode: ${{ inputs.mode || (github.event.schedule == '0 */3 * * *' && 'trending' || 'top') }}
+          mode: ${{ inputs.mode || (github.event.schedule == '7 */3 * * *' && 'trending' || 'top') }}
 
   publish:
     needs: download
