@@ -42,7 +42,7 @@ just lint
 just test
 ```
 
-`check-images` builds `cli` in release mode and runs its `check` subcommand over every `blockchains/*/logo.png` and `blockchains/*/assets/*/logo.png`, in batches of 500. It prints the path of each invalid image and exits non-zero if any fail. Validator logos are **not** covered by this command.
+`check-images` builds `cli` in release mode and runs its `check` subcommand over every chain, token and validator logo and every `lists/` image, in batches of 500. It prints the path of each invalid image and exits non-zero if any fail.
 
 The binary reads `config.yml` from the working directory, so run it from `cli/`; downloads go to `../blockchains` unless `--folder` is given:
 

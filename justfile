@@ -10,6 +10,9 @@ check-images:
     printf '%s\0' \
         "$repository_root"/blockchains/*/logo.png \
         "$repository_root"/blockchains/*/assets/*/logo.png \
+        "$repository_root"/blockchains/*/validators/*/logo.png \
+        "$repository_root"/lists/*.png \
+        "$repository_root"/lists/*/*.png \
         | xargs -0 -n 500 target/release/cli check
 
 download source mode="top" id="":
