@@ -26,7 +26,7 @@ The command exits unsuccessfully when a path is unreadable, is not PNG or WEBP c
 | CoinMarketCap | Coin ID or symbol | Latest listings | Latest trending |
 | Jupiter | Token mint | Verified-token list, limited by count | Top trending for the configured interval, filtered to verified tokens |
 | DexScreener | Gem asset ID (`chain_token-address`) | Tokens from trending metas ranked by 24-hour volume | Tokens from trending metas ranked by 24-hour volume |
-| Hyperliquid | Perpetual market name | Listed perpetuals ranked by 24-hour volume | Most recently listed perpetuals |
+| Hyperliquid | Perpetual market name (`COMP`, `xyz:TSLA`) | Listed perpetuals ranked by 24-hour volume | Most recently listed perpetuals of each dex |
 
 ## DexScreener
 
@@ -61,11 +61,12 @@ In CI, select `dexscreener` in **[Get Assets] By Provider**. Leave ID empty and 
 
 ## Hyperliquid
 
-Writes perpetual logos to `hypercore/assets/perpetual::<market>/logo.png`. List modes read the markets the wallet lists through wallet Core's HyperCore client: markets with 24-hour volume, skipping those named after a chain's native coin (such as `BTC` or `HYPE`), which the wallet draws with its bundled chain icon. Logos come from Hyperliquid's own coin icons, `https://app.hyperliquid.xyz/coins/<market>.svg`; a market without an icon gets an HTML page there and is skipped.
+Writes perpetual logos to `hypercore/assets/perpetual::<market>/logo.png`. List modes read the markets the wallet lists through wallet Core's HyperCore client, on the main dex and on `xyz`, the one HIP-3 dex it loads (markets named `xyz:<coin>`): markets with 24-hour volume, skipping those named after a chain's native coin (such as `BTC` or `HYPE`), which the wallet draws with its bundled chain icon. Logos come from Hyperliquid's own coin icons, `https://app.hyperliquid.xyz/coins/<market>.svg`; a market without an icon gets an HTML page there and is skipped.
 
 ```sh
 cargo run -- --source hyperliquid --mode top
 cargo run -- --source hyperliquid --id COMP
+cargo run -- --source hyperliquid --id xyz:TSLA
 ```
 
 Configuration in `config.yml`:
@@ -79,4 +80,4 @@ hyperliquid:
     count: 10
 ```
 
-`top` covers every listed market while `count` exceeds their number. `trending` takes the newest listings, which Hyperliquid appends to its universe.
+`top` covers every listed market while `count` exceeds their number. `trending` takes `count` newest listings from each dex, since Hyperliquid appends markets to each dex's universe.

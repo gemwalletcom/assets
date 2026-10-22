@@ -34,6 +34,6 @@ impl ImageListProvider for HyperliquidProvider {
     }
 
     async fn get_trending_asset_images(&self) -> Result<Vec<AssetImage>, Box<dyn Error + Send + Sync>> {
-        Ok(mapper::map_newest_images(self.client.get_perpetuals_data().await?, self.config.trending.count))
+        Ok(mapper::map_newest_images(self.client.get_perpetuals_data().await?, &self.client.config.perp_dexes, self.config.trending.count))
     }
 }
