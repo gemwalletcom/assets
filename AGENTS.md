@@ -9,9 +9,7 @@ blockchains/<network>/logo.png                        blockchain logo
 blockchains/<network>/assets/<token>/logo.png         token logo
 blockchains/<network>/assets.json                     generated address list (do not hand-edit)
 blockchains/<network>/validators/<address>/logo.png   validator logo
-blockchains/<network>/tokenlist.json                  per-chain token list
 lists/                                                curated collection images (e.g. coingecko/)
-tokenlists/                                           aggregated per-chain token lists
 ```
 
 Around 70 networks and 16k token logos. `<token>` is an EVM address on EVM chains, or the chain's native identifier otherwise (a mint, a `module::struct` path, a `T...` contract, and so on).
@@ -24,7 +22,6 @@ Around 70 networks and 16k token logos. `<token>` is an EVM address on EVM chain
 - Compress images before committing. The `cli` downloader encodes everything it fetches, but an image added by hand is easy to commit far larger than it needs to be.
 - EVM token directories use **checksum (EIP-55) addresses**.
 - Keep non-EVM identifiers exactly as provided, unless the repository already uses a different canonical form for that asset.
-- Do not add unrelated metadata or tokenlist changes unless explicitly requested.
 
 ## Tooling
 

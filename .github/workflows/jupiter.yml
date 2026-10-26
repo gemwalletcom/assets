@@ -36,11 +36,6 @@ jobs:
           source: jupiter
           mode: ${{ inputs.mode || (github.event.schedule == '17 */3 * * *' && 'trending' || 'top') }}
         env:
-          COINGECKO_KEY_SECRET: ${{ secrets.COINGECKO_KEY_SECRET }}
-          COINMARKETCAP_KEY_SECRET: ${{ secrets.COINMARKETCAP_KEY_SECRET }}
-          COINGECKO_TOP_COUNT: ${{ vars.COINGECKO_TOP_COUNT }}
-          COINMARKETCAP_TOP_COUNT: ${{ vars.COINMARKETCAP_TOP_COUNT }}
-          COINMARKETCAP_TRENDING_COUNT: ${{ vars.COINMARKETCAP_TRENDING_COUNT }}
           JUPITER_TOP_COUNT: ${{ vars.JUPITER_TOP_COUNT }}
 
   publish:
