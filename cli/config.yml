@@ -10,6 +10,7 @@ image:
     - jpeg
     - jpg
     - svg
+    - webp
   request:
     timeout: 10s
     retries: 2

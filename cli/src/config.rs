@@ -93,3 +93,15 @@ impl ImgDownloaderConfig {
             .try_deserialize()
     }
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_load_downloads_every_asset_type() {
+        let config = ImgDownloaderConfig::load().unwrap();
+
+        assert!(config.image.asset_types.iter().all(|image_type| config.image.types.contains(image_type)));
+    }
+}
