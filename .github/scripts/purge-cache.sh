@@ -15,6 +15,13 @@ fi
 echo "Purging $(wc -l < "$FILES" | tr -d ' ') files from cache:"
 echo ""
 
+BATCHES=$(mktemp)
+trap 'rm -f "$BATCHES"' EXIT
+# jq's _nwise is internal and gone in jq 1.8 (runners updated 2026-11-04), so slice the list by hand.
+jq -Rnc --arg base "$BASE_URL" --argjson size "$BATCH_SIZE" \
+  '[inputs | "\($base)/\(.)"] as $urls | [range(0; ($urls | length); $size) | {files: $urls[. : . + $size]}] | .[]' \
+  "$FILES" > "$BATCHES"
+
 FAILED=0
 while read -r BODY; do
   jq -r '.files[] | "  → \(.)"' <<< "$BODY"
@@ -26,7 +33,7 @@ while read -r BODY; do
     echo "::error::Purge failed; these files stay cached until their TTL expires"
     FAILED=1
   fi
-done < <(jq -Rnc --arg base "$BASE_URL" --argjson size "$BATCH_SIZE" '[inputs | "\($base)/\(.)"] | _nwise($size) | {files: .}' "$FILES")
+done < "$BATCHES"
 
 echo ""
 exit "$FAILED"
