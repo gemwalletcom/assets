@@ -7,7 +7,6 @@ mod providers;
 #[cfg(test)]
 mod testkit;
 
-use clap::Parser;
 use cli_args::Command;
 use config::ImgDownloaderConfig;
 use downloader::Downloader;
@@ -15,7 +14,13 @@ use std::error::Error;
 
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn Error + Send + Sync>> {
-    let args = cli_args::Args::parse();
+    let args = match cli_args::Args::parse() {
+        Ok(args) => args,
+        Err(usage) => {
+            eprintln!("{usage}");
+            std::process::exit(2);
+        }
+    };
     let img_config = ImgDownloaderConfig::load()?;
     if let Some(Command::Check { images }) = &args.command {
         let invalid_images = image::invalid_image_paths(images, &img_config.image.asset_types);

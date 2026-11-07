@@ -13,7 +13,6 @@ use coinmarketcap::CoinMarketCapClient;
 use dexscreener::DexScreenerClient;
 use gem_client::{RemoteProviderConfig, ReqwestClient};
 use gem_hypercore::rpc::client::HyperCoreClient;
-use gem_tracing::{error_with_fields, info_with_fields, warn_with_fields};
 use jupiter::JupiterClient;
 use primitives::ImageType;
 use reqwest::{
@@ -115,7 +114,7 @@ impl Downloader {
     }
 
     pub async fn start(&self) -> Result<(), Box<dyn Error + Send + Sync>> {
-        info_with_fields!("image downloader start", folder = self.folder.as_str());
+        println!("image downloader start folder={}", self.folder);
         let folder = Path::new(&self.folder);
         fs::create_dir_all(folder)?;
 
@@ -147,39 +146,18 @@ impl Downloader {
             }
         }
 
-        info_with_fields!("image downloader summary", available = total, existing = existing, pending = pending.len(), unsupported = unsupported);
+        println!("image downloader summary available={total} existing={existing} pending={} unsupported={unsupported}", pending.len());
 
         let pending_count = pending.len();
         let mut images_by_url: HashMap<String, Vec<u8>> = HashMap::new();
         for (index, pending_image) in pending.into_iter().enumerate() {
-            info_with_fields!(
-                "download image",
-                index = index + 1,
-                total = pending_count,
-                chain = pending_image.image.chain,
-                token_id = pending_image.image.token_id.as_str(),
-                url = pending_image.image.image_url.as_str(),
-            );
+            let image = &pending_image.image;
+            println!("download image index={} total={pending_count} chain={} token_id={} url={}", index + 1, image.chain, image.token_id, image.image_url);
             let image_downloaded = match self.download_asset_image(&pending_image, &mut images_by_url).await {
                 Ok(image_downloaded) => image_downloaded,
                 Err(error) => {
-                    if error.downcast_ref::<ImageDownloadError>().is_some() {
-                        warn_with_fields!(
-                            "image download skipped",
-                            reason = error.as_ref(),
-                            chain = pending_image.image.chain,
-                            token_id = pending_image.image.token_id.as_str(),
-                            url = pending_image.image.image_url.as_str(),
-                        );
-                    } else {
-                        error_with_fields!(
-                            "image download failed",
-                            error.as_ref(),
-                            chain = pending_image.image.chain,
-                            token_id = pending_image.image.token_id.as_str(),
-                            url = pending_image.image.image_url.as_str(),
-                        );
-                    }
+                    let outcome = if error.downcast_ref::<ImageDownloadError>().is_some() { "skipped" } else { "failed" };
+                    eprintln!("image download {outcome} error={error} chain={} token_id={} url={}", image.chain, image.token_id, image.image_url);
                     false
                 }
             };

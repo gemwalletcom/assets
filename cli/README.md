@@ -41,19 +41,18 @@ Uses the public [token-pairs API](https://docs.dexscreener.com/api/reference) wi
 
 List modes fetch `/metas/trending/v1`, then `/metas/meta/v1/{slug}` for each distinct meta. Both modes use that candidate set; they do not represent a global token ranking. Requests are spaced one second apart.
 
-Configuration in `config.yml`:
+Configuration in `config.json`:
 
-```yaml
-dexscreener:
-  top:
-    count: 50
-  trending:
-    count: 50
+```json
+"dexscreener": {
+  "top": { "count": 50 },
+  "trending": { "count": 50 }
+}
 ```
 
 Top and trending both rank tokens by 24-hour volume, with separate counts. There are no minimum market cap, liquidity, or volume filters. The pool with the most known liquidity supplies each token's volume and image; pools without liquidity data remain eligible. Duplicate meta entries do not multiply activity. Liquidity, then chain/address, break ranking ties. Tokens without daily volume or a usable image are excluded. The count is applied after deduplication. Explicit ID lookups do not use this ranking.
 
-Keep these controls in `config.yml`.
+Keep these controls in `config.json`.
 
 Only a matching chain and base-token address can supply the logo. Missing logo metadata or unmatched tokens return no images, consistent with the other providers. Existing logos are preserved. Images use the shared PNG conversion, 256×256 resizing, compression, and address formatting pipeline.
 
@@ -69,15 +68,14 @@ cargo run -- --source hyperliquid --id COMP
 cargo run -- --source hyperliquid --id xyz:TSLA
 ```
 
-Configuration in `config.yml`:
+Configuration in `config.json`:
 
-```yaml
-hyperliquid:
-  url: https://api.hyperliquid.xyz
-  top:
-    count: 500
-  trending:
-    count: 10
+```json
+"hyperliquid": {
+  "url": "https://api.hyperliquid.xyz",
+  "top": { "count": 500 },
+  "trending": { "count": 10 }
+}
 ```
 
 `top` covers every listed market while `count` exceeds their number. `trending` takes `count` newest listings from each dex, since Hyperliquid appends markets to each dex's universe.

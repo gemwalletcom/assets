@@ -2,7 +2,6 @@ use std::{collections::HashSet, error::Error, time::Duration};
 
 use async_trait::async_trait;
 use dexscreener::{DexScreenerClient, chain_id};
-use gem_tracing::info_with_fields;
 use primitives::AssetId;
 use tokio::time::sleep;
 
@@ -28,7 +27,7 @@ impl DexScreenerProvider {
         let mut pairs = Vec::new();
         for meta in metas.into_iter().filter(|meta| slugs.insert(meta.slug.clone())) {
             sleep(META_REQUEST_INTERVAL).await;
-            info_with_fields!("collect dexscreener meta", slug = meta.slug.as_str());
+            println!("collect dexscreener meta slug={}", meta.slug);
             pairs.extend(self.client.get_meta(&meta.slug).await?.pairs);
         }
         Ok(mapper::map_ranked_images(pairs, count))

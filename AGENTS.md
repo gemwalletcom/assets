@@ -16,8 +16,8 @@ Around 70 networks and 16k token logos. `<token>` is an EVM address on EVM chain
 
 ## Image rules
 
-- A logo must be a **PNG or WEBP** — never JPEG — square (`width == height`), and decodable. Those are the `asset_types` in `cli/config.yml`, shared by the checker and the downloader, so changing that list changes what is allowed. The extension is not evidence: several `.png` files in this repository's history have held JPEG bytes, so use `file <path>`, which reports the true type regardless of name.
-- Downloaders write 256×256 (`image.size` in `config.yml`). Existing assets vary in size and that is fine — **do not resize an image just to change its dimensions.** A square logo at 128 or 512 is valid; re-encoding it only costs quality and churns the diff.
+- A logo must be a **PNG or WEBP** — never JPEG — square (`width == height`), and decodable. Those are the `asset_types` in `cli/config.json`, shared by the checker and the downloader, so changing that list changes what is allowed. The extension is not evidence: several `.png` files in this repository's history have held JPEG bytes, so use `file <path>`, which reports the true type regardless of name.
+- Downloaders write 256×256 (`image.size` in `config.json`). Existing assets vary in size and that is fine — **do not resize an image just to change its dimensions.** A square logo at 128 or 512 is valid; re-encoding it only costs quality and churns the diff.
 - Preserve transparency, aspect ratio and colour profiles. When an image has to become square, centre it on a square canvas at its own size: transparent, or the logo's own background colour when its edges are one solid colour, so an opaque logo gains no transparent bars. Never stretch or crop it.
 - Compress images before committing. The `cli` downloader encodes everything it fetches, but an image added by hand is easy to commit far larger than it needs to be.
 - EVM token directories use **checksum (EIP-55) addresses**.
@@ -41,7 +41,7 @@ just test
 
 `check-images` builds `cli` in release mode and runs its `check` subcommand over every chain, token and validator logo and every `lists/` image, in batches of 500. It prints the path of each invalid image and exits non-zero if any fail.
 
-The binary reads `config.yml` from the working directory, so run it from `cli/`; downloads go to `../blockchains` unless `--folder` is given:
+The binary reads `config.json` from the working directory, so run it from `cli/`; downloads go to `../blockchains` unless `--folder` is given:
 
 ```bash
 cd cli
@@ -49,7 +49,7 @@ cargo run -- check ../blockchains/ethereum/logo.png
 cargo run -- --source coingecko --mode top
 ```
 
-`--source` is one of `coingecko`, `coinmarketcap`, `jupiter`, `dexscreener` or `hyperliquid`. `--mode` is `top` or `trending` and is ignored when `--id` is supplied. Provider API keys come from the environment (`COINGECKO_KEY_SECRET`, `COINMARKETCAP_KEY_SECRET`, `JUPITER_KEY_SECRET`); nested `config.yml` values whose keys contain no underscore can be overridden the same way, for example `COINGECKO_TOP_COUNT`.
+`--source` is one of `coingecko`, `coinmarketcap`, `jupiter`, `dexscreener` or `hyperliquid`. `--mode` is `top` or `trending` and is ignored when `--id` is supplied. Provider API keys come from the environment (`COINGECKO_KEY_SECRET`, `COINMARKETCAP_KEY_SECRET`, `JUPITER_KEY_SECRET`); any other `config.json` value can be overridden by the variable named after its path, for example `COINGECKO_TOP_COUNT`.
 
 ## Automation
 

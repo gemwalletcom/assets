@@ -1,8 +1,8 @@
-use std::{path::Path, time::Duration};
+use std::{env, error::Error, fs, time::Duration};
 
-use config::{Config, ConfigError, Environment, File};
 use primitives::ImageType;
 use serde::Deserialize;
+use serde_json::Value;
 use serde_serializers::duration;
 
 #[derive(Debug, Deserialize, Clone)]
@@ -85,12 +85,25 @@ pub struct TrendingConfig {
 }
 
 impl ImgDownloaderConfig {
-    pub fn load() -> Result<Self, ConfigError> {
-        Config::builder()
-            .add_source(File::from(Path::new("config.yml")))
-            .add_source(Environment::default().separator("_").ignore_empty(true))
-            .build()?
-            .try_deserialize()
+    pub fn load() -> Result<Self, Box<dyn Error + Send + Sync>> {
+        let mut value = serde_json::from_str(&fs::read_to_string("config.json")?)?;
+        override_values(&mut value, "", &|name| env::var(name).ok());
+        Ok(serde_json::from_value(value)?)
+    }
+}
+
+// The environment variable named after a value's path overrides it, such as COINGECKO_TOP_COUNT for coingecko.top.count; an empty one is ignored.
+fn override_values(value: &mut Value, path: &str, lookup: &impl Fn(&str) -> Option<String>) {
+    if let Value::Object(fields) = value {
+        for (key, field) in fields {
+            let path = if path.is_empty() { key.to_uppercase() } else { format!("{path}_{}", key.to_uppercase()) };
+            override_values(field, &path, lookup);
+        }
+    } else if let Some(text) = lookup(path).filter(|text| !text.is_empty()) {
+        *value = match value {
+            Value::Number(_) => text.parse().map(Value::Number).unwrap_or(Value::String(text)),
+            _ => Value::String(text),
+        };
     }
 }
 
@@ -103,5 +116,20 @@ mod tests {
         let config = ImgDownloaderConfig::load().unwrap();
 
         assert!(config.image.asset_types.iter().all(|image_type| config.image.types.contains(image_type)));
+    }
+
+    #[test]
+    fn test_override_values_from_environment() {
+        let mut value = serde_json::json!({"coingecko": {"key": {"secret": ""}, "top": {"count": 250}}, "delay": "1s"});
+        let lookup = |name: &str| match name {
+            "COINGECKO_KEY_SECRET" => Some("key".to_string()),
+            "COINGECKO_TOP_COUNT" => Some("1500".to_string()),
+            "DELAY" => Some(String::new()),
+            _ => None,
+        };
+
+        override_values(&mut value, "", &lookup);
+
+        assert_eq!(value, serde_json::json!({"coingecko": {"key": {"secret": "key"}, "top": {"count": 1500}}, "delay": "1s"}));
     }
 }
