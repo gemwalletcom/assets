@@ -110,7 +110,7 @@ impl Downloader {
         let mut headers = HeaderMap::new();
         headers.insert(USER_AGENT, HeaderValue::from_static(USER_AGENT_VALUE));
         headers.insert(ACCEPT_LANGUAGE, HeaderValue::from_static("en-US,en;q=0.9"));
-        gem_client::builder().default_headers(headers).timeout(timeout).build()
+        gem_client::builder().default_headers(headers).timeout(timeout).redirect(reqwest::redirect::Policy::limited(3)).build()
     }
 
     pub async fn start(&self) -> Result<(), Box<dyn Error + Send + Sync>> {
@@ -210,5 +210,14 @@ mod tests {
 
         assert_eq!(pending.image.token_id, "0xDF1Cf211D38E7762c9691Be4D779A441a17A6cFC");
         assert_eq!(pending.path, Path::new("/tmp/assets/base/assets/0xDF1Cf211D38E7762c9691Be4D779A441a17A6cFC/logo.png"));
+    }
+
+    #[tokio::test]
+    #[ignore]
+    async fn test_http_client_follows_redirects() {
+        let client = Downloader::build_http_client(Duration::from_secs(15)).unwrap();
+        let response = client.get("https://arweave.net/FsvU6_bOaju6cJEmmNTLzy7ZT7gN_YVIvLdTciHb47A").send().await.unwrap();
+        assert!(response.status().is_success());
+        assert!(!response.url().as_str().starts_with("https://arweave.net/"));
     }
 }

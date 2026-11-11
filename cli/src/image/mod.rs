@@ -17,6 +17,16 @@ use tokio::time::{Duration, sleep};
 
 use crate::error::ImageDownloadError;
 
+const IPFS_GATEWAY: &str = "https://gateway.pinata.cloud/ipfs/";
+
+fn ipfs_fallback_url(url: &str) -> Option<String> {
+    if url.starts_with(IPFS_GATEWAY) {
+        return None;
+    }
+    let path = url.split_once("/ipfs/")?.1;
+    (!path.is_empty()).then(|| format!("{IPFS_GATEWAY}{path}"))
+}
+
 pub fn invalid_image_paths(paths: &[PathBuf], supported_types: &[ImageType]) -> Vec<PathBuf> {
     paths.iter().filter(|path| !is_valid_asset_image(path, supported_types)).cloned().collect()
 }
@@ -49,6 +59,16 @@ pub async fn download_image(client: &Client, url: &str, image_size: u32, retries
 }
 
 async fn download_and_convert(client: &Client, url: &str, image_size: u32, supported_types: &[ImageType]) -> Result<Vec<u8>, Box<dyn Error + Send + Sync>> {
+    let mut result = request_and_convert(client, url, image_size, supported_types).await;
+    if result.is_err() {
+        if let Some(fallback) = ipfs_fallback_url(url) {
+            result = request_and_convert(client, &fallback, image_size, supported_types).await;
+        }
+    }
+    result
+}
+
+async fn request_and_convert(client: &Client, url: &str, image_size: u32, supported_types: &[ImageType]) -> Result<Vec<u8>, Box<dyn Error + Send + Sync>> {
     let accept = supported_types.iter().map(|image_type| image_type.mime_type()).collect::<Vec<_>>().join(",");
     let response = client.get(url).header(ACCEPT, accept).send().await?;
     let status = response.status();
@@ -88,5 +108,25 @@ mod tests {
     async fn test_download_image_preserves_request_error() {
         let error = download_image(&Client::new(), "://invalid", 256, 0, &[ImageType::Png]).await.unwrap_err();
         assert_eq!(error.downcast_ref::<RequestError>().map(RequestError::is_builder), Some(true));
+    }
+
+    #[test]
+    fn test_ipfs_fallback_url() {
+        assert_eq!(ipfs_fallback_url("https://ipfs.io/ipfs/Qmabc").as_deref(), Some("https://gateway.pinata.cloud/ipfs/Qmabc"));
+        assert_eq!(ipfs_fallback_url("https://cf-ipfs.com/ipfs/Qmabc/logo.png").as_deref(), Some("https://gateway.pinata.cloud/ipfs/Qmabc/logo.png"));
+        assert_eq!(ipfs_fallback_url("https://gateway.pinata.cloud/ipfs/Qmabc"), None);
+        assert_eq!(ipfs_fallback_url("https://example.com/logo.png"), None);
+        assert_eq!(ipfs_fallback_url("https://example.com/ipfs/"), None);
+    }
+
+    #[tokio::test]
+    #[ignore]
+    async fn test_download_image_ipfs_fallback() {
+        let bytes = download_image(&Client::new(), "https://cf-ipfs.com/ipfs/bafkreibbh4bttlq3jpsr6mry7rllbojszsjqpeh33uqir6rjsgtqspvty4", 256, 2, &[ImageType::Png, ImageType::Jpeg, ImageType::Svg, ImageType::Webp]).await.unwrap();
+        assert!(is_valid_bytes(&bytes));
+    }
+
+    fn is_valid_bytes(bytes: &[u8]) -> bool {
+        decoder::decode_bytes(bytes, &[ImageType::Png]).is_ok()
     }
 }
