@@ -60,10 +60,10 @@ pub async fn download_image(client: &Client, url: &str, image_size: u32, retries
 
 async fn download_and_convert(client: &Client, url: &str, image_size: u32, supported_types: &[ImageType]) -> Result<Vec<u8>, Box<dyn Error + Send + Sync>> {
     let mut result = request_and_convert(client, url, image_size, supported_types).await;
-    if result.is_err() {
-        if let Some(fallback) = ipfs_fallback_url(url) {
-            result = request_and_convert(client, &fallback, image_size, supported_types).await;
-        }
+    if result.is_err()
+        && let Some(fallback) = ipfs_fallback_url(url)
+    {
+        result = request_and_convert(client, &fallback, image_size, supported_types).await;
     }
     result
 }
@@ -122,7 +122,15 @@ mod tests {
     #[tokio::test]
     #[ignore]
     async fn test_download_image_ipfs_fallback() {
-        let bytes = download_image(&Client::new(), "https://cf-ipfs.com/ipfs/bafkreibbh4bttlq3jpsr6mry7rllbojszsjqpeh33uqir6rjsgtqspvty4", 256, 2, &[ImageType::Png, ImageType::Jpeg, ImageType::Svg, ImageType::Webp]).await.unwrap();
+        let bytes = download_image(
+            &Client::new(),
+            "https://cf-ipfs.com/ipfs/bafkreibbh4bttlq3jpsr6mry7rllbojszsjqpeh33uqir6rjsgtqspvty4",
+            256,
+            2,
+            &[ImageType::Png, ImageType::Jpeg, ImageType::Svg, ImageType::Webp],
+        )
+        .await
+        .unwrap();
         assert!(is_valid_bytes(&bytes));
     }
 
