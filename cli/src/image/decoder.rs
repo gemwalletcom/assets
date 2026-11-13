@@ -86,4 +86,16 @@ mod tests {
         assert_eq!(image.dimensions(), (256, 256));
         assert_eq!(image.get_pixel(128, 128).0, [255, 0, 0, 128]);
     }
+
+    #[test]
+    fn test_decode_gif_frame0_renders_blue_bitmap_and_square_png() {
+        let gif = b"GIF89a\x08\x00\x08\x00\xf0\x00\x00\x00\x00\xff\x00\x00\x00!\xf9\x04\x00\x00\x00\x00\x00,\x00\x00\x00\x00\x08\x00\x08\x00\x00\x02\x07\x84\x8f\xa9\xcb\xed]\x00\x00;";
+        let image = decode("logo.gif", Some("image/gif"), gif, &[ImageType::Gif], 256).unwrap();
+
+        assert_eq!(image.dimensions(), (8, 8));
+        assert_eq!(image.get_pixel(0, 0).0, [0, 0, 255, 255]);
+
+        let bytes = crate::image::encoder::encode_png(image, 256).unwrap();
+        assert_eq!(decode_bytes(&bytes, &[ImageType::Png]).unwrap().dimensions(), (256, 256));
+    }
 }

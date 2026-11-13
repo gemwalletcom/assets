@@ -12,7 +12,8 @@
       "jpeg",
       "jpg",
       "svg",
-      "webp"
+      "webp",
+      "gif"
     ],
     "request": {
       "timeout": "10s",
