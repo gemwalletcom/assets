@@ -1,0 +1,102 @@
+[
+  {
+    "asset": {
+      "id": "smartchain_0x0E63B9C287E32A05E6b9AB8ee8dF88A2760225A9",
+      "name": "Pieverse Token",
+      "symbol": "PIEVERSE",
+      "decimals": 18,
+      "type": "BEP20"
+    },
+    "properties": {
+      "isEnabled": true,
+      "isBuyable": false,
+      "isSellable": false,
+      "isSwapable": true,
+      "isStakeable": false,
+      "isEarnable": false,
+      "hasImage": true,
+      "hasPrice": true
+    },
+    "score": { "rank": 24, "type": "trivial" }
+  },
+  {
+    "asset": {
+      "id": "solana_7xKXtg2CW87d97TXJSDpbD5jBkheTqA83TZRuJosgAsU",
+      "name": "No Logo",
+      "symbol": "NOLOGO",
+      "decimals": 6,
+      "type": "SPL"
+    },
+    "properties": {
+      "isEnabled": true,
+      "isBuyable": false,
+      "isSellable": false,
+      "isSwapable": true,
+      "isStakeable": false,
+      "isEarnable": false,
+      "hasImage": false,
+      "hasPrice": true
+    },
+    "score": { "rank": 10, "type": "medium" }
+  },
+  {
+    "asset": {
+      "id": "ethereum_0x1f9840a85d5aF5bf1D1762F925BDADdC4201F984",
+      "name": "Uniswap",
+      "symbol": "UNI",
+      "decimals": 18,
+      "type": "ERC20"
+    },
+    "properties": {
+      "isEnabled": true,
+      "isBuyable": false,
+      "isSellable": false,
+      "isSwapable": true,
+      "isStakeable": false,
+      "isEarnable": false,
+      "hasImage": false,
+      "hasPrice": true
+    },
+    "score": { "rank": 5, "type": "high" }
+  },
+  {
+    "asset": {
+      "id": "ethereum",
+      "name": "Ethereum",
+      "symbol": "ETH",
+      "decimals": 18,
+      "type": "NATIVE"
+    },
+    "properties": {
+      "isEnabled": true,
+      "isBuyable": true,
+      "isSellable": true,
+      "isSwapable": true,
+      "isStakeable": true,
+      "isEarnable": false,
+      "hasImage": false,
+      "hasPrice": true
+    },
+    "score": { "rank": 2, "type": "high" }
+  },
+  {
+    "asset": {
+      "id": "polygon_0x0000000000000000000000000000000000001010",
+      "name": "Polygon Native",
+      "symbol": "POL",
+      "decimals": 18,
+      "type": "NATIVE"
+    },
+    "properties": {
+      "isEnabled": true,
+      "isBuyable": true,
+      "isSellable": true,
+      "isSwapable": true,
+      "isStakeable": false,
+      "isEarnable": false,
+      "hasImage": false,
+      "hasPrice": true
+    },
+    "score": { "rank": 20, "type": "low" }
+  }
+]

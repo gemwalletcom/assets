@@ -1,9 +1,10 @@
 use std::path::PathBuf;
 
-const USAGE: &str = "usage: cli [--source coingecko|coinmarketcap|jupiter|dexscreener|hyperliquid] [--mode top|trending] [--id <provider id>] [--folder <path>]
+const USAGE: &str = "usage: cli [--source coingecko|coinmarketcap|jupiter|dexscreener|hyperliquid|wallet] [--mode top|trending] [--id <provider id>] [--folder <path>]
        cli check <image>...
 
---id takes a CoinGecko coin ID, CoinMarketCap ID or symbol, Jupiter mint, DexScreener chain_token-address or Hyperliquid market, and overrides --mode.";
+--id takes a CoinGecko coin ID, CoinMarketCap ID or symbol, Jupiter mint, DexScreener chain_token-address, Hyperliquid market or wallet asset ID, and overrides --mode.
+--source wallet lists the wallet API's trending and gainers tags; top fetches gainers and trending fetches trending.";
 
 #[derive(Debug, PartialEq)]
 pub enum Command {
@@ -17,6 +18,7 @@ pub enum ImageSource {
     Jupiter,
     Dexscreener,
     Hyperliquid,
+    Wallet,
 }
 
 #[derive(Clone, Copy, Debug, PartialEq)]
@@ -76,6 +78,7 @@ impl ImageSource {
             "jupiter" => Some(Self::Jupiter),
             "dexscreener" => Some(Self::Dexscreener),
             "hyperliquid" => Some(Self::Hyperliquid),
+            "wallet" => Some(Self::Wallet),
             _ => None,
         }
     }

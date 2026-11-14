@@ -26,7 +26,7 @@ use crate::{
     config::ImgDownloaderConfig,
     error::ImageDownloadError,
     image::download_image,
-    providers::{CoinMarketCapProvider, CoingeckoProvider, DexScreenerProvider, HyperliquidProvider, ImageListProvider, ImageProvider, JupiterProvider, model::AssetImage},
+    providers::{CoinMarketCapProvider, CoingeckoProvider, DexScreenerProvider, HyperliquidProvider, ImageListProvider, ImageProvider, JupiterProvider, WalletClient, WalletProvider, model::AssetImage},
 };
 
 pub struct Downloader {
@@ -93,6 +93,11 @@ impl Downloader {
             ImageSource::Hyperliquid => {
                 let client = HyperCoreClient::new(ReqwestClient::new(img_config.hyperliquid.url.clone(), http_client.clone()));
                 ImageRequest::with_lists(HyperliquidProvider::new(client, img_config.hyperliquid), &args)
+            }
+            ImageSource::Wallet => {
+                let client = WalletClient::new_with_reqwest_client(http_client.clone(), img_config.wallet.url.clone());
+                let jupiter_client = JupiterClient::new_with_reqwest_client_and_api_key(http_client.clone(), img_config.jupiter.key.secret.clone());
+                ImageRequest::with_lists(WalletProvider::new(client, JupiterProvider::new(jupiter_client, img_config.jupiter)), &args)
             }
         };
         Ok(Self {

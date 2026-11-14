@@ -16,6 +16,7 @@ pub struct ImgDownloaderConfig {
     pub jupiter: JupiterConfig,
     pub dexscreener: DexScreenerConfig,
     pub hyperliquid: HyperliquidConfig,
+    pub wallet: WalletConfig,
 }
 
 #[derive(Debug, Deserialize, Clone)]
@@ -71,6 +72,11 @@ pub struct HyperliquidConfig {
     pub url: String,
     pub top: TopConfig,
     pub trending: TopConfig,
+}
+
+#[derive(Debug, Deserialize, Clone)]
+pub struct WalletConfig {
+    pub url: String,
 }
 
 #[derive(Debug, Deserialize, Clone)]

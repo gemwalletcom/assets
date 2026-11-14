@@ -1,6 +1,6 @@
 # Assets CLI
 
-Run from `cli/`; images are written to `../blockchains` unless `--folder` is given. Providers: `coingecko`, `coinmarketcap`, `jupiter`, `dexscreener`, and `hyperliquid`.
+Run from `cli/`; images are written to `../blockchains` unless `--folder` is given. Providers: `coingecko`, `coinmarketcap`, `jupiter`, `dexscreener`, `hyperliquid`, and `wallet`.
 
 All providers implement `ImageProvider` for ID lookups and `ImageListProvider` for top and trending lists. The downloader selects the requested operation before starting a download.
 
@@ -27,6 +27,7 @@ The command exits unsuccessfully when a path is unreadable, is not PNG or WEBP c
 | Jupiter | Token mint | Verified-token list, limited by count | Top trending for the configured interval, filtered to verified tokens |
 | DexScreener | Gem asset ID (`chain_token-address`) | Tokens from trending metas ranked by 24-hour volume | Tokens from trending metas ranked by 24-hour volume |
 | Hyperliquid | Perpetual market name (`COMP`, `xyz:TSLA`) | Listed perpetuals ranked by 24-hour volume | Most recently listed perpetuals of each dex |
+| Wallet | Gem asset ID (`chain_token-id`) | Assets under the API's `gainers` tag | Assets under the API's `trending` tag |
 
 ## DexScreener
 
@@ -79,3 +80,23 @@ Configuration in `config.json`:
 ```
 
 `top` covers every listed market while `count` exceeds their number. `trending` takes `count` newest listings from each dex, since Hyperliquid appends markets to each dex's universe.
+
+## Wallet
+
+Fetches logos for the tokens the wallet surfaces but the repo lacks, closing the gap between what the app's `trending` and `gainers` tags show and what the other fetchers pick up from provider rankings.
+
+```sh
+cargo run -- --source wallet --mode top       # gainers tag
+cargo run -- --source wallet --mode trending  # trending tag
+cargo run -- --source wallet --id ethereum_0x1f9840a85d5aF5bf1D1762F925BDADdC4201F984
+```
+
+List modes read the public wallet API (`/v1/assets/search?tags=...`, `api.gemwallet.com`, no key) and skip assets whose `hasImage` flag is already set. Each missing token resolves through CoinGecko's public endpoints without a key: first `coins/<platform>/contract/<address>`, then a symbol search whose candidates are kept only when their platform contract matches the token exactly, so a colliding symbol can never supply a wrong logo. Solana tokens resolve through Jupiter's verified-token icons instead. Chains without a CoinGecko platform are skipped with a logged reason.
+
+Configuration in `config.json`:
+
+```json
+"wallet": {
+  "url": "https://api.gemwallet.com"
+}
+```

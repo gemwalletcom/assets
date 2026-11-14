@@ -69,5 +69,8 @@
     "trending": {
       "count": 10
     }
+  },
+  "wallet": {
+    "url": "https://api.gemwallet.com"
   }
 }
