@@ -135,7 +135,8 @@ impl Downloader {
         let mut pending: Vec<PendingAssetImage> = Vec::new();
 
         for image in images {
-            let Some(pending_image) = Self::pending_asset_image(image, folder) else {
+            let Some(pending_image) = Self::pending_asset_image(image.clone(), folder) else {
+                eprintln!("image unsupported error=token id not formattable chain={} token_id={} url={}", image.chain, image.token_id, image.image_url);
                 unsupported += 1;
                 continue;
             };
