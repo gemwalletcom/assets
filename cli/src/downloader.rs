@@ -8,7 +8,7 @@ use std::{
 };
 
 use chain_primitives::format_token_id;
-use coingecko::{CoinGeckoClient, client::USER_AGENT_VALUE};
+use coingecko::{CoinGeckoClient, client::USER_AGENT_VALUE, get_coingecko_platform_id_for_chain};
 use coinmarketcap::CoinMarketCapClient;
 use dexscreener::DexScreenerClient;
 use gem_client::{RemoteProviderConfig, ReqwestClient};
@@ -37,6 +37,7 @@ pub struct Downloader {
     supported_image_types: Vec<ImageType>,
     image_request_retries: usize,
     delay: Duration,
+    icon_fallback: Option<WalletClient>,
 }
 
 struct PendingAssetImage {
@@ -100,6 +101,7 @@ impl Downloader {
                 ImageRequest::with_lists(WalletProvider::new(client, JupiterProvider::new(jupiter_client, img_config.jupiter)), &args)
             }
         };
+        let icon_fallback = matches!(args.source, ImageSource::Jupiter | ImageSource::Wallet).then(|| WalletClient::new_with_reqwest_client(http_client.clone(), img_config.wallet.url.clone()));
         Ok(Self {
             folder,
             request,
@@ -108,6 +110,7 @@ impl Downloader {
             supported_image_types: img_config.image.types,
             image_request_retries: img_config.image.request.retries,
             delay: img_config.delay,
+            icon_fallback,
         })
     }
 
@@ -175,19 +178,40 @@ impl Downloader {
     }
 
     async fn download_asset_image(&self, pending_image: &PendingAssetImage, images_by_url: &mut HashMap<String, Vec<u8>>) -> Result<bool, Box<dyn Error + Send + Sync>> {
-        let image_downloaded = if !images_by_url.contains_key(&pending_image.image.image_url) {
-            let bytes = download_image(&self.http_client, &pending_image.image.image_url, self.image_size, self.image_request_retries, &self.supported_image_types).await?;
-            images_by_url.insert(pending_image.image.image_url.clone(), bytes);
-            true
-        } else {
-            false
+        let mut image_downloaded = !images_by_url.contains_key(&pending_image.image.image_url);
+        let image_url = match self.download_bytes(&pending_image.image.image_url, images_by_url).await {
+            Ok(()) => pending_image.image.image_url.clone(),
+            Err(error) => {
+                let Some(fallback_url) = self.fallback_image_url(&pending_image.image).await else {
+                    return Err(error);
+                };
+                println!("image fallback chain={} token_id={} error={error} url={fallback_url}", pending_image.image.chain, pending_image.image.token_id);
+                self.download_bytes(&fallback_url, images_by_url).await?;
+                image_downloaded = true;
+                fallback_url
+            }
         };
-        let bytes = images_by_url.get(&pending_image.image.image_url).ok_or("image not cached")?;
+        let bytes = images_by_url.get(&image_url).ok_or("image not cached")?;
         let image_folder = pending_image.path.parent().ok_or("invalid image folder")?;
         fs::create_dir_all(image_folder)?;
         let mut file = fs::File::create(&pending_image.path)?;
         file.write_all(bytes)?;
         Ok(image_downloaded)
+    }
+
+    async fn download_bytes(&self, url: &str, images_by_url: &mut HashMap<String, Vec<u8>>) -> Result<(), Box<dyn Error + Send + Sync>> {
+        if images_by_url.contains_key(url) {
+            return Ok(());
+        }
+        let bytes = download_image(&self.http_client, url, self.image_size, self.image_request_retries, &self.supported_image_types).await?;
+        images_by_url.insert(url.to_string(), bytes);
+        Ok(())
+    }
+
+    async fn fallback_image_url(&self, image: &AssetImage) -> Option<String> {
+        let platform = get_coingecko_platform_id_for_chain(image.chain)?;
+        let coin = self.icon_fallback.as_ref()?.get_coin_by_contract(platform, &image.token_id).await.ok()?;
+        coin.image.large.filter(|url| !url.is_empty())
     }
 
     fn pending_asset_image(mut image: AssetImage, folder: &Path) -> Option<PendingAssetImage> {
@@ -201,6 +225,36 @@ impl Downloader {
 mod tests {
     use super::*;
     use primitives::Chain;
+
+    fn args_for(source: ImageSource) -> Args {
+        Args {
+            command: None,
+            source,
+            mode: ImageMode::Top,
+            folder: None,
+            id: String::new(),
+        }
+    }
+
+    #[test]
+    fn test_icon_fallback_builds_for_jupiter_and_wallet_only() {
+        let config = ImgDownloaderConfig::load().unwrap();
+
+        let jupiter = Downloader::new(args_for(ImageSource::Jupiter), config.clone()).unwrap();
+        let wallet = Downloader::new(args_for(ImageSource::Wallet), config.clone()).unwrap();
+        let hyperliquid = Downloader::new(args_for(ImageSource::Hyperliquid), config).unwrap();
+
+        assert!(jupiter.icon_fallback.is_some());
+        assert!(wallet.icon_fallback.is_some());
+        assert!(hyperliquid.icon_fallback.is_none());
+    }
+
+    #[tokio::test]
+    async fn test_fallback_image_url_without_icon_fallback_skips() {
+        let downloader = Downloader::new(args_for(ImageSource::Hyperliquid), ImgDownloaderConfig::load().unwrap()).unwrap();
+
+        assert_eq!(downloader.fallback_image_url(&AssetImage::mock_with_token(Chain::Solana, "3bfv2scCdbvumVBc3Sar5QhYXx7Ecsi8EFF2akjxe329")).await, None);
+    }
 
     #[test]
     fn test_pending_asset_image_uses_checksum_token_id() {
