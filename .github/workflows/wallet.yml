@@ -1,0 +1,43 @@
+name: "[Get Assets] Wallet"
+run-name: "Wallet: ${{ inputs.mode || (github.event.schedule == '32 */12 * * *' && 'top' || 'trending') }}"
+
+on:
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: Asset selection
+        required: true
+        type: choice
+        default: top
+        options:
+          - top
+          - trending
+  schedule:
+    - cron: '32 */12 * * *'
+    - cron: '32 */3 * * *'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: wallet-assets
+  cancel-in-progress: false
+
+jobs:
+  download:
+    runs-on: ubuntu-latest
+    outputs:
+      has_changes: ${{ steps.download.outputs.has_changes }}
+    steps:
+      - uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3
+      - uses: ./.github/actions/download-assets
+        id: download
+        with:
+          source: wallet
+          mode: ${{ inputs.mode || (github.event.schedule == '32 */12 * * *' && 'top' || 'trending') }}
+
+  publish:
+    needs: download
+    if: needs.download.outputs.has_changes == 'true'
+    uses: ./.github/workflows/upload.yml
+    secrets: inherit
