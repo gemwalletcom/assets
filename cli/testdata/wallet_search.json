@@ -15,6 +15,7 @@
       "isStakeable": false,
       "isEarnable": false,
       "hasImage": true,
+      "hasCandles": false,
       "hasPrice": true
     },
     "score": { "rank": 24, "type": "trivial" }
@@ -35,6 +36,7 @@
       "isStakeable": false,
       "isEarnable": false,
       "hasImage": false,
+      "hasCandles": false,
       "hasPrice": true
     },
     "score": { "rank": 10, "type": "medium" }
@@ -55,6 +57,7 @@
       "isStakeable": false,
       "isEarnable": false,
       "hasImage": false,
+      "hasCandles": true,
       "hasPrice": true
     },
     "score": { "rank": 5, "type": "high" }
@@ -75,6 +78,7 @@
       "isStakeable": true,
       "isEarnable": false,
       "hasImage": false,
+      "hasCandles": true,
       "hasPrice": true
     },
     "score": { "rank": 2, "type": "high" }
@@ -95,6 +99,7 @@
       "isStakeable": false,
       "isEarnable": false,
       "hasImage": false,
+      "hasCandles": true,
       "hasPrice": true
     },
     "score": { "rank": 20, "type": "low" }
