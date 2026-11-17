@@ -298,10 +298,7 @@ mod tests {
         assert_eq!(pending.path, Path::new(&format!("/tmp/assets/stellar/assets/{issuer}::VELO/logo.png")));
 
         let mapping = |token_id: &str| Downloader::provider_token_id(Chain::Stellar, token_id.to_string());
-        assert_eq!(
-            mapping(&format!("AQUA-GBNZILSTVQZ4R7IKQDGHYGY2QXL5QOFJYQMXPKWRRM5PAV7Y4M67AQUA")),
-            "GBNZILSTVQZ4R7IKQDGHYGY2QXL5QOFJYQMXPKWRRM5PAV7Y4M67AQUA::AQUA"
-        );
+        assert_eq!(mapping("AQUA-GBNZILSTVQZ4R7IKQDGHYGY2QXL5QOFJYQMXPKWRRM5PAV7Y4M67AQUA"), "GBNZILSTVQZ4R7IKQDGHYGY2QXL5QOFJYQMXPKWRRM5PAV7Y4M67AQUA::AQUA");
         assert_eq!(mapping(&format!("usdc-{issuer}")), format!("{issuer}::USDC"));
         assert_eq!(mapping(&format!("{issuer}::VELO")), format!("{issuer}::VELO"));
         assert_eq!(mapping("CBIJBDNZNF4X35BJ4FFZWCDBSCKOP5NB4PLG4SNENRMLAPYG4P5FM6VN"), "CBIJBDNZNF4X35BJ4FFZWCDBSCKOP5NB4PLG4SNENRMLAPYG4P5FM6VN");
