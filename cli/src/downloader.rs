@@ -14,7 +14,7 @@ use dexscreener::DexScreenerClient;
 use gem_client::{RemoteProviderConfig, ReqwestClient};
 use gem_hypercore::rpc::client::HyperCoreClient;
 use jupiter::JupiterClient;
-use primitives::ImageType;
+use primitives::{Chain, ImageType};
 use reqwest::{
     Client,
     header::{ACCEPT_LANGUAGE, HeaderMap, HeaderValue, USER_AGENT},
@@ -214,8 +214,18 @@ impl Downloader {
         coin.image.large.filter(|url| !url.is_empty())
     }
 
+    fn provider_token_id(chain: Chain, token_id: String) -> String {
+        match chain {
+            Chain::Stellar => match token_id.split_once('-') {
+                Some((symbol, issuer)) if !symbol.is_empty() && issuer.len() == 56 && issuer.starts_with('G') => format!("{issuer}::{}", symbol.to_uppercase()),
+                _ => token_id,
+            },
+            _ => token_id,
+        }
+    }
+
     fn pending_asset_image(mut image: AssetImage, folder: &Path) -> Option<PendingAssetImage> {
-        image.token_id = format_token_id(image.chain, image.token_id)?;
+        image.token_id = format_token_id(image.chain, Self::provider_token_id(image.chain, image.token_id))?;
         let path = folder.join(image.chain.to_string()).join("assets").join(&image.token_id).join("logo.png");
         Some(PendingAssetImage { image, path })
     }
@@ -270,6 +280,32 @@ mod tests {
 
         assert_eq!(pending.image.token_id, "0xDF1Cf211D38E7762c9691Be4D779A441a17A6cFC");
         assert_eq!(pending.path, Path::new("/tmp/assets/base/assets/0xDF1Cf211D38E7762c9691Be4D779A441a17A6cFC/logo.png"));
+    }
+
+    #[test]
+    fn test_pending_asset_image_maps_stellar_symbol_issuer_token_id() {
+        let issuer = "GDM4RQUQQUVSKQA7S6EM7XBZP3FCGH4Q7CL6TABQ7B2BEJ5ERARM2M5M";
+
+        let pending = Downloader::pending_asset_image(
+            AssetImage {
+                chain: Chain::Stellar,
+                token_id: format!("VELO-{issuer}"),
+                image_url: String::new(),
+            },
+            Path::new("/tmp/assets"),
+        )
+        .unwrap();
+        assert_eq!(pending.path, Path::new(&format!("/tmp/assets/stellar/assets/{issuer}::VELO/logo.png")));
+
+        let mapping = |token_id: &str| Downloader::provider_token_id(Chain::Stellar, token_id.to_string());
+        assert_eq!(
+            mapping(&format!("AQUA-GBNZILSTVQZ4R7IKQDGHYGY2QXL5QOFJYQMXPKWRRM5PAV7Y4M67AQUA")),
+            "GBNZILSTVQZ4R7IKQDGHYGY2QXL5QOFJYQMXPKWRRM5PAV7Y4M67AQUA::AQUA"
+        );
+        assert_eq!(mapping(&format!("usdc-{issuer}")), format!("{issuer}::USDC"));
+        assert_eq!(mapping(&format!("{issuer}::VELO")), format!("{issuer}::VELO"));
+        assert_eq!(mapping("CBIJBDNZNF4X35BJ4FFZWCDBSCKOP5NB4PLG4SNENRMLAPYG4P5FM6VN"), "CBIJBDNZNF4X35BJ4FFZWCDBSCKOP5NB4PLG4SNENRMLAPYG4P5FM6VN");
+        assert_eq!(mapping("X-GHI"), "X-GHI");
     }
 
     #[tokio::test]
