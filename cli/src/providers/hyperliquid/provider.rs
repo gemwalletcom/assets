@@ -18,6 +18,10 @@ impl HyperliquidProvider {
     pub fn new(client: HyperCoreClient<ReqwestClient>, config: HyperliquidConfig) -> Self {
         Self { client, config }
     }
+
+    fn merge(perpetuals: Vec<AssetImage>, spot: Vec<AssetImage>) -> Vec<AssetImage> {
+        perpetuals.into_iter().chain(spot).collect()
+    }
 }
 
 #[async_trait]
@@ -30,10 +34,14 @@ impl ImageProvider for HyperliquidProvider {
 #[async_trait]
 impl ImageListProvider for HyperliquidProvider {
     async fn get_top_asset_images(&self) -> Result<Vec<AssetImage>, Box<dyn Error + Send + Sync>> {
-        Ok(mapper::map_top_images(self.client.get_perpetuals_data().await?, self.config.top.count))
+        let perpetuals = mapper::map_top_images(self.client.get_perpetuals_data().await?, self.config.top.count);
+        let spot = mapper::map_top_spot_images(self.client.get_spot_meta().await?, self.config.top.count);
+        Ok(Self::merge(perpetuals, spot))
     }
 
     async fn get_trending_asset_images(&self) -> Result<Vec<AssetImage>, Box<dyn Error + Send + Sync>> {
-        Ok(mapper::map_newest_images(self.client.get_perpetuals_data().await?, &self.client.config.perp_dexes, self.config.trending.count))
+        let perpetuals = mapper::map_newest_images(self.client.get_perpetuals_data().await?, &self.client.config.perp_dexes, self.config.trending.count);
+        let spot = mapper::map_newest_spot_images(self.client.get_spot_meta().await?, self.config.trending.count);
+        Ok(Self::merge(perpetuals, spot))
     }
 }

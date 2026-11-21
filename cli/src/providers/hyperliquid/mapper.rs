@@ -1,4 +1,6 @@
-use gem_hypercore::models::{metadata::perpetual_asset_id, perp_dex::PerpDex};
+use std::collections::HashSet;
+
+use gem_hypercore::models::{metadata::perpetual_asset_id, perp_dex::PerpDex, spot::SpotMeta, token::SpotToken};
 use primitives::{Asset, AssetId, Chain, perpetual::PerpetualData};
 
 use crate::providers::model::AssetImage;
@@ -30,6 +32,39 @@ fn listed_markets(markets: Vec<PerpetualData>) -> Vec<PerpetualData> {
 
 fn has_chain_icon(coin: &str) -> bool {
     Chain::all().into_iter().any(|chain| Asset::from_chain(chain).symbol == coin)
+}
+
+// The wallet lists every traded spot token beside its market's coin icon, so spot images need no volume or chain-icon filter.
+pub(super) fn map_top_spot_images(meta: SpotMeta, count: usize) -> Vec<AssetImage> {
+    map_spot_images(market_tokens(&meta).into_iter(), count)
+}
+
+// Hyperliquid appends spot markets to its universe as it lists them, so the newest come last.
+pub(super) fn map_newest_spot_images(meta: SpotMeta, count: usize) -> Vec<AssetImage> {
+    map_spot_images(market_tokens(&meta).into_iter().rev(), count)
+}
+
+fn market_tokens(meta: &SpotMeta) -> Vec<&SpotToken> {
+    let mut seen = HashSet::new();
+    meta.universe
+        .iter()
+        .flat_map(|market| market.tokens.iter())
+        .filter_map(|index| meta.tokens.get(*index as usize))
+        .filter(|token| seen.insert(token.index))
+        .collect()
+}
+
+fn map_spot_images<'a>(tokens: impl Iterator<Item = &'a SpotToken>, count: usize) -> Vec<AssetImage> {
+    tokens.filter_map(map_spot_image).take(count).collect()
+}
+
+fn map_spot_image(token: &SpotToken) -> Option<AssetImage> {
+    let asset_id = token.asset_id(Chain::HyperCore);
+    Some(AssetImage {
+        chain: asset_id.chain,
+        token_id: asset_id.token_id?,
+        image_url: format!("{COIN_IMAGE_URL}/{}.svg", token.name),
+    })
 }
 
 fn map_images(markets: Vec<PerpetualData>) -> Vec<AssetImage> {
@@ -88,6 +123,44 @@ mod tests {
         );
         assert_eq!(map_top_images(markets(), 1), images[..1]);
         assert_eq!(map_top_images(markets(), 0), vec![]);
+    }
+
+    fn spot_meta() -> SpotMeta {
+        serde_json::from_value(serde_json::json!({
+            "tokens": [
+                {"name": "USDC", "weiDecimals": 6, "index": 0, "tokenId": "0x0000000000000000000000000000000000000000000000000000000000000000", "szDecimals": 2},
+                {"name": "PURR", "weiDecimals": 0, "index": 1, "tokenId": "0x0000000000000000000000000000000000000000000000000000000000000001", "szDecimals": 0},
+                {"name": "HYPE", "weiDecimals": 6, "index": 2, "tokenId": "0x0d01dc56dcaaca66ad901c959b4011ec", "szDecimals": 1}
+            ],
+            "universe": [
+                {"tokens": [1, 0], "name": "PURR/USDC", "index": 0},
+                {"tokens": [2, 0], "name": "HYPE/USDC", "index": 1}
+            ]
+        }))
+        .unwrap()
+    }
+
+    #[test]
+    fn test_top_spot_images_cover_every_market_token_once_in_listing_order() {
+        let images = map_top_spot_images(spot_meta(), 10);
+        assert_eq!(
+            token_ids(&images),
+            vec![
+                "PURR::0x0000000000000000000000000000000000000000000000000000000000000001::1",
+                "USDC::0x0000000000000000000000000000000000000000000000000000000000000000::0",
+                "HYPE::0x0d01dc56dcaaca66ad901c959b4011ec::2"
+            ]
+        );
+        assert_eq!(map_top_spot_images(spot_meta(), 2), images[..2]);
+        assert_eq!(map_top_spot_images(spot_meta(), 0), vec![]);
+    }
+
+    #[test]
+    fn test_newest_spot_images_start_from_latest_spot_listing() {
+        assert_eq!(
+            token_ids(&map_newest_spot_images(spot_meta(), 2)),
+            vec!["HYPE::0x0d01dc56dcaaca66ad901c959b4011ec::2", "USDC::0x0000000000000000000000000000000000000000000000000000000000000000::0"]
+        );
     }
 
     #[test]
